@@ -9,6 +9,7 @@ import { Inter, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 
 const font = Noto_Kufi_Arabic({ subsets: ["arabic"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
     title: "Remax royal",
@@ -24,7 +25,7 @@ export default async function RootLayout({
 
     return (
         <html lang="ar" dir="rtl">
-            <body className={font.className}>
+            <body className={font.className ? font.className : inter.className}>
                 <TopLoader />
                 <div className=" flex flex-col">
                     <div className=" z-10">

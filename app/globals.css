@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 html,
 body,
 :root {
@@ -9,8 +11,13 @@ body,
   font-size: 14px;
 }
 
+.ltr {
+  direction: ltr !important;
+}
 
-
+.rtl {
+  direction: rtl !important;
+}
 
 .leaflet-bottom,
 .leaflet-control,
