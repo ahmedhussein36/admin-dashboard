@@ -10,16 +10,13 @@ import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
-import { SafeArea, SafeDeveloper } from "@/app/types";
-import { SelectInput } from "@/app/components/home/SelectInput";
-import Select from "react-select";
 
 interface Props {
-    developers: SafeDeveloper[];
-    areas: SafeArea[];
+    categories: any[];
+    tags: any[];
 }
 
-const Client: FC<Props> = ({ developers, areas }) => {
+const Client: FC<Props> = ({ categories, tags }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
@@ -36,19 +33,14 @@ const Client: FC<Props> = ({ developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
-            description: "",
             content: "",
             slug: "",
             mainImage: "",
-            seoDetails: {
-                metaTitle: "",
-                metaDescription: "",
-            },
+            metaTitle: "",
+            metaDescription: "",
             isLaunch: "",
-            area: null,
-            developer: null,
-            images: [],
-            latLong: 0,
+            categories: null,
+            tags: null,
             status: "",
             isFeatured: false,
             isAddHome: false,
@@ -59,8 +51,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
 
     const mainImage = watch("mainImage");
     const images = watch("images");
-    const area = watch("area");
-    const developer = watch("developer");
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -82,7 +72,7 @@ const Client: FC<Props> = ({ developers, areas }) => {
         data.slug = generatedSlug; // Set t
 
         axios
-            .post(`/api/compounds`, data)
+            .post(`/api/posts`, data)
             .then(() => {
                 toast.success("item added successfully!", {
                     position: "bottom-right",
@@ -105,8 +95,8 @@ const Client: FC<Props> = ({ developers, areas }) => {
     return (
         <>
             {" "}
-            <div className="w-full flex justify-between items-center gap-3 mt-4 mb-4 p-4">
-                <Heading title="Add New Compound" />
+            <div className="w-full mb-8 flex justify-between items-center gap-3 mt-4 p-4">
+                <Heading title="Add New Post" />
 
                 <div className="w-[310px] flex justify-end items-center gap-3">
                     <Button
@@ -156,178 +146,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
-                            <div className="flex gap-2 w-full z-10 my-6">
-                                <div className=" w-1/2">
-                                    <Select
-                                        value={area}
-                                        onChange={(value: any) => {
-                                            setCustomValue("area", value);
-                                        }}
-                                        isClearable
-                                        isSearchable={false}
-                                        options={areas}
-                                        placeholder="Select area"
-                                        formatOptionLabel={(
-                                            areas: SafeArea
-                                        ) => <div>{areas.title}</div>}
-                                        classNames={{
-                                            control: () =>
-                                                "p-1 border placeholder:text-slate-400 focus:border-primary-500",
-                                            input: () => "text-slate-300",
-                                            option: () => "",
-                                        }}
-                                        theme={(theme) => ({
-                                            ...theme,
-                                            borderRadius: 8,
-                                            colors: {
-                                                ...theme.colors,
-                                                primary50: "rgb(241 245 249)",
-                                                primary25: "rgb(241 245 249)",
-                                                primary: "#CBD2E0",
-                                            },
-                                        })}
-                                    />
-                                </div>
-                                <div className=" w-1/2">
-                                    <Select
-                                        value={developer}
-                                        onChange={(value: any) => {
-                                            setCustomValue("developer", value);
-                                        }}
-                                        isClearable
-                                        isSearchable={false}
-                                        options={developers}
-                                        placeholder="Select developer"
-                                        formatOptionLabel={(
-                                            developers: SafeDeveloper
-                                        ) => <div>{developers.title}</div>}
-                                        classNames={{
-                                            control: () =>
-                                                "p-1 border placeholder:text-slate-400 focus:border-primary-500",
-                                            input: () => "text-slate-300",
-                                            option: () => "",
-                                        }}
-                                        theme={(theme) => ({
-                                            ...theme,
-                                            borderRadius: 8,
-                                            colors: {
-                                                ...theme.colors,
-                                                primary50: "rgb(241 245 249)",
-                                                primary25: "rgb(241 245 249)",
-                                                primary: "#CBD2E0",
-                                            },
-                                        })}
-                                    />
-                                </div>
-                            </div>
-
-                            <Input
-                                id="latLong"
-                                label="Lat Long"
-                                type="number"
-                                disabled={isLoading}
-                                register={register}
-                                errors={errors}
-                            />
-                        </div>
-
-                        <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-between items-start rounded-md border">
-                            <div className=" flex flex-col gap-3 justify-start items-start">
-                                <strong>Options: </strong>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <input
-                                        id="home"
-                                        {...register("isAddHome")}
-                                        type="checkbox"
-                                        className=" focus:ring-0 transition-all rounded"
-                                    />
-                                    <label htmlFor="home">Add to home</label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <input
-                                        id="featured"
-                                        {...register("isFeatured")}
-                                        type="checkbox"
-                                        className=" focus:ring-0 transition-all rounded"
-                                    />
-                                    <label htmlFor="featured">Featured</label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <input
-                                        id="recommended"
-                                        {...register("isRecommended")}
-                                        type="checkbox"
-                                        className=" focus:ring-0 transition-all rounded"
-                                    />
-                                    <label htmlFor="recommended">
-                                        Recommended
-                                    </label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <input
-                                        id="footer"
-                                        type="checkbox"
-                                        {...register("isFooterMenu")}
-                                        className=" focus:ring-0 transition-all rounded"
-                                    />
-                                    <label htmlFor="footer">Footer menu</label>
-                                </div>
-                            </div>
-
-                            <div className="w-full flex flex-wrap gap-2  justify-between items-center">
-                                <strong>Status: </strong>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <Radio
-                                        {...register("status")}
-                                        id="active"
-                                        value="active"
-                                        className=" focus:ring-0 transition-all border-green-400 text-green-400"
-                                    />
-                                    <Label htmlFor="active">Active</Label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <Radio
-                                        {...register("status")}
-                                        value={"pending"}
-                                        id="pending"
-                                        className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
-                                    />
-                                    <Label htmlFor="pending">Pending</Label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <Radio
-                                        {...register("status")}
-                                        value={"inactive"}
-                                        id="inactive"
-                                        className=" focus:ring-0 transition-all  border-red-400 text-red-600"
-                                    />
-                                    <Label htmlFor="inactive">Inactive</Label>
-                                </div>
-                            </div>
-
-                            <div className="w-full flex flex-wrap gap-2  justify-between items-center">
-                                <strong>Launch: </strong>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <Radio
-                                        {...register("isLaunch")}
-                                        id="launched"
-                                        value="Launched"
-                                        className=" focus:ring-0 transition-all"
-                                    />
-                                    <Label htmlFor="active">Launched</Label>
-                                </div>
-                                <div className=" flex gap-2 justify-start items-center">
-                                    <Radio
-                                        {...register("isLaunch")}
-                                        value={"Not Launched"}
-                                        id="notLaunched"
-                                        className=" focus:ring-0 transition-all "
-                                    />
-                                    <Label htmlFor="pending">
-                                        Not Launched
-                                    </Label>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -363,7 +181,79 @@ const Client: FC<Props> = ({ developers, areas }) => {
                         />
                     </div>
                 </div>
-                <div className=" w-1/3 mt-4 mx-4 flex flex-col justify-start items-center gap-3">
+                <div className=" flex-grow mt-4 mx-4 flex flex-col justify-start items-start gap-3">
+                    <div className=" w-full bg-white p-6 flex flex-col gap-3 justify-between items-start rounded-md border">
+                        <div className=" flex flex-col gap-3 justify-start items-start">
+                            <strong>Options: </strong>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <input
+                                    id="home"
+                                    {...register("isAddHome")}
+                                    type="checkbox"
+                                    className=" focus:ring-0 transition-all rounded"
+                                />
+                                <label htmlFor="home">Add to home</label>
+                            </div>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <input
+                                    id="featured"
+                                    {...register("isFeatured")}
+                                    type="checkbox"
+                                    className=" focus:ring-0 transition-all rounded"
+                                />
+                                <label htmlFor="featured">Featured</label>
+                            </div>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <input
+                                    id="recommended"
+                                    {...register("isRecommended")}
+                                    type="checkbox"
+                                    className=" focus:ring-0 transition-all rounded"
+                                />
+                                <label htmlFor="recommended">Recommended</label>
+                            </div>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <input
+                                    id="footer"
+                                    type="checkbox"
+                                    {...register("isFooterMenu")}
+                                    className=" focus:ring-0 transition-all rounded"
+                                />
+                                <label htmlFor="footer">Footer menu</label>
+                            </div>
+                        </div>
+
+                        <div className="w-full flex flex-wrap gap-2  justify-between items-center">
+                            <strong>Status: </strong>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <Radio
+                                    {...register("status")}
+                                    id="active"
+                                    value="active"
+                                    className=" focus:ring-0 transition-all border-green-400 text-green-400"
+                                />
+                                <Label htmlFor="active">Active</Label>
+                            </div>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <Radio
+                                    {...register("status")}
+                                    value={"pending"}
+                                    id="pending"
+                                    className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
+                                />
+                                <Label htmlFor="pending">Pending</Label>
+                            </div>
+                            <div className=" flex gap-2 justify-start items-center">
+                                <Radio
+                                    {...register("status")}
+                                    value={"inactive"}
+                                    id="inactive"
+                                    className=" focus:ring-0 transition-all  border-red-400 text-red-600"
+                                />
+                                <Label htmlFor="inactive">Inactive</Label>
+                            </div>
+                        </div>
+                    </div>
                     <div className=" w-full">
                         <h3 className="my-2">Main Image:</h3>
                         <ImageUpload
@@ -381,26 +271,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 ]);
                             }}
                             value={mainImage}
-                            allImages={allPropertyImages}
-                        />
-                    </div>
-                    <div className=" w-full">
-                        <h3 className="my-2">Other Images:</h3>
-                        <ImageUpload
-                            label="Upload compound Images"
-                            thumbnail={false}
-                            onChange={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                                setCustomValue("images", [
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                            }}
-                            value={images}
                             allImages={allPropertyImages}
                         />
                     </div>

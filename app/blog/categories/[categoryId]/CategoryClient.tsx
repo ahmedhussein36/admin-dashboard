@@ -16,14 +16,14 @@ import de from "date-fns/esm/locale/de/index.js";
 import RTE from "@/app/components/postForm/RTE";
 
 interface Props {
-    developer: SafeDeveloper;
+    category: SafeDeveloper;
 }
 
-const DevClient: FC<Props> = ({ developer }) => {
+const DevClient: FC<Props> = ({ category }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([
-        developer.image,
+        category.image,
     ]);
 
     const {
@@ -37,16 +37,16 @@ const DevClient: FC<Props> = ({ developer }) => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
-            title: developer.title,
-            description: developer.description,
-            content: developer.content,
-            slug: developer.slug,
-            image: developer.image,
-            status: developer?.status,
-            isFeatured: developer?.isFeatured,
-            isAddHome: developer?.isAddHome,
-            isRecommended: developer?.isRecommended,
-            isFooterMenu: developer?.isFooterMenu,
+            title: category.title,
+            description: category.description,
+            content: category.content,
+            slug: category.slug,
+            image: category.image,
+            status: category?.status,
+            isFeatured: category?.isFeatured,
+            isAddHome: category?.isAddHome,
+            isRecommended: category?.isRecommended,
+            isFooterMenu: category?.isFooterMenu,
         },
     });
 
@@ -66,7 +66,7 @@ const DevClient: FC<Props> = ({ developer }) => {
         console.log({ data });
 
         axios
-            .put(`/api/developers/${developer.id}`, data)
+            .put(`/api/developers/${category.id}`, data)
             .then(() => {
                 toast.success("item Updated successfully!", {
                     position: "bottom-right",
@@ -99,7 +99,7 @@ const DevClient: FC<Props> = ({ developer }) => {
                         onClick={() => {
                             router.refresh();
                             router.back();
-                        }} 
+                        }}
                     />
                     <Button
                         label={

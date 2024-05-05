@@ -1,18 +1,8 @@
 "use client";
-import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
-    SafeProperty,
-} from "@/app/types";
+import { safeCategory } from "@/app/types";
 import ClientOnly from "@/app/components/ClientOnly";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
-import Sorting from "@/app/components/Sorting";
-import { Checkbox, Table } from "flowbite-react";
-import { FaEdit } from "react-icons/fa";
-import { FiTrash2 } from "react-icons/fi";
-import Image from "next/legacy/image";
 import SearchInput from "@/app/components/inputs/SearchInput";
 import { LuSearch } from "react-icons/lu";
 import { useCallback, useEffect, useState } from "react";
@@ -20,12 +10,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
-import { MdCheckCircleOutline } from "react-icons/md";
-import useDeveloperModal from "@/app/hooks/useDeveloperModal";
+import useCategoryModal from "@/app/hooks/useCategoryModal";
 import EmptyState from "@/app/components/EmptyState";
+import CategoryModal from "@/app/components/modals/CategoryModal";
 
 interface Props {
-    categories: SafeDeveloper[];
+    categories: safeCategory[];
 }
 
 const CategoryClient: React.FC<Props> = ({ categories }) => {
@@ -35,7 +25,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
-    const newDeveloperModal = useDeveloperModal();
+    const categoryModal = useCategoryModal();
     const confirm = useConfirm();
 
     function onDelete(id: string) {
@@ -101,6 +91,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
 
     return (
         <>
+            <CategoryModal />
             <Confirm
                 isLoading={isLoading}
                 onDelete={() => onDelete(developerId)}
@@ -120,7 +111,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                 </div>
                 <div className="my-1 cursor-pointer">
                     <button
-                        onClick={() => newDeveloperModal.onOpen()}
+                        onClick={() => categoryModal.onOpen()}
                         className="flex gap-2 justify-center items-center 
                         py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
                     >

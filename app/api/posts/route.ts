@@ -12,23 +12,16 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         title,
-        description,
-        content,
         slug,
-        mainImage,
-        images,
-        seoDetails,
-        metaTitle,
+        image,
         metaDescription,
-        latLong,
-        isLaunch,
+        metaTite,
+        content,
         status,
         isFeatured,
         isAddHome,
         isFooterMenu,
         isRecommended,
-        developer,
-        area,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -37,30 +30,22 @@ export async function POST(request: Request) {
         }
     });
 
-    const compound = await prisma.compound.create({
+    const post = await prisma.post.create({
         data: {
             title,
-            description,
-            content,
             slug,
-            mainImage,
-            images,
-            seoDetails: {
-                metaDescription,
-                metaTitle,
-            },
-            latLong: parseFloat(latLong),
-            isLaunch,
+            image,
+            content,
+            metaDescription,
+            metaTite,
             status,
             isFeatured,
             isAddHome,
             isFooterMenu,
             isRecommended,
-            developerId: developer?.id,
-            areaId: area?.id,
             userId: currentUser.id,
         },
     });
 
-    return NextResponse.json(compound);
+    return NextResponse.json(post);
 }

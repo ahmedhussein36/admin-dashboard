@@ -22,6 +22,7 @@ import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import { MdCheckCircleOutline } from "react-icons/md";
 import useDeveloperModal from "@/app/hooks/useDeveloperModal";
+import DeveloperModal from "@/app/components/modals/DeveloperModal";
 
 interface Props {
     developers: SafeDeveloper[];
@@ -108,6 +109,7 @@ const DeveloperClient: React.FC<Props> = ({
 
     return (
         <>
+            <DeveloperModal />
             <Confirm
                 isLoading={isLoading}
                 onDelete={() => onDelete(developerId)}
@@ -131,7 +133,8 @@ const DeveloperClient: React.FC<Props> = ({
                         className="flex gap-2 justify-center items-center 
                         py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
                     >
-                        <FaPlus size={"14"} color="blue" /> <p>Add new developer</p>
+                        <FaPlus size={"14"} color="blue" />{" "}
+                        <p>Add new developer</p>
                     </button>
                 </div>
             </div>
@@ -206,7 +209,9 @@ const DeveloperClient: React.FC<Props> = ({
                                                 ).length
                                             }
                                         </Table.Cell>
-                                        <Table.Cell>{StutusColor(item.status)}</Table.Cell>
+                                        <Table.Cell>
+                                            {StutusColor(item.status)}
+                                        </Table.Cell>
                                         <Table.Cell className=" flex justify-start items-center gap-3">
                                             <div
                                                 onClick={() => {

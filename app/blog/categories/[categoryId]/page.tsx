@@ -1,24 +1,22 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import DevClient from "./DevClient";
+import CategoryClient from "./CategoryClient";
 import getDeveloperById from "@/app/actions/getDeveloperById";
 import getCompounds from "@/app/actions/getCompounds";
+import getcategoryById from "@/app/actions/getCategoryById";
 
-interface DevParams {
-    developerId: string;
+interface CategParams {
+    categoryId: string;
 }
 
-const DeveloperPage = async ({ params }: { params: DevParams }) => {
-    const developer = await getDeveloperById(params);
-    const compounds = await getCompounds({
-        developerId: developer?.id,
-    });
+const CategoryPage = async ({ params }: { params: CategParams }) => {
+    const category = await getcategoryById(params);
 
     return (
         <ClientOnly>
-            <DevClient developer={developer as any} />
+            <CategoryClient category={category as any} />
         </ClientOnly>
     );
 };
 
-export default DeveloperPage;
+export default CategoryPage;

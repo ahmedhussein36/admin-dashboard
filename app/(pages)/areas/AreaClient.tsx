@@ -18,6 +18,7 @@ import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import { MdCheckCircleOutline } from "react-icons/md";
 import EmptyState from "@/app/components/EmptyState";
+import AreaModal from "@/app/components/modals/AreaModal";
 
 interface Props {
     areas: SafeArea[];
@@ -97,6 +98,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
 
     return (
         <>
+            <AreaModal />
             <Confirm isLoading={isLoading} onDelete={() => onDelete(areaId)} />
 
             <div className=" w-full flex justify-between items-center my-4">

@@ -1,24 +1,19 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import Client from "./Client";
-import getCompoundById from "@/app/actions/getCompoundById";
-import getDeveloperById from "@/app/actions/getDeveloperById";
-import { SafeCompound } from "@/app/types";
-import AddNewProperty from "@/app/components/add-new-property/AddNewProperty";
-import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
-import getAreas from "@/app/actions/getAreas";
+import getPostById from "@/app/actions/getPostById";
+import { IParams } from "@/app/actions/getDevelopers";
 
 interface PageProps {
     searchParams: IParams;
     params: IParams;
 }
 
-const CompoundPage = async ({ params, searchParams }: PageProps) => {
-    const compound = await getCompoundById(params as any);
-    const developers = await getDevelopers(searchParams);
-    const areas = await getAreas(searchParams);
+const Post = async ({ params, searchParams }: PageProps) => {
+    const post = await getPostById(params as any);
+    
 
-    if (!compound) {
+    if (!post) {
         return (
             <EmptyState />
         );
@@ -27,12 +22,10 @@ const CompoundPage = async ({ params, searchParams }: PageProps) => {
     return (
         <ClientOnly>
             <Client
-                compound={compound as any}
-                developers={developers as any}
-                areas={areas as any}
+                post={post as any}
             />
         </ClientOnly>
     );
 };
 
-export default CompoundPage;
+export default Post;

@@ -1,23 +1,18 @@
 import Container from "@/app/components/Container";
-import EmptyStateAr from "@/app/components/EmptyStateAr";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
 import CategoryClient from "./CategoryClient";
-import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
-import Search from "@/app/components/Search";
-import getAreas from "@/app/actions/getAreas";
-import getCompounds from "@/app/actions/getCompounds";
-import getProperties from "@/app/actions/getProperties";
+import { IParams } from "@/app/actions/getDevelopers";
 import Sorting from "@/app/components/Sorting";
+import getcategories from "@/app/actions/getcategories";
 
 interface DevelopersPageProps {
     searchParams: IParams;
 }
 
 const CategoriesPage = async ({ searchParams }: DevelopersPageProps) => {
-    const categories = await getDevelopers(searchParams);
-    
+    const categories = await getcategories(searchParams);
+
     return (
         <div>
             <Container>
@@ -33,9 +28,7 @@ const CategoriesPage = async ({ searchParams }: DevelopersPageProps) => {
                     <Sorting data={categories} parent="categories" />
                 </div>
                 <ClientOnly>
-                    <CategoryClient
-                        categories={categories as any}
-                    />
+                    <CategoryClient categories={categories as any} />
                 </ClientOnly>
             </Container>
         </div>

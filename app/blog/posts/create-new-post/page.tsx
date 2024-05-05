@@ -1,18 +1,17 @@
 import React from "react";
 import Client from "./Client";
-import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
-import { inflateRaw } from "zlib";
 import getAreas from "@/app/actions/getAreas";
+import getcategories,{IParams} from "@/app/actions/getcategories";
 
 interface PageProps {
     searchParams: IParams;
 }
 
 const page = async ({ searchParams }: PageProps) => {
-    const developers = await getDevelopers(searchParams);
-    const areas = await getAreas(searchParams);
+    const categories = await getcategories(searchParams);
+    const tags = await getAreas(searchParams);
 
-    return <Client developers={developers as any} areas={areas as any} />;
+    return <Client categories={categories} tags={tags as any} />;
 };
 
 export default page;

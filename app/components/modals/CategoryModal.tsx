@@ -4,8 +4,7 @@ import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-
-import useAreaModal from "@/app/hooks/useAreaModal";
+import useCategoryModal from "@/app/hooks/useCategoryModal";
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
@@ -13,18 +12,15 @@ import Textarea from "../customInputs/Textarea";
 import ImageUpload from "../customInputs/ImageUpload";
 import axios from "axios";
 import { Label, Radio, Spinner } from "flowbite-react";
-import RTE from "../postForm/RTE";
 
-const AreaModal = () => {
+const CategoryModal = () => {
     const router = useRouter();
-    const newAreaModal = useAreaModal();
+    const categoryModal = useCategoryModal();
     const [isLoading, setIsLoading] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
 
     const {
         register,
-        control,
-        getValues,
         handleSubmit,
         setValue,
         watch,
@@ -34,16 +30,10 @@ const AreaModal = () => {
         defaultValues: {
             title: "",
             description: "",
-            content: "",
             slug: "",
             image: "",
-            lat: 0.0,
-            long: 0.0,
-            status: "pending",
-            isFeatured: false,
-            isAddHome: false,
-            isFooterMenu: false,
-            isRecommended: false,
+            metaTitle: "",
+            metaDescription:""
         },
     });
 
@@ -66,19 +56,18 @@ const AreaModal = () => {
         setIsLoading(true);
 
         const generatedSlug = slugGeneration(data.title);
-        data.slug = generatedSlug; // Set t
+        data.slug = generatedSlug;
 
         axios
-            .post("/api/areas", data)
+            .post("/api/category", data)
             .then(() => {
                 toast.success("New item added successfully!", {
                     position: "bottom-right",
                 });
 
                 router.refresh();
-
-                newAreaModal.onClose();
                 reset();
+                categoryModal.onClose();
             })
             .catch(() => {
                 toast.error("Error : Can't add new item! ", {
@@ -91,19 +80,20 @@ const AreaModal = () => {
     };
 
     const onToggle = useCallback(() => {
-        newAreaModal.onClose();
-        newAreaModal.onOpen();
-    }, [newAreaModal]);
+        categoryModal.onClose();
+        categoryModal.onOpen();
+    }, [categoryModal]);
 
     const body = (
         <div className="flex flex-col gap-4 px-2 md:px-5 lg:px-5 xl:px-5">
-            <Heading title="New Area" subtitle={"Create new area"} />
+            <Heading title="New Category" />
             <div className="w-full flex gap-8 justify-start items-center">
                 <p>Status: </p>
                 <div className=" flex gap-2 justify-start items-center">
                     <Radio
-                        {...register("status")}
-                        value="active"
+                        name="status"
+                        value={"active"}
+                        id="active"
                         className=" focus:ring-0 transition-all border-green-400 text-green-400"
                     />
                     <Label htmlFor="active">Active</Label>
@@ -111,7 +101,7 @@ const AreaModal = () => {
                 <div className=" flex gap-2 justify-start items-center">
                     <Radio
                         defaultChecked
-                        {...register("status")}
+                        name="status"
                         value={"pending"}
                         id="pending"
                         className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
@@ -120,7 +110,7 @@ const AreaModal = () => {
                 </div>
                 <div className=" flex gap-2 justify-start items-center">
                     <Radio
-                        {...register("status")}
+                        name="status"
                         value={"inactive"}
                         id="inactive"
                         className=" focus:ring-0 transition-all  border-red-400 text-red-600"
@@ -128,7 +118,7 @@ const AreaModal = () => {
                     <Label htmlFor="inactive">Inactive</Label>
                 </div>
             </div>
-            <div className=" flex gap-3">
+            <div className=" flex gap-3 justify-end items-end">
                 <div className="w-2/3 flex flex-col gap-2">
                     <Input
                         id="title"
@@ -145,28 +135,9 @@ const AreaModal = () => {
                         register={register}
                         errors={errors}
                     />
-                    <div className="flex gap-2">
-                        <Input
-                            id="lat"
-                            label="Lat"
-                            type="number"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                            required
-                        />
-                        <Input
-                            id="long"
-                            label="long"
-                            type="number"
-                            disabled={isLoading}
-                            register={register}
-                            errors={errors}
-                            required
-                        />
-                    </div>
                 </div>
                 <div>
+                    <h3 className="my-2">Main Image:</h3>
                     <ImageUpload
                         label="Upload thumbnail Image"
                         thumbnail={true}
@@ -182,12 +153,11 @@ const AreaModal = () => {
                         allImages={allPropertyImages}
                     />
                 </div>
-            </div>
+            </div>{" "}
             <div className="flex gap-4 justify-between items-center">
                 <div className=" flex gap-2 justify-start items-center">
                     <input
                         id="home"
-                        {...register("isAddHome")}
                         type="checkbox"
                         className=" focus:ring-0 transition-all rounded"
                     />
@@ -196,7 +166,6 @@ const AreaModal = () => {
                 <div className=" flex gap-2 justify-start items-center">
                     <input
                         id="featured"
-                        {...register("isFeatured")}
                         type="checkbox"
                         className=" focus:ring-0 transition-all rounded"
                     />
@@ -205,7 +174,6 @@ const AreaModal = () => {
                 <div className=" flex gap-2 justify-start items-center">
                     <input
                         id="recommended"
-                        {...register("isRecommended")}
                         type="checkbox"
                         className=" focus:ring-0 transition-all rounded"
                     />
@@ -215,19 +183,24 @@ const AreaModal = () => {
                     <input
                         id="footer"
                         type="checkbox"
-                        {...register("isFooterMenu")}
                         className=" focus:ring-0 transition-all rounded"
                     />
                     <label htmlFor="footer">Footer menu</label>
                 </div>
             </div>
+            <Textarea
+                id="description"
+                label="Description"
+                register={register}
+                errors={errors}
+            />
         </div>
     );
 
     return (
         <Modal
             disabled={isLoading}
-            isOpen={newAreaModal.isOpen}
+            isOpen={categoryModal.isOpen}
             actionLabel={
                 isLoading ? (
                     <div className="flex justify-center items-center gap-2">
@@ -242,11 +215,11 @@ const AreaModal = () => {
                     "Create"
                 )
             }
-            onClose={newAreaModal.onClose}
+            onClose={categoryModal.onClose}
             onSubmit={handleSubmit(onSubmit)}
             body={body}
         />
     );
 };
 
-export default AreaModal;
+export default CategoryModal;

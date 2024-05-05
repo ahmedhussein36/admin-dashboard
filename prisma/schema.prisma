@@ -11,19 +11,26 @@ datasource db {
 }
 
 model User {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  email          String?       @unique
+  email          String?        @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  favoriteIds    String[]      @db.ObjectId
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  favoriteIds    String[]       @db.ObjectId
   accounts       Account[]
   listings       Listing[]
   reservations   Reservation[]
   properties     Property[]
+  compounds      Compound[]
+  posts          Post[]
+  Developer      Developer[]
+  Area           Area[]
+  Category       Category[]
+  Tag            Tag[]
+  PostCategory   PostCategory[]
 }
 
 model Account {
@@ -152,6 +159,8 @@ model Compound {
   developerId   String?    @db.ObjectId
   area          Area?      @relation(fields: [areaId], references: [id])
   areaId        String?    @db.ObjectId
+  userId        String?    @db.ObjectId
+  user          User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Developer {
@@ -170,15 +179,17 @@ model Developer {
   content       String?
   compound      Compound[]
   property      Property[]
+  userId        String?    @db.ObjectId
+  user          User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Area {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  slug          String   @unique
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String     @unique
   title         String
   description   String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   image         String?
   lat           Float
   long          Float
@@ -188,13 +199,81 @@ model Area {
   isFooterMenu  Boolean?
   isRecommended Boolean?
   content       String?
-
-  compounds  Compound[]
-  properties Property[]
+  compounds     Compound[]
+  properties    Property[]
+  userId        String?    @db.ObjectId
+  user          User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model PropertyType {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  name_en String
+model Category {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  slug            String         @unique
+  image           String
+  description     String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  status          String?
+  isFeatured      Boolean?
+  isAddHome       Boolean?
+  isFooterMenu    Boolean?
+  isRecommended   Boolean?
+  metaTite        String
+  metaDescription String
+  posts           PostCategory[]
+  userId          String?        @db.ObjectId
+  user            User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  title           String
+  slug            String         @unique
+  image           String
+  content         String
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  status          String?
+  isFeatured      Boolean?
+  isAddHome       Boolean?
+  isFooterMenu    Boolean?
+  isRecommended   Boolean?
+  metaTite        String
+  metaDescription String
+  tags            PostTags[]
+  categories      PostCategory[]
+  userId          String?        @db.ObjectId
+  user            User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PostTags {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  post   Post?   @relation(fields: [postId], references: [id])
+  tag    Tag?    @relation(fields: [tagId], references: [id])
+  postId String? @db.ObjectId
+  tagId  String? @db.ObjectId
+
+  @@index([postId, tagId])
+}
+
+model Tag {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String     @unique
+  description String
+  title       String     @unique
+  posts       PostTags[]
+  userId      String?    @db.ObjectId
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PostCategory {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  post       Post?     @relation(fields: [postId], references: [id])
+  category   Category? @relation(fields: [categoryId], references: [id])
+  postId     String?   @db.ObjectId
+  categoryId String?   @db.ObjectId
+  userId     String?   @db.ObjectId
+  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([postId, categoryId])
 }
