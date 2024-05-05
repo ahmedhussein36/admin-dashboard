@@ -9,11 +9,12 @@ interface EmptyStateProps {
   title?: string;
   subtitle?: string;
   showReset?: boolean;
+  data? : string;
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
-  title = "No exact matches",
-  subtitle = "Try changing or removing some of your filters.",
+  title = "No Available Data !",
+  subtitle = `Looks like No Data has been added ` ,
   showReset
 }) => {
   const router = useRouter();
@@ -21,9 +22,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   return ( 
     <div 
       className="
-        h-[60vh]
         flex 
-        flex-col 
+        flex-col m-4 p-4 h-[200px]
         gap-2 
         justify-center 
         items-center 
@@ -38,7 +38,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         {showReset && (
           <Button
             outline
-            label="Remove all filters"
+            label="Back to Home"
             onClick={() => router.push('/')}
           />
         )}

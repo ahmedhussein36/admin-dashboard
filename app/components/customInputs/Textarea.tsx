@@ -4,7 +4,7 @@ import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 interface TextareaProps {
     id: string;
-    label: string;
+    label?: string;
     disabled?: boolean;
     placeholder?: string;
     formatPrice?: boolean;
@@ -50,9 +50,8 @@ const Textarea: React.FC<TextareaProps> = ({
           w-full rounded-lg
           p-4
           h-40
-          max-h-40
+          max-h-40 text-lg
           resize-horizontal
-          font-light 
           bg-white 
           border
           outline-none
@@ -61,8 +60,8 @@ const Textarea: React.FC<TextareaProps> = ({
           disabled:cursor-not-allowed
           ${formatPrice ? "pl-20" : "pl-4"}
           ${errors[id] ? "border-rose-500" : "border-neutral-400"}
-          ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
-        `}
+          focus:ring-0 focus:border-black
+          `}
             />
 
             {errors[id] && (

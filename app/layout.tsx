@@ -1,15 +1,15 @@
-import Navbar from "@/app/components/header/Navbar";
+import AreaModal from "@/app/components/modals/AreaModal";
 import LoginModal from "@/app/components/modals/LoginModal";
 import RegisterModal from "@/app/components/modals/RegisterModal";
 import ToasterProvider from "@/app/providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
 import TopLoader from "./components/TopLoader";
-import Footer from "./components/Footer";
-import { Inter, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
-
-const font = Noto_Kufi_Arabic({ subsets: ["arabic"] });
-const inter = Inter({ subsets: ["latin"] });
+import { MainSidebar } from "./components/header/Sidebar";
+import DeveloperModal from "./components/modals/DeveloperModal";
+import Navbar from "./components/header/Navbar";
+import UserMenu from "./components/header/UserMenu";
+import Login from "./components/add-new-property/Login";
 
 export const metadata = {
     title: "Remax royal",
@@ -24,20 +24,31 @@ export default async function RootLayout({
     const currentUser = await getCurrentUser();
 
     return (
-        <html lang="ar" dir="rtl">
-            <body className={font.className ? font.className : inter.className}>
+        <html lang="en">
+            <body className={`relative`}>
                 <TopLoader />
                 <div className=" flex flex-col">
                     <div className=" z-10">
+                        <AreaModal />
                         <LoginModal />
                         <RegisterModal />
-                        <Navbar currentUser={currentUser} />
                         <ToasterProvider />
+                        <DeveloperModal />
                     </div>
-                    <main className=" flex flex-col">
-                        <div className="flex-grow flex-1">{children}</div>
-                        <Footer />
-                    </main>
+                    {currentUser ? (
+                        <main className=" flex justify-start items-start relative gap-2">
+                            <div className="w-full h-[calc(100vh)] md:w-[90px] md:min-w-[90px] bottom-24 md:left-0 md:sticky top-0 z-50">
+                                <MainSidebar />
+                            </div>
+
+                            <div className="flex-grow ml-2 overflow-auto h-[99vh]">
+                                <Navbar currentUser={currentUser} />
+                                {children}
+                            </div>
+                        </main>
+                    ) : (
+                        <Login />
+                    )}
                 </div>
             </body>
         </html>

@@ -24,7 +24,7 @@ export const categories = [
     },
 ];
 
-export const propretyTypes = [
+export const groups = [
     {
         id: "1",
         value: "سكني",
@@ -86,6 +86,180 @@ export const navItems = [
     },
 ];
 
+export const allTypes = [
+    {
+        id: "1",
+        label: "شقة",
+        name: "شقة",
+        name_en: "Apartmnet",
+    },
+    {
+        id: "2",
+        label: "فيلا",
+        name: "فيلا",
+        name_en: "Villa",
+    },
+    {
+        id: "19",
+        label: "ستاند آلون",
+        name: "ستاند آلون",
+        name_en: "Stand Alone",
+    },
+    {
+        id: "3",
+        label: "تاونهاوس",
+        name: "تاونهاوس",
+        name_en: "Townhouse",
+    },
+    {
+        id: "20",
+        label: "توين هاوس",
+        name: "توين هاوس",
+        name_en: "Twinhouse",
+    },
+    {
+        id: "4",
+        label: "بنتهاوس",
+        name: "بنتهاوس",
+        name_en: "penthouse",
+    },
+    {
+        id: "5",
+        label: "دوبلكس",
+        name: "دوبلكس",
+        name_en: "Duplex",
+    },
+    {
+        id: "6",
+        label: "مبنى سكني",
+        name: "مبنى سكني",
+        name_en: "Building",
+    },
+    {
+        id: "7",
+        label: "مجمع فيلات",
+        name: "مجمع فيلات",
+        name_en: "Villa compound",
+    },
+    {
+        id: "8",
+        label: "طابق سكني",
+        name: "طابق سكني",
+        name_en: "Floor",
+    },
+    {
+        id: "9",
+        label: "منزل",
+        name: "منزل",
+        name_en: "House",
+    },
+    {
+        id: "10",
+        label: "قطعة أرض",
+        name: "قطعة أرض",
+        name_en: "Land",
+    },
+    {
+        id: "11",
+        label: "مكتب",
+        name: "مكتب",
+        name_en: "Office for sale",
+    },
+    {
+        id: "12",
+        label: "مخزن",
+        name: "مخزن",
+        name_en: "Warehouse",
+    },
+    {
+        id: "13",
+        label: "محل تجاري ",
+        name: "محل تجاري ",
+        name_en: "Shop for sale",
+    },
+    {
+        id: "14",
+        label: "طابق تجاري",
+        name: "طابق تجاري",
+        name_en: "commercial floor",
+    },
+    {
+        id: "15",
+        label: "مصنع",
+        name: "مصنع",
+        name_en: "Factory",
+    },
+    {
+        id: "16",
+        label: "مساحة عمل",
+        name: "مساحة عمل",
+        name_en: "Work space",
+    },
+    {
+        id: "17",
+        label: "قاعة عرض",
+        name: "قاعة عرض",
+        name_en: "Show room",
+    },
+    {
+        id: "18",
+        label: "مبنى تجاري",
+        name: "مبنى تجاري",
+        name_en: "Commercial building",
+    },
+];
+
+export const commercialTypes = [
+    {
+        id: "11",
+        label: "مكتب",
+        name: "مكتب",
+        name_en: "Office for sale",
+    },
+    {
+        id: "12",
+        label: "مخزن",
+        name: "مخزن",
+        name_en: "Warehouse",
+    },
+    {
+        id: "13",
+        label: "محل تجاري ",
+        name: "محل تجاري ",
+        name_en: "Shop for sale",
+    },
+    {
+        id: "14",
+        label: "طابق تجاري",
+        name: "طابق تجاري",
+        name_en: "commercial floor",
+    },
+    {
+        id: "15",
+        label: "مصنع",
+        name: "مصنع",
+        name_en: "Factory",
+    },
+    {
+        id: "16",
+        label: "مساحة عمل",
+        name: "مساحة عمل",
+        name_en: "Work space",
+    },
+    {
+        id: "17",
+        label: "قاعة عرض",
+        name: "قاعة عرض",
+        name_en: "Show room",
+    },
+    {
+        id: "18",
+        label: "مبنى تجاري",
+        name: "مبنى تجاري",
+        name_en: "Commercial building",
+    },
+];
+
 export const residentalTypes = [
     {
         id: "1",
@@ -97,15 +271,25 @@ export const residentalTypes = [
         id: "2",
         label: "فيلا",
         name: "فيلا",
-
         name_en: "Villa",
+    },
+    {
+        id: "19",
+        label: "ستاند آلون",
+        name: "ستاند آلون",
+        name_en: "Stand Alone",
     },
     {
         id: "3",
         label: "تاونهاوس",
         name: "تاونهاوس",
-
         name_en: "Townhouse",
+    },
+    {
+        id: "20",
+        label: "توين هاوس",
+        name: "توين هاوس",
+        name_en: "Twinhouse",
     },
     {
         id: "4",
@@ -151,57 +335,6 @@ export const residentalTypes = [
     },
 ];
 
-export const commercialTypes = [
-    {
-        id: "1",
-        label: "مكتب",
-        name: "مكتب",
-        name_en: "Office for sale",
-    },
-    {
-        id: "2",
-        label: "مخزن",
-        name: "مخزن",
-        name_en: "Warehouse",
-    },
-    {
-        id: "3",
-        label: "محل تجاري ",
-        name: "محل تجاري ",
-        name_en: "Shop for sale",
-    },
-    {
-        id: "4",
-        label: "طابق تجاري",
-        name: "طابق تجاري",
-        name_en: "commercial floor",
-    },
-    {
-        id: "5",
-        label: "مصنع",
-        name: "مصنع",
-        name_en: "Factory",
-    },
-    {
-        id: "6",
-        label: "مساحة عمل",
-        name: "مساحة عمل",
-        name_en: "Work space",
-    },
-    {
-        id: "7",
-        label: "قاعة عرض",
-        name: "قاعة عرض",
-        name_en: "Show room",
-    },
-    {
-        id: "8",
-        label: "مبنى تجاري",
-        name: "مبنى تجاري",
-        name_en: "Commercial building",
-    },
-];
-
 export const amenitiesItems = [
     {
         id: "1",
@@ -232,6 +365,14 @@ export const amenitiesItems = [
         id: "7",
         name: "تسهيلات لأصحاب الهمم  ",
     },
+    {
+        id: "8",
+        name: "صالة رياضية  ",
+    },
+    {
+        id: "9",
+        name: "حديقة خاصة  ",
+    },
 ];
 
 export const paymentPlans = [
@@ -256,6 +397,29 @@ export const saleTypes = [
     {
         id: "2",
         name: " إعادة بيع ",
+    },
+];
+
+export const rentTypes = [
+    {
+        id: "1",
+        name: " سداد شهري",
+        name_en: "monthly",
+    },
+    {
+        id: "2",
+        name: " سداد سنوي ",
+        name_en: "yearly",
+    },
+    {
+        id: "3",
+        name: " سداد 3 شهور ",
+        name_en: "3 monthes",
+    },
+    {
+        id: "4",
+        name: " سداد 6 شهور",
+        name_en: "6 monthes",
     },
 ];
 

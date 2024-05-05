@@ -3,6 +3,7 @@ import ClientOnly from "@/app/components/ClientOnly";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import PropertiesClient from "./PropertiesClient";
 import getProperties from "@/app/actions/getProperties";
+import AddNewProperty from "@/app/components/add-new-property/AddNewProperty";
 
 const PropertiesPage = async () => {
     const currentUser = await getCurrentUser();

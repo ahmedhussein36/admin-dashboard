@@ -6,27 +6,28 @@ export type CitySelectValue = {
     id: string;
     name: string;
     value: string;
-   
 };
 
 interface CitySelectProps {
     value?: CitySelectValue;
     onChange: (value: CitySelectValue) => void;
-    isFilter?: boolean; 
-    isSearchable?: boolean
+    isFilter?: boolean;
+    isSearchable?: boolean;
+    label?: string;
 }
 
 const CitySelect: React.FC<CitySelectProps> = ({
     value,
     onChange,
     isFilter,
-    isSearchable
+    label,
+    isSearchable,
 }) => {
     const { getAll } = useCities();
 
     return (
         <div>
-            {!isFilter ? <span className=" ">المحافظة</span> : ""}
+            {!isFilter ? <span className=" ">{label}</span> : ""}
 
             <Select
                 value={value}

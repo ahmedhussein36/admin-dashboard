@@ -37,7 +37,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         hover:shadow-slate-200
         transition
         cursor-pointer
-        ${selected && !isFilter ? "border-red-500" : "border-slate-300"}
+        ${selected && !isFilter ? "border-blue-500" : "border-slate-300"}
         ${isFilter ? "w-1/2" : ""}
         ${
             selected && isFilter
@@ -59,12 +59,12 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
             ) : (
                 ""
             )}
-            <div className="font-semibold text-sm">{label}</div>
+            <div className="font-semibold text-lg">{label}</div>
 
             {selected && !isFilter ? (
                 <div className=" absolute top-2 left-2">
                     {" "}
-                    <FaCheckCircle color="red" />
+                    <FaCheckCircle color="blue" />
                 </div>
             ) : (
                 ""

@@ -4,9 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -14,7 +12,9 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import Input from "../customInputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
-import Loader from "../Loader";
+import { Spinner } from "flowbite-react";
+import Image from "next/legacy/image";
+import Container from "../Container";
 
 const Login = () => {
     const router = useRouter();
@@ -22,7 +22,6 @@ const Login = () => {
     const registerModal = useRegisterModal();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(Boolean);
-    const ltr = false; //(router as any).locale === 'en';
 
     const {
         register,
@@ -46,10 +45,9 @@ const Login = () => {
 
             if (callback?.ok) {
                 toast.success("تم تسجيل الدخول إلى حسابك", {
-                    position: "top-center",
+                    position: "bottom-right",
                 });
                 router.refresh();
-                loginModal.onClose();
             }
 
             if (callback?.error) {
@@ -70,13 +68,8 @@ const Login = () => {
     }, [loginModal, registerModal]);
 
     const emailLogin = (
-        <div className="flex flex-col gap-4 px-5 justify-center items-center">
-            <Heading
-                title={ltr ? "Welcome back" : "تسجيل الدخول"}
-                subtitle={
-                    ltr ? "Login to your account!" : " تسجيل الدخول إلى حسابك "
-                }
-            />
+        <div className="flex flex-col gap-4 px-5 justify-start items-center">
+            <Heading title={"Login To Your Account"} />
             <Input
                 id="email"
                 label="Email"
@@ -97,33 +90,10 @@ const Login = () => {
         </div>
     );
 
-    const socialLogin = (
-        <div className="flex flex-col gap-4 mt-3 px-5">
-            <Button
-                outline
-                label={ltr ? "Continue with Google" : "متابعة باستخدام جوجل"}
-                icon={FcGoogle}
-                onClick={() => signIn("google")}
-            />
-            <Button
-                outline
-                label={
-                    ltr ? "Continue with Facebook" : "متابعة باستخدام فيسبوك"
-                }
-                icon={FaFacebook}
-                onClick={() => signIn("facebook")}
-            />
-        </div>
-    );
-
     const footer = (
-        <div
-            className="
-      text-neutral-500 text-sm text-center mt-4 font-light"
-        >
+        <div className="  text-neutral-500 text-sm text-center mt-4 font-light">
             <p>
-                {" "}
-                {ltr ? "You dont have an account?" : "ليس لديك حساب؟ "}
+                {"You dont have an account?"}
                 <span
                     onClick={onToggle}
                     className="
@@ -133,36 +103,83 @@ const Login = () => {
               hover:underline
             "
                 >
-                    {" "}
-                    {ltr ? "Create an account" : "أنشاء حساب جديد "}
+                    {"Create an account"}
                 </span>
             </p>
         </div>
     );
 
     return (
-        <div className="p-2 md:p-6 relative flex justify-center items-center">
-            <div className="realive flex flex-col gap-2 rounded-lg justify-center items-start w-[450px] p-8 border">
-                <div className="w-full">{emailLogin}</div>
-                <div className="w-full my-2 px-4">
-                    <Button
-                        label={
-                            isLoading ? (
-                                <Loader />
-                            ) : ltr ? (
-                                "Login"
-                            ) : (
-                                "تسجيل الدخول"
-                            )
-                        }
-                        onClick={handleSubmit(onSubmit)}
-                        disabled={isLoading}
+        <Container>
+            <div className="p-6 w-full flex flex-col justify-center items-start gap-3">
+                <div id="logo">
+                    <Image
+                        src={"/images/royal-logo.png"}
+                        alt="logo"
+                        width={120}
+                        height={40}
+                        loading="eager"
+
                     />
                 </div>
-                <div className="w-full">{socialLogin}</div>
-                <div className="w-full">{footer}</div>
+                <div
+                    id="content"
+                    className="w-full flex justify-center items-center gap-4"
+                >
+                    <div
+                        id="vector"
+                        className="hidden w-1/2 md:flex justify-center items-center p-4"
+                    >
+                        <Image
+                            width={600}
+                            height={600}
+                            loading="eager"
+                            src={"/images/House searching-bro.png"}
+                            alt="login-images/Build your home"
+                        />
+                    </div>
+                    <div
+                        id="login"
+                        className="w-full hidden text-center md:w-1/2 md:flex flex-col justify-center items-center p-4 "
+                    >
+                        <h1 className="w-full mb-6 font-medium text-slate-500 text-3xl">
+                            Welcome to Remax Royal Admin
+                        </h1>
+                        <div className="p-2 md:p-6 relative flex justify-start items-center">
+                            <div
+                                className="realive flex flex-col gap-2 rounded-lg justify-center
+                                            items-start w-[450px] p-8 shadow-lg shadow-zinc-100/50  bg-white"
+                            >
+                                <div className="w-full">{emailLogin}</div>
+                                <div className="w-full my-2 px-4">
+                                    <Button
+                                        label={
+                                            isLoading ? (
+                                                <div className="flex justify-center items-center gap-2">
+                                                    <Spinner
+                                                        aria-label="Spinner button"
+                                                        size="md"
+                                                        className=" text-white fill-rose-500"
+                                                    />
+                                                    <span className="">
+                                                        Login...
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                "Login"
+                                            )
+                                        }
+                                        onClick={handleSubmit(onSubmit)}
+                                        disabled={isLoading}
+                                    />
+                                </div>
+                                <div className="w-full">{footer}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </Container>
     );
 };
 

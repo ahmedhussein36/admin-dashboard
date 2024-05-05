@@ -2,7 +2,6 @@ import prisma from "@/app/libs/prismadb";
 
 interface IParams {
     id?: string;
-    developerId?: number;
 }
 
 export default async function getCompoundById(params: IParams) {
@@ -15,7 +14,8 @@ export default async function getCompoundById(params: IParams) {
             },
             include: {
                 developer: true,
-                area : true,
+                area: true,
+                properties: true,
             }
         })
 
@@ -23,13 +23,24 @@ export default async function getCompoundById(params: IParams) {
             return null;
         }
 
-        const safecompound = {
+        return {
             ...compound,
-            createdAat: compound?.createdAt?.toString()
-
+            createdAat: compound?.createdAt?.toString(),
+            developer: {
+                ...compound?.developer,
+                createdAt: compound?.developer?.createdAt.toString(),
+                updatedAt: compound?.developer?.updatedAt.toString(),
+            },
+            area: {
+                ...compound?.area,
+                createdAt: compound?.area?.createdAt.toString(),
+                updatedAt: compound?.area?.updatedAt.toString(),
+            },
+            properties: {
+                ...compound?.properties,
+            }
         }
 
-        return safecompound;
     } catch (error: any) {
         throw new Error(error);
     }

@@ -11,17 +11,14 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     return (
-        <header className="w-full sticky">
+        <header className="w-full">
             <div
                 id="headerContainer"
-                className="py-3 px-2 flex flex-row items-center justify-between mx-auto w-full max-w-screen-xl"
+                className="py-3 px-2 flex flex-row items-center justify-end mx-auto w-full max-w-screen-xl"
             >
-                <div id="headerMenu">
+                {/* <div id="headerMenu">
                     <Logo />
-                </div>
-                <div id="navContainer" className="max-md:hidden">
-                    <NavItems navItems={navItems} />
-                </div>
+                </div> */}
                 <div
                     id="userMenu"
                     className="flex items-center justify-between gap-3"

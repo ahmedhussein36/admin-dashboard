@@ -9,7 +9,7 @@ import PropretyContacts from "./PropretyContacts";
 import Link from "next/link";
 
 interface PropertyCardProps {
-    data: SafeProperty;
+    data: any;
     currentUser?: SafeUser | null;
     parent?: string;
 }
@@ -29,7 +29,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
     const formattedMinPrice = formatNumber(data.price);
 
-    const location = `${data.ariaValue} / ${data.cityValue}`;
+    const location = `${data.compound} / ${data.area}`;
     return (
         <Link href={`/${parent}/${data.id}`}>
             <div className="col-span-1 group relative mb-4 flex justify-center item-center overflow-hidden cursor-pointer">

@@ -1,24 +1,32 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IParams {
-    name?: string
-    developerId?: number
+    title?: string
+    developerId?: string
+    areaId?: string
+    status?: string
 }
 
 export default async function getCompounds(params: IParams) {
     try {
         const {
-            name, developerId
+            title, developerId, areaId, status
         } = params;
 
         let query: any = {};
 
-        if (name) {
-            query.name = {
-                contains: name,
+        if (title) {
+            query.title = {
+                contains: title,
             }
         }
 
+        if (status) {
+            query.status = status
+        }
+        if (areaId) {
+            query.areaId = areaId
+        }
         if (developerId) {
             query.developerId = developerId
         }
@@ -28,19 +36,18 @@ export default async function getCompounds(params: IParams) {
             where: query,
             include: {
                 developer: true,
-                area: true
             },
             orderBy: {
                 createdAt: "desc",
             },
         });
 
-        const safeCompounds = compounds.map((compound) => ({
+        const safecompounds = compounds.map((compound) => ({
             ...compound,
             createdAt: compound.createdAt
         }));
 
-        return safeCompounds;
+        return safecompounds;
     } catch (error: any) {
         throw new Error(error);
     }

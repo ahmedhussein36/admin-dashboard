@@ -9,10 +9,11 @@ interface ModalProps {
     isOpen?: boolean;
     onClose: () => void;
     onSubmit: () => void;
+    confirm?: boolean;
     title?: string;
     body?: React.ReactElement;
     footer?: React.ReactElement;
-    actionLabel: string;
+    actionLabel: any;
     disabled?: boolean;
     secondaryAction?: () => void;
     secondaryActionLabel?: string;
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
     onSubmit,
+    confirm,
     title,
     body,
     actionLabel,
@@ -73,50 +75,55 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 justify-center 
                 items-center 
-                flex 
-                overflow-x-hidden 
+                flex
+                overflow-x-hidden
                 overflow-y-hidden
                 fixed 
                 inset-0 
-                z-[999]
+                z-[999] transition-all duration-300 ease-out
                 outline-none 
                 focus:outline-none
-                bg-neutral-800/70
+                bg-slate-700/30
               "
             >
                 <div
-                    className="
-                  relative 
-                  p-2
+                    className={`
+                  relative  rounded-lg
                   w-full
                   md:w-4/6
                   lg:w-3/6
-                  xl:w-2/5
+                  ${
+                      confirm
+                          ? "xl:max-w-[480px] lg:max-w-[500px] md:max-w-[500px]"
+                          : " xl:w-2/5"
+                  }
                   my-6
                   mx-auto 
                   h-auto 
                   lg:h-auto
-                  md:h-auto
-                  "
+                  md:h-auto max-h-[95vh]
+                  `}
                 >
                     {/*content*/}
                     <div
                         className={`
-                        translate
-                        duration-300
+                        duration-300 transition-all
                         h-full
-                        ${showModal ? "translate-y-0" : "translate-y-24"}
-                        ${showModal ? "opacity-100" : "opacity-0"}
+                        ${
+                            showModal
+                                ? "ease-out scale-[100%] opacity-100"
+                                : "ease-in scale-[90%] opacity-0"
+                        } 
                       `}
                     >
                         <div
-                            className="
+                            className={`
                             translate
-                            h-full
+                            h-full max-h-[95vh] overflow-auto
                             lg:h-auto
                             md:h-auto
                             border-0 
-                            rounded-lg 
+                            ${confirm? "rounded-2xl" : "rounded-lg" }
                             shadow-lg 
                             relative 
                             flex 
@@ -125,7 +132,7 @@ const Modal: React.FC<ModalProps> = ({
                             bg-white 
                             outline-none 
                             focus:outline-none
-                          "
+                          `}
                         >
                             {/*header*/}
                             <div
@@ -142,17 +149,17 @@ const Modal: React.FC<ModalProps> = ({
                                 <button
                                     className="
                                     p-1
-                                    border-0 
-                                    hover:opacity-70
+                                    border-0 rounded-full
+                                    hover:bg-gray-200 bg-gray-100
                                     transition
                                     absolute
-                                    left-9
+                                    right-4
                                   "
                                     onClick={handleClose}
                                 >
-                                    <IoMdClose size={18} />
+                                    <IoMdClose size={24} />
                                 </button>
-                                <div className="text-lg font-semibold ">
+                                <div className="text-xl font-semibold ">
                                     {title}
                                 </div>
                             </div>
@@ -161,28 +168,31 @@ const Modal: React.FC<ModalProps> = ({
                                 {body}
                             </div>
                             {/*footer*/}
-                            <div className="flex flex-col gap-2 p-3 md:p-6 ">
+                            <div className="flex flex-col gap-2 p-3 md:pb-6 pt-0 ">
                                 <div
                                     className="
                                             flex 
                                             flex-row 
-                                            items-center 
+                                            items-center justify-center
                                             gap-4 
                                             w-full
                                             h-[59.2px]
-                                            mb-4
+                                            mb-3 mt-0 pt-0
                                             px-2 md:px-5 lg:px-5 xl:px-5
                                         "
                                 >
-                                    {secondaryAction &&
-                                        secondaryActionLabel && (
-                                            <Button
-                                                disabled={disabled}
-                                                label={secondaryActionLabel}
-                                                onClick={handleSecondaryAction}
-                                                outline
-                                            />
-                                        )}
+                                    {secondaryActionLabel && (
+                                        <Button
+                                            disabled={disabled}
+                                            label={secondaryActionLabel}
+                                            onClick={
+                                                secondaryAction
+                                                    ? handleSecondaryAction
+                                                    : handleClose
+                                            }
+                                            outline
+                                        />
+                                    )}
                                     <Button
                                         disabled={disabled}
                                         label={actionLabel}

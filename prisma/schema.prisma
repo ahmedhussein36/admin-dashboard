@@ -46,22 +46,20 @@ model Account {
 }
 
 model Listing {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
   title         String
   description   String
   imageSrc      String
-  createdAt     DateTime @default(now())
+  createdAt     DateTime      @default(now())
   category      String
   roomCount     Int
   bathroomCount Int
   guestCount    Int
   locationValue String
   price         Int
-
-  userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  reservations Reservation[]
+  userId        String        @db.ObjectId
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations  Reservation[]
 }
 
 model Reservation {
@@ -77,133 +75,126 @@ model Reservation {
 }
 
 model Property {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
   title             String
   description       String
-  imageSrc          String
-  propertyImages    String[]
-  createdAt         DateTime @default(now())
+  content           String
+  slug              String
+  images            String[]
+  mainImage         String
   category          String
   roomCount         Int
   bathroomCount     Int
-  saleType          String
   propertyType      String
-  propertyGroup     String
-  paymentPlan       String
-  downPayment       Int
-  installmentValue  Int
-  installmentPeriod Int
-  developerName     String
-  commissionValue   Float
+  saleType          String?
+  group             String?
+  amenities         String[]
+  status            String?
+  isFeatured        Boolean?
+  isAddHome         Boolean?
+  isRecommended     Boolean?
+  isFooterMenu      Boolean?
+  finishing         String?
+  deliveryStatus    String?
+  furniture         String?
+  paymentPlan       String?
+  rentalPlan        String?
+  rentValue         String?
+  RentalPeriod      String?
+  rentAvailableDate String?
+  downPayment       Int?
+  installmentValue  Float?
+  installmentPeriod Int?
+  developerName     String?
+  commissionValue   Float?
+  deliveryDate      String?
+  country           String
+  city              String?
+  phone             String
+  whatsapp          String
+  seoDetails        Json?
   price             Int
   currency          String
   size              Int
   sizeUnit          String
-  address           String
-  phone             String
-  whatsapp          String
-  country           String
-  cityValue         String
-  ariaValue         String
-  userId            String   @db.ObjectId
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  developer_id Int?
-  developer    Developer? @relation(fields: [developer_id], references: [developerId])
-
-  area_id     Int?
-  area        Area?     @relation(fields: [area_id], references: [areaId])
-  Compound    Compound? @relation(fields: [compound_id], references: [compoundId])
-  compound_id Int?
+  userId            String     @db.ObjectId
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  developerId       String?    @db.ObjectId
+  areaId            String?    @db.ObjectId
+  compound          Compound?  @relation(fields: [compoundId], references: [id])
+  compoundId        String?    @db.ObjectId
+  Area              Area?      @relation(fields: [areaId], references: [id])
+  Developer         Developer? @relation(fields: [developerId], references: [id])
 }
 
 model Compound {
-  id                               String   @id @default(auto()) @map("_id") @db.ObjectId
-  compoundId                       Int      @unique
-  createdAt                        DateTime @default(now())
-  updatedAt                        DateTime @updatedAt
-  name                             String
-  description                      String?
-  is_super                         Boolean?
-  slug                             String   @unique
-  properties_count                 Int?
-  image                            String?
-  min_price                        Int?
-  max_price                        Int?
-  min_unit_area                    Int?
-  max_unit_area                    Int?
-  available_bathrooms              Int[]
-  available_bedrooms               Int[]
-  currency                         String?
-  sponsored                        Int?
-  max_installment_years            Int?
-  min_down_payment                 Int?
-  min_ready_by                     String?
-  properties_ids                   Int[]
-  sum_10_properties_min_price      Int?
-  lat                              Float?
-  long                             Float?
-  has_offer                        Boolean?
-  has_launches                     Boolean?
-  is_launch                        Boolean?
-  offer_title                      String?
-  limited_time_offer               Boolean?
-  property_types                   String[]
-  advertising_image_path           String?
-  property_types_count             Json?
-  favorite                         Boolean?
-  property_types_count_highlighted Json?
-
-  properties Property[]
-
-  developer   Developer @relation(fields: [developerId], references: [developerId])
-  developerId Int
-  area        Area      @relation(fields: [areaId], references: [areaId])
-  areaId      Int
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  title         String
+  content       String
+  description   String
+  slug          String     @unique
+  mainImage     String
+  images        String[]
+  seoDetails    Json?
+  latLong       Float
+  isLaunch      String
+  status        String
+  isFeatured    Boolean
+  isAddHome     Boolean
+  isFooterMenu  Boolean
+  isRecommended Boolean
+  properties    Property[]
+  developer     Developer? @relation(fields: [developerId], references: [id])
+  developerId   String?    @db.ObjectId
+  area          Area?      @relation(fields: [areaId], references: [id])
+  areaId        String?    @db.ObjectId
 }
 
 model Developer {
-  id            String             @id @default(auto()) @map("_id") @db.ObjectId
-  developerId   Int                @unique
-  name          String
-  slug          String             @unique
-  image         String?
-  min_price     String?
-  description   String?
-  created_at    DateTime?          @default(now())
-  updated_at    DateTime?          @updatedAt
-  add_to_slider Boolean?
-  logo_image    Json?
-  official_name String?
-  compounds     Int
-  properties    Int
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  slug          String     @unique
+  image         String
+  description   String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  status        String?
+  isFeatured    Boolean?
+  isAddHome     Boolean?
+  isFooterMenu  Boolean?
+  isRecommended Boolean?
+  content       String?
   compound      Compound[]
   property      Property[]
-  area          developersOnArea[]
 }
 
 model Area {
-  id          String             @id @default(auto()) @map("_id") @db.ObjectId
-  areaId      Int                @unique
-  slug        String             @unique
-  name        String
-  description String?
-  created_at  DateTime           @default(now())
-  updated_at  DateTime           @updatedAt
-  lat         Float?
-  long        Float?
-  image       String
-  compounds   Compound[]
-  Property    Property[]
-  developer   developersOnArea[]
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String   @unique
+  title         String
+  description   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  image         String?
+  lat           Float
+  long          Float
+  status        String?
+  isFeatured    Boolean?
+  isAddHome     Boolean?
+  isFooterMenu  Boolean?
+  isRecommended Boolean?
+  content       String?
+
+  compounds  Compound[]
+  properties Property[]
 }
 
-model developersOnArea {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  developerId Int
-  areaId      Int
-  developer   Developer @relation(fields: [developerId], references: [developerId])
-  area        Area      @relation(fields: [areaId], references: [areaId])
-
-  @@unique([developerId, areaId])
+model PropertyType {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  name_en String
 }

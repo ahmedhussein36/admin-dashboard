@@ -8,7 +8,7 @@ export type SearchValue = {
 };
 
 interface InputProps {
-    id: string;
+    id?: string;
     isFilter?: boolean;
     label?: string;
     Placeholder?: string;
@@ -68,7 +68,7 @@ const SearchInput: React.FC<InputProps> = ({
                                 ? "rounded-none border-none h-full p-2 bg-none"
                                 : " rounded-md  bg-white p-3 "
                         }
-                        border
+                        focus:border-slate-400 focus:ring-0 border-2 border-slate-300
                         rounded-md
                         outline-none
                         transition

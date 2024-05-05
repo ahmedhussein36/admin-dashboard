@@ -61,7 +61,6 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           p-4
           md:py-2
           md:px-3
-          border-[1px] 
           border-neutral-200 
           flex 
           flex-row 
@@ -77,29 +76,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         <Avatar avatarSrc={currentUser?.image ?? ""} />
                     </div>
                     {currentUser ? (
-                        <span className="text-xs">{"حسابي"}</span>
+                        <span className="text-base">{currentUser.name}</span>
                     ) : (
-                        <span className=" text-sm">تسجيل الدخول</span>
+                        <span className=" text-base">login</span>
                     )}
                 </div>
-                <div
-                    onClick={createAd}
-                    className="
-            hidden
-            md:block
-            text-sm 
-            text-white
-            py-3
-            px-4 
-            rounded-lg
-            bg-red-500
-            hover:bg-red-600
-            transition 
-            cursor-pointer
-          "
-                >
-                    أعلن عن وحدتك
-                </div>
+               
             </div>
             {isOpen && (
                 <div
@@ -119,40 +101,20 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     <div className="flex flex-col cursor-pointer">
                         {currentUser ? (
                             <>
-                                {/* <MenuItem
-                  label="حسابي"
-                  onClick={() => router.push('/trips')}
-                /> */}
-                                <MenuItem
-                                    label="تفضيلاتي"
-                                    onClick={() => router.push("/favorites")}
-                                />
-                                {/* <MenuItem
-                  label="وحدات محجوزة"
-                  onClick={() => router.push('/reservations')}
-                /> */}
-                                <MenuItem
-                                    label="وحداتي"
-                                    onClick={() => router.push("/properties")}
-                                />
-                                <MenuItem
-                                    label="+ أضف عقار جديد"
-                                    onClick={createAd}
-                                />
                                 <hr />
                                 <MenuItem
-                                    label="تسجيل خروج"
+                                    label="Logout"
                                     onClick={() => signOut()}
                                 />
                             </>
                         ) : (
                             <>
                                 <MenuItem
-                                    label="تسجيل دخول"
+                                    label="Login"
                                     onClick={loginModal.onOpen}
                                 />
                                 <MenuItem
-                                    label="إنشاء حساب جديد"
+                                    label="Sign up"
                                     onClick={registerModal.onOpen}
                                 />
                             </>

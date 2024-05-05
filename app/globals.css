@@ -8,7 +8,16 @@ html,
 body,
 :root {
   height: 100%;
-  font-size: 14px;
+  font-size: small;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+td,th{
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
 }
 
 .ltr {
@@ -43,11 +52,14 @@ main {
 
 body {
   scroll-behavior: smooth;
+  background: #fafafa;
+  font-size: small;
 }
 
 *::-webkit-scrollbar {
-  width: 7px;
+  width: 3px;
 }
+
 
 
 *::-webkit-scrollbar-track {
@@ -55,13 +67,10 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #8a96a8;
+  background-color: #bcc2c9;
   border-radius: 10px;
 }
 
-* {
-  direction: rtl;
-}
 
 .scaltonItem {
   animation: fade 2s ease-in-out infinite;

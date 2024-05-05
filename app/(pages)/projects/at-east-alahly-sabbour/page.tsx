@@ -5,16 +5,26 @@ import ClientOnly from "@/app/components/ClientOnly";
 import Container from "@/app/components/Container";
 import PropretyContacts from "@/app/components/properties/PropretyContacts";
 import Image from "next/legacy/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MdWhatsapp } from "react-icons/md";
+import { RiShareBoxLine } from "react-icons/ri";
+import { initializeGoogleTagManager } from "@/app/googleTagManager";
 
 export default function Page() {
     const [data, setData] = useState({
         name: "",
         phone: "",
+        subject: "مشروع ات ايست الاهلي صبور",
     });
+
     const [isLoading, setIsLoading] = useState(false);
 
-    const { name, phone } = data;
+    const { name, phone, subject } = data;
+
+    useEffect(() => {
+        // Initialize Google Tag Manager with your GTM ID
+        initializeGoogleTagManager("GTM-K5KSH3B9");
+    }, []);
 
     const handelChange = (e: any) => {
         setData({ ...data, [e.target.name]: e.target.value });
@@ -38,8 +48,9 @@ export default function Page() {
                         headers: {
                             "Content-Type": "application/json",
                         },
+
                         body: JSON.stringify([
-                            [name, phone, new Date().toLocaleString()],
+                            [name, phone, new Date().toLocaleString(), subject],
                         ]),
                     }
                 );
@@ -47,7 +58,7 @@ export default function Page() {
                 await response.json();
                 setIsLoading(false);
                 setData({ ...data, name: "", phone: "" });
-                alert("تم ارسال البيانات بنجاح");
+                alert("تم تقديم طلبك بنجاح");
             }
         } catch (error) {
             console.log(error);
@@ -85,35 +96,46 @@ export default function Page() {
                 bedrooms: 4,
                 priceRange: "13,770,000 up to 15,300,000",
             },
-            { type: "Twinhouse", size: "180m2", priceRange: "14,580,000" },
+            {
+                type: "Twinhouse",
+                size: "180m2",
+                bedrooms: 4,
+                priceRange: "14,580,000",
+            },
             {
                 type: "Villa",
                 size: "1 story 220m2",
+                bedrooms: 4,
                 priceRange: "25,000,000 up to 28,000,000",
             },
             {
                 type: "Villas",
                 size: "190m2 1 story",
+                bedrooms: 4,
                 priceRange: "14,000,000 up to 16,000,000",
             },
             {
                 type: "Villa",
                 size: "205m2",
+                bedrooms: 4,
                 priceRange: "15,000,000 up to 17,000,000",
             },
             {
                 type: "Villa",
                 size: "250m2",
+                bedrooms: 4,
                 priceRange: "20,000,000 up to 23,000,000",
             },
             {
                 type: "Villa",
                 size: "300m2",
+                bedrooms: 4,
                 priceRange: "25,000,000 up to 27,000,000",
             },
             {
                 type: "Villa",
                 size: "370m2",
+                bedrooms: 4,
                 priceRange: "30,000,000 up to 34,000,000",
             },
         ],
@@ -363,7 +385,7 @@ export default function Page() {
                             </div>
                             <div className=" w-full h-[400px] relative mb-12">
                                 <Image
-                                    src="/images/موقع كمبوند ات ايست الاهلي صبور.jpg"
+                                    src="/images/map.webp"
                                     layout="fill"
                                     objectFit="cover"
                                     alt="مشروع ات ايست المستقبل سيتي - At East Almustakbal city"
@@ -419,16 +441,84 @@ export default function Page() {
                                     العديدة القريبة التي يستفيدون منها.
                                 </p>
                             </div>
-                            <div className=" w-full border-2 rounded-lg bg-slate-700 p-6 ">
-                                <div className="w-full text-center font-bold text-white">
-                                    تواصل معنا لمعرفة احدث الأسعار وأفضل أنظمة
-                                    السداد
+                            <div className=" w-full border-2 rounded-lg bg-blue-900 p-6 ">
+                                <div className="hidden md:block w-full border-2 rounded-lg bg-blue-900 p-6 ">
+                                    <div className="w-full text-center font-bold text-white">
+                                        تواصل معنا لمعرفة احدث الأسعار وأفضل
+                                        أنظمة السداد
+                                    </div>
+                                    <div className="w-full flex-1 flex justify-center items-center my-6 ">
+                                        <PropretyContacts
+                                            phone={compound.phone}
+                                            whatsApp={compound.whatsApp}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="w-full flex-1 flex justify-center items-center my-6 ">
-                                    <PropretyContacts
-                                        phone={compound.phone}
-                                        whatsApp={compound.whatsApp}
-                                    />
+                                <div className=" block md:hidden">
+                                    <div className="w-full text-center font-bold text-white">
+                                        تواصل معنا لمعرفة احدث الأسعار وأفضل
+                                        أنظمة السداد و الحجز او الاستفسار
+                                    </div>{" "}
+                                    <div className="w-full col-span-full md:col-span-1 p-0 lg:p-4 relative ">
+                                        <div className="w-full sticky top-0 pt-8">
+                                            <form
+                                                onSubmit={onSubmit}
+                                                id="form"
+                                                className=" w-full border-2 flex flex-col gap-3 p-4 rounded-lg bg-slate-100"
+                                            >
+                                                <div className="w-full flex flex-col justify-center items-start gap-2">
+                                                    <label htmlFor="name">
+                                                        الاسم*
+                                                    </label>
+                                                    <input
+                                                        name="name"
+                                                        value={name}
+                                                        onChange={handelChange}
+                                                        className="w-full border p-2 py-4 rounded-md"
+                                                        type="text"
+                                                        placeholder="ادخل الاسم"
+                                                        min={3}
+                                                        max={50}
+                                                        required
+                                                    />
+                                                </div>
+                                                <div className="w-full flex flex-col justify-center items-start gap-2">
+                                                    <label htmlFor="phone">
+                                                        رقم الهاتف*
+                                                    </label>
+                                                    <input
+                                                        name="phone"
+                                                        value={phone}
+                                                        onChange={handelChange}
+                                                        className="w-full border p-2 py-4 rounded-md"
+                                                        id="phone"
+                                                        type="tel"
+                                                        placeholder="ادخل رقم هاتفك"
+                                                        min={11}
+                                                        max={11}
+                                                        required
+                                                    />
+                                                </div>
+
+                                                <div className="w-full flex flex-col justify-center items-start gap-2">
+                                                    <Button
+                                                        label={`${
+                                                            isLoading
+                                                                ? "جاري الارسال"
+                                                                : "ارسال"
+                                                        }`}
+                                                        disabled={isLoading}
+                                                    />
+                                                </div>
+                                            </form>
+                                            <div className=" flex-1 flex justify-center items-center my-6 ">
+                                                <PropretyContacts
+                                                    phone={compound.phone}
+                                                    whatsApp={compound.whatsApp}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className=" my-4">
@@ -623,7 +713,10 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-full col-span-full md:col-span-1 p-0 lg:p-4 relative ">
+                    <div
+                        id="contacts"
+                        className=" w-full col-span-full md:col-span-1 p-0 lg:p-4 relative "
+                    >
                         <div className="w-full sticky top-0 pt-8">
                             <div className=" text-xl font-bold mb-4">
                                 للحجز و الاستفسار
@@ -682,6 +775,24 @@ export default function Page() {
                     </div>
                 </div>
             </Container>
+            <div className="md:hidden w-full m-2 fixed bottom-0 bg-slate-100 rounded-lg mb-0 shadow-xl p-4 flex justify-between items-center gap-4">
+                <div
+                    onClick={() => {
+                        open(`https://wa.me/20225388918`);
+                    }}
+                    className=" flex justify-center items-center gap-3 w-1/2 rounded-lg bg-green-600 text-white p-2 text-center"
+                >
+                    <MdWhatsapp color="#fff" size={30} />
+                    تواصل
+                </div>
+                <a
+                    href="#contacts"
+                    className="flex justify-center items-center gap-3 w-1/2 rounded-lg bg-blue-600 text-white p-2 text-center"
+                >
+                    <RiShareBoxLine color="#fff" size={30} />
+                    تواصل معنا
+                </a>
+            </div>
         </ClientOnly>
     );
 }

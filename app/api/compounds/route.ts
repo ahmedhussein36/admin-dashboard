@@ -5,44 +5,31 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 export async function POST(request: Request) {
     const currentUser = await getCurrentUser();
 
-    if (!currentUser) {
-        return NextResponse.error();
-    }
+    // if (!currentUser) {
+    //     return NextResponse.error();
+    // }
 
     const body = await request.json();
     const {
-        compoundId,
-        name,
+        title,
         description,
-        is_super,
+        content,
         slug,
-        properties_count,
-        image,
-        min_price,
-        max_price,
-        min_unit_area,
-        max_unit_area,
-        available_bathrooms,
-        available_bedrooms,
-        currency,
-        sponsored,
-        max_installment_years,
-        min_down_payment,
-        min_ready_by,
-        sum_10_properties_min_price,
-        lat,
-        long,
-        has_offer,
-        has_launches,
-        is_launch,
-        offer_title,
-        limited_time_offer,
-        property_types,
-        advertising_image_path,
-        property_types_count,
-        favorite,
-        property_types_count_highlighted,
-        developerId, areaId
+        mainImage,
+        images,
+        seoDetails,
+        metaTitle,
+        metaDescription,
+        latLong,
+        isLaunch,
+        status,
+        isFeatured,
+        isAddHome,
+        isFooterMenu,
+        isRecommended,
+        developer,
+        area,
+
 
     } = body;
 
@@ -54,38 +41,26 @@ export async function POST(request: Request) {
 
     const compound = await prisma.compound.create({
         data: {
-            compoundId,
-            name,
+            title,
             description,
-            is_super,
+            content,
             slug,
-            properties_count,
-            image,
-            min_price,
-            max_price,
-            min_unit_area,
-            max_unit_area,
-            available_bathrooms,
-            available_bedrooms,
-            currency,
-            sponsored,
-            max_installment_years,
-            min_down_payment,
-            min_ready_by,
-            sum_10_properties_min_price,
-            lat,
-            long,
-            has_offer,
-            has_launches,
-            is_launch,
-            offer_title,
-            limited_time_offer,
-            property_types,
-            advertising_image_path,
-            property_types_count,
-            favorite,
-            property_types_count_highlighted,
-            developerId, areaId
+            mainImage,
+            images,
+            seoDetails: {
+                metaDescription,
+                metaTitle
+            },
+            latLong: parseFloat(latLong),
+            isLaunch,
+            status,
+            isFeatured,
+            isAddHome,
+            isFooterMenu,
+            isRecommended,
+            developerId: developer?.id,
+            areaId: area?.id,
+
         },
     });
 

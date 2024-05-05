@@ -2,80 +2,56 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IParams {
     userId?: string;
+    areaId?: string;
+    developerId?: string;
     title?: string;
-    roomCount?: number;
-    bathroomCount?: number; 
-    city?: string;
-    aria?: string;
-    PropertyType?: string;
-    propertyGroup?: string;
+    compoundId?: string;
     category?: string;
-    minprice?: number;
-    maxprice?: number;
+    propertyType?: string;
+    status: string;
 }
 
 export default async function getProperties(params: IParams) {
     try {
         const {
             userId,
-            title,
-            roomCount,
-            bathroomCount,
-            city,
-            aria,
-            PropertyType,
-            propertyGroup,
+            areaId,
             category,
-            minprice,
-            maxprice,
+            propertyType,
+            status,
+            developerId,
+            compoundId,
+            title,
         } = params;
 
         let query: any = {};
 
+        if (title) {
+            query.title = { contains: title };
+        }
+
         if (userId) {
             query.userId = userId;
         }
-
         if (category) {
             query.category = category;
         }
 
-        if (title) {
-            query.title = {
-                contains: title,
-            };
-        }
-        if (PropertyType) {
-            query.PropertyType = PropertyType;
+        if (status) {
+            query.status = status;
         }
 
-        if (propertyGroup) {
-            query.propertyGroup = propertyGroup;
+        if (propertyType) {
+            query.propertyType = propertyType;
         }
-
-        if (city) {
-            query.cityValue = city;
+        if (compoundId) {
+            query.compoundId = compoundId;
         }
-
-        if (aria) {
-            query.ariaValue = {
-                contains: aria,
-            };
+        if (areaId) {
+            query.areaId = areaId;
         }
-
-        if (roomCount) {
-            query.roomCount = +roomCount;
-        }
-
-        if (bathroomCount) {
-            query.bathroomCount = +bathroomCount;
-        }
-
-        if (minprice && maxprice) {
-            query.price = {
-                gte: +minprice,
-                lte: +maxprice,
-            };
+        if (developerId) {
+            query.developerId = developerId;
         }
 
         const properties = await prisma.property.findMany({

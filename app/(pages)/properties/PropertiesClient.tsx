@@ -23,7 +23,7 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
 
     const onDelete = useCallback(
         (id: string) => {
-            setDeletingId(id);
+            setDeletingId(id); 
 
             axios
                 .delete(`/api/listings/${id}`)

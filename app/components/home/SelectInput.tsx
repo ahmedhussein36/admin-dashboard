@@ -1,7 +1,7 @@
 import Select from "react-select";
 
 export type SelectValue = {
-    value: any;
+    value: string;
 };
 
 interface SelectInputProps {
@@ -20,30 +20,29 @@ export const SelectInput: React.FC<SelectInputProps> = ({
     isSearchable
 }) => {
     return (
-        <div>
+        <div className=" w-full">
             <Select
                 isClearable
                 isSearchable ={isSearchable}
                 value={value}
                 options={options}
-                onChange={(value) => onChange(value as SelectValue)}
+                onChange={(value) => onChange(value)}
                 placeholder={placeholder}
-                formatOptionLabel={({ label }: any) => <div>{label}</div>}
+                formatOptionLabel={({title , name} : any) => <div>{title? title : name}</div>}
                 classNames={{
-                    control: () => "p-1 border placeholder:text-slate-300",
-                    input: () => "text-red-400",
-                    option: () => "",
-                }}
-                theme={(theme) => ({
+                    control: () => 'p-1 border-1',
+                    input: () => 'text-base',
+                    option: () => 'text-base'
+                  }}
+                  theme={(theme) => ({
                     ...theme,
-                    borderRadius: 8,
+                    borderRadius: 6,
                     colors: {
-                        ...theme.colors,
-                        primary50: "rgb(241 245 249)",
-                        primary25: "rgb(241 245 249)",
-                        primary: "#CBD2E0",
-                    },
-                })}
+                      ...theme.colors,
+                      primary: 'black',
+                      primary25: '#e2e8f0'
+                    }
+                  })}
             />
         </div>
     );

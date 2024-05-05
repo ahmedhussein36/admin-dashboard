@@ -1,34 +1,39 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IParams {
-    name?: string 
-    
+    title?: string
+    status?: string
+
 }
 
 export default async function getDevelopers(params: IParams) {
     try {
         const {
-            name
+            title, status
         } = params;
 
         let query: any = {};
 
-        if (name) { 
-            query.name = {
-                contains: name,
+        if (title) {
+            query.title = {
+                contains: title,
             }
+        }
+        if (status) {
+            query.status = status
+
         }
 
         const developers = await prisma.developer.findMany({
             where: query,
             orderBy: {
-                developerId: "asc",
+                createdAt: "desc",
             },
         });
 
         const safeDevelopers = developers.map((developer) => ({
             ...developer,
-            created_at: developer.developerId
+            createdAt: developer.createdAt
         }));
 
         return safeDevelopers;

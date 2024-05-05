@@ -3,23 +3,24 @@ import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request: Request) {
-    const currentUser = await getCurrentUser();
+    // const currentUser = await getCurrentUser();
 
-    if (!currentUser) {
-        return NextResponse.error();
-    }
+    // if (!currentUser) { 
+    //     return NextResponse.error();
+    // }
 
     const body = await request.json();
     const {
-        developerId,
-        name,
+        title,
         slug,
         image,
-        compounds,
-        properties,
-        min_price,
-        official_name,
-        add_to_slider
+        description,
+        content,
+        status,
+        isFeatured,
+        isAddHome,
+        isFooterMenu,
+        isRecommended,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -30,15 +31,16 @@ export async function POST(request: Request) {
 
     const developer = await prisma.developer.create({
         data: {
-            developerId,
-            name,
+            title,
             slug,
             image,
-            compounds,
-            properties,
-            min_price,
-            add_to_slider,
-            official_name,
+            description,
+            content,
+            status,
+            isFeatured,
+            isAddHome,
+            isFooterMenu,
+            isRecommended,
         },
     });
 

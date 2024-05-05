@@ -36,12 +36,12 @@ const Input: React.FC<InputProps> = ({
     errors,
 }) => {
     return (
-        <div className="w-full flex flex-col gap-1  relative">  
+        <div className="w-full flex flex-col gap-1 items-start relative">  
         
         <label
                 htmlFor={id}
                 className={`
-                text-sm
+                text-lg text-slate-500 font-medium
                 duration-150  origin-top-right
                 ${
                     customFormat
@@ -51,7 +51,7 @@ const Input: React.FC<InputProps> = ({
                 ${
                     errors[id]
                         ? "text-rose-500"
-                        : "text-zinc-400"
+                        : "text-zinc-500"
                 }
     `}
             >
@@ -76,12 +76,12 @@ const Input: React.FC<InputProps> = ({
                 type={type}
                 placeholder={placeholder}
                 className={`
-                    placeholder:text-sm
+                    placeholder:text-lg
                     placeholder:text-slate-400
                     peer
                     w-full
                     p-3
-                    font-light 
+                    font-medium text-lg 
                     bg-white 
                     border
                     rounded-md
