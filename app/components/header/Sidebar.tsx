@@ -211,7 +211,7 @@ export function MainSidebar() {
                     activeLabel={activeLabel}
                 />
                 <SidebarItem
-                    href="/blog/tags"
+                    href="/"
                     icon={<FaTag size="20" color={iconActive("Tags")} />}
                     label="Tags"
                     setActiveLabel={setActiveLabel}
