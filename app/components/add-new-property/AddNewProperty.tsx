@@ -236,9 +236,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     }
     let bodyContent = (
         <div className="w-full flex flex-col gap-8">
-            <div className=" absolute right-1 w-[300px] ">
+            <div className=" absolute -top-12 right-1 w-[150px] ">
                 <Button
-                    label={"Cancel"}
+                    label={"Back"}
                     outline
                     onClick={() => router.back()}
                 />
