@@ -38,7 +38,6 @@ const Client: FC<Props> = ({ categories, tags }) => {
             mainImage: "",
             metaTitle: "",
             metaDescription: "",
-            isLaunch: "",
             categories: null,
             tags: null,
             status: "",

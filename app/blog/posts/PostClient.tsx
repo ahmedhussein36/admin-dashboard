@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
+import Container from "@/app/components/Container";
 
 interface Props {
     posts: [];
@@ -88,7 +89,7 @@ const PostClient: React.FC<Props> = ({ posts }) => {
     }, []);
 
     return (
-        <>
+        <Container>
             <Confirm isLoading={isLoading} onDelete={() => onDelete(postId)} />
 
             <div className=" w-full flex justify-between items-center gap-4 my-8">
@@ -120,7 +121,7 @@ const PostClient: React.FC<Props> = ({ posts }) => {
                     <EmptyState />
                 </ClientOnly>
             </div>
-        </>
+        </Container>
     );
 };
 export default PostClient;

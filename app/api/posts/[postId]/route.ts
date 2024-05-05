@@ -1,8 +1,38 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
+// import getCurrentUser from "@/app/actions/getCurrentUser";
 
-export async function POST(request: Request) {
+interface IParams {
+    postId?: string;
+}
+
+export async function DELETE(
+    request: Request,
+    { params }: { params: IParams }
+) {
+    // const currentUser = await getCurrentUser();
+
+    // if (!currentUser) {
+    //   return NextResponse.error();
+    // }
+
+    const { postId } = params;
+
+    if (!postId || typeof postId !== "string") {
+        throw new Error("Invalid ID");
+    }
+
+    const post = await prisma.post.deleteMany({
+        where: {
+            id: postId,
+        },
+    });
+
+    return NextResponse.json(post);
+}
+
+export async function PUT(request: Request, { params }: { params: IParams }) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
@@ -30,7 +60,16 @@ export async function POST(request: Request) {
         }
     });
 
-    const post = await prisma.post.create({
+    const { postId } = params;
+
+    if (!postId || typeof postId !== "string") {
+        throw new Error("Invalid ID");
+    }
+
+    const post = await prisma.post.updateMany({
+        where: {
+            id: postId,
+        },
         data: {
             title,
             slug,

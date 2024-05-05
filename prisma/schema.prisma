@@ -229,8 +229,8 @@ model Post {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
   title           String
   slug            String         @unique
-  image           String
-  content         String
+  image           String?
+  content         String?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   status          String?
@@ -238,8 +238,8 @@ model Post {
   isAddHome       Boolean?
   isFooterMenu    Boolean?
   isRecommended   Boolean?
-  metaTite        String
-  metaDescription String
+  metaTitle        String?
+  metaDescription String?
   tags            PostTags[]
   categories      PostCategory[]
   userId          String?        @db.ObjectId

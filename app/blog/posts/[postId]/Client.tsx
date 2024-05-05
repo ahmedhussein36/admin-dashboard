@@ -36,23 +36,11 @@ const Client: FC<Props> = ({ post }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: post?.title || "",
-            description: post?.description || "",
             content: post?.content || "",
             slug: post?.slug || "",
             mainImage: post?.mainImage || "",
-
-            metaTitle: post?.seoDetails?.metaTitle || "",
-            metaDescription: post?.seoDetails?.metaDescription || "",
-
-            seoDetails: {
-                metaTitle: "",
-                metaDescription: "",
-            },
-            isLaunch: post.isLaunch || "",
-            area: post?.area || null,
-            developer: post?.developer || null,
-            images: post.images || [],
-            latLong: post.latLong || 0,
+            metaTitle: post?.metaTitle || "",
+            metaDescription: post?.metaDescription || "",
             status: post.status || "",
             isFeatured: post.isFeatured || false,
             isAddHome: post.isAddHome || false,
