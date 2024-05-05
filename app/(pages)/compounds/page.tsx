@@ -1,11 +1,11 @@
 import Container from "@/app/components/Container";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import Heading from "@/app/components/Heading";
-import getCompounds, { IParams } from "@/app/actions/getCompounds";
+import getCompounds from "@/app/actions/getCompounds";
 import CompoundClient from "./CompoundClient";
 import getDevelopers from "@/app/actions/getDevelopers";
 import getAreas from "@/app/actions/getAreas";
-import getProperties from "@/app/actions/getProperties";
+import getProperties, { IParams } from "@/app/actions/getProperties";
 import Sorting from "@/app/components/Sorting";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
@@ -52,7 +52,11 @@ const CompoundsPage = async ({ searchParams }: DevelopersPageProps) => {
                     <Sorting data={compounds} parent="compounds" />
                 </div>
                 <div className="my-2 flex justify-center items-center ">
-                    <Filter compounds={compounds} areas={areas} developers={developers} />
+                    <Filter
+                        compounds={compounds}
+                        areas={areas}
+                        developers={developers}
+                    />
                 </div>
                 <ClientOnly>
                     <CompoundClient

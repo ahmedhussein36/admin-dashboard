@@ -1,14 +1,11 @@
 import Container from "@/app/components/Container";
-import EmptyStateAr from "@/app/components/EmptyStateAr";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
 import DeveloperClient from "./DeveloperClient";
-import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
-import Search from "@/app/components/Search";
+import getDevelopers from "@/app/actions/getDevelopers";
 import getAreas from "@/app/actions/getAreas";
 import getCompounds from "@/app/actions/getCompounds";
-import getProperties from "@/app/actions/getProperties";
+import getProperties, { IParams } from "@/app/actions/getProperties";
 import Sorting from "@/app/components/Sorting";
 
 interface DevelopersPageProps {

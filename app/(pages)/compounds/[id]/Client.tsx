@@ -46,8 +46,8 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
             slug: compound?.slug || "",
             mainImage: compound?.mainImage || "",
 
-            metaTitle: compound?.seoDetails?.metaTitle || "",
-            metaDescription: compound?.seoDetails?.metaDescription || "",
+            // metaTitle: compound?.seoDetails?.metaTitle || "",
+            // metaDescription: compound?.seoDetails?.metaDescription || "",
 
             seoDetails: {
                 metaTitle: "",

@@ -1,5 +1,4 @@
 import getareaById from "@/app/actions/getAreaById";
-import getLibrary from '@/app/actions/getLibrary'
 import Client from "./Client";
 
 interface IParams {

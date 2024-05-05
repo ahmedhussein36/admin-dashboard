@@ -116,8 +116,8 @@ const PropertyClient: FC<PropertyClientProps> = ({
             compound: listing.compound || null,
             developer: listing.developer || null,
             area: listing.area || null,
-            metaTitle: listing?.seoDetails?.metaTitle || "",
-            metaDescription: listing?.seoDetails?.metaDescription || "",
+            // metaTitle: listing?.seoDetails?.metaTitle || "",
+            // metaDescription: listing?.seoDetails?.metaDescription || "",
             seoDetails: {
                 metaDescription: "",
                 metaTitle: "",

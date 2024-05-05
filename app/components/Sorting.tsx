@@ -23,7 +23,7 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
 
     useEffect(() => {
         setAllData(data);
-    }, []);
+    });
 
     useEffect(() => {
         let activeListings: any[] = data.filter(
@@ -40,7 +40,7 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
         setPending(pendingListings);
     }, []);
 
-    useEffect(() => {
+    useMemo(() => {
         let inactiveListings = data.filter(
             (item: any) => item.status === "inactive"
         );
