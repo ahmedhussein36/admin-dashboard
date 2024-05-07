@@ -979,7 +979,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                 />
                                 <Label htmlFor="notfurnitured">غير مفروش</Label>
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
                     <div className=" w-full mt-4 mx-4 flex justify-start items-center gap-3">
@@ -1044,13 +1044,13 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                 className="w-[30%] flex gap-2 justify-start items-center"
                             >
                                 <input
-                                    id={item.name}
+                                    id={item.id}
                                     // {...register("amenities")}
                                     type="checkbox"
                                     className=" focus:ring-0 transition-all rounded"
                                     onChange={handleCheck}
                                 />
-                                <label htmlFor={item.name}>{item.name}</label>
+                                <label htmlFor={item.id}>{item.name}</label>
                             </div>
                         ))}
                     </div>

@@ -85,7 +85,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             propertyType: listing?.propertyType || "",
             group: listing?.group || "",
             saleType: listing?.saleType || "",
-            amenities: listing?.amenities || [],
+            amenities: /*listing?.amenities ||*/ [],
             status: listing.status || "",
             isFeatured: listing.isFeatured || false,
             isAddHome: listing.isAddHome || false,
@@ -155,6 +155,8 @@ const PropertyClient: FC<PropertyClientProps> = ({
                 ? [...amenities, e.target.id]
                 : amenities.filter((id: any) => id !== e.target.id)
         );
+
+        console.log(amenities)
     };
 
     const slugGeneration = (title: string) => {
@@ -201,7 +203,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
                 <h3 className=" font-semibold text-lg">Category: </h3>
                 {categories.map((item) => (
                     <div
-                        key={item.name}
+                        key={item.id}
                         className=" flex justify-start items-center text-slate-500 gap-2 text-lg font-medium"
                     >
                         <input
@@ -276,15 +278,13 @@ const PropertyClient: FC<PropertyClientProps> = ({
         return (
             <div className=" w-full mt-4 mx-4 flex justify-start flex-col items-center gap-3">
                 <div className=" w-full">
-                    <h3 className="my-2">Main Image:</h3>
+                    <h3 className="my-2">Cover:</h3>
                     <ImageUpload
                         label="Upload thumbnail Image"
                         thumbnail={true}
                         onAction={() => {
                             setCustomValue("mainImage", "");
-                            setAllPropertyImages(
-                                allPropertyImages.slice(0, -1)
-                            );
+                            setAllPropertyImages(mainImage);
                         }}
                         onChange={(value) => {
                             setCustomValue("mainImage", value);
@@ -578,7 +578,9 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                     isSearchable={false}
                                     options={compounds}
                                     placeholder="Select compound"
-                                    formatOptionLabel={( compound: SafeCompound) => <div>{compound.title}</div>}
+                                    formatOptionLabel={(
+                                        compound: SafeCompound
+                                    ) => <div>{compound.title}</div>}
                                     classNames={{
                                         control: () =>
                                             "p-1 border placeholder:text-slate-400 focus:border-primary-500",

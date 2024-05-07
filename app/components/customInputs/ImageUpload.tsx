@@ -119,7 +119,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                         >
                             {/* <TbPhotoPlus size={40} color= "red"/> */}
                             <Image
-                                src={"/assets/icons/gallery.png"}
+                                src={"/assets/icons/gallery.webp"}
                                 width={26}
                                 height={26}
                                 alt="upload"
