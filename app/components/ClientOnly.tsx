@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Loader from "./Loader";
+import TableSkelton from "./TableSkelton";
 
 interface ClientOnlyProps {
     children: React.ReactNode;
+    loader: React.ReactNode;
 }
 
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
@@ -16,7 +17,7 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
         setLoading(true);
     }, []);
 
-    if (!hasMounted) return <Loader />;
+    if (!hasMounted) return <TableSkelton />;
 
     return <div>{children}</div>;
 };

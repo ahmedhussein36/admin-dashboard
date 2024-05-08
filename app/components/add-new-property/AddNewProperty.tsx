@@ -153,6 +153,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                 : amenities.filter((id: any) => id !== e.target.id)
         );
 
+        console.log(amenities)
+
     };
 
 

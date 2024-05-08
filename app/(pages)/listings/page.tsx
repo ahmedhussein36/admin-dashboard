@@ -13,13 +13,13 @@ import { FaPlus } from "react-icons/fa";
 import ListingFilter from "@/app/components/home/ListingFilter";
 import ClientOnly from "@/app/components/ClientOnly";
 import { redirect } from "next/navigation";
+import TableSkelton from "@/app/components/TableSkelton";
 
 interface ForRentPageProps {
     searchParams: IParams;
 }
 
 const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
-
     const compounds = await getCompounds(searchParams);
     const developers = await getDevelopers(searchParams);
     const areas = await getAreas(searchParams);
@@ -48,10 +48,14 @@ const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
                 <Sorting parent="listings" data={listings} />
 
                 <div className=" w-full mt-4">
-                    <ListingFilter areas={areas} compounds={compounds} developers={developers} />
+                    <ListingFilter
+                        areas={areas}
+                        compounds={compounds}
+                        developers={developers}
+                    />
                 </div>
 
-                <ClientOnly>
+                <ClientOnly loader={<TableSkelton />}>
                     {listings.length ? (
                         <ListinClient
                             listings={listings as any}

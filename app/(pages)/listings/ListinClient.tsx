@@ -5,6 +5,7 @@ import SearchInput from "@/app/components/inputs/SearchInput";
 import { useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import ClientOnly from "@/app/components/ClientOnly";
+import TableSkelton from "@/app/components/TableSkelton";
 
 interface ListinClientProps {
     listings: SafeProperty[] & {
@@ -47,7 +48,7 @@ const ListinClient: React.FC<ListinClientProps> = ({
                         <LuSearch size={20} color="#757575" />
                     </div>
                 </div>
-                <ClientOnly>
+                <ClientOnly loader={<TableSkelton />}>
                     <ListingsTable listings={filteredData as any} />
                 </ClientOnly>
             </div>

@@ -1,14 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { redirect, useRouter } from "next/navigation";
-
-import useRegisterModal from "@/app/hooks/useRegisterModal";
+import { useRouter } from "next/navigation";
 import useLoginModal from "@/app/hooks/useLoginModal";
-
 import Input from "../customInputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
@@ -19,7 +16,6 @@ import Container from "../Container";
 const Login = () => {
     const router = useRouter();
     const loginModal = useLoginModal();
-    const registerModal = useRegisterModal();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(Boolean);
 
@@ -62,10 +58,10 @@ const Login = () => {
         }
     }, [loginModal.isOpen]);
 
-    const onToggle = useCallback(() => {
-        loginModal.onClose();
-        registerModal.onOpen();
-    }, [loginModal, registerModal]);
+    // const onToggle = useCallback(() => {
+    //     loginModal.onClose();
+    //     registerModal.onOpen();
+    // }, [loginModal, registerModal]);
 
     const emailLogin = (
         <div className="flex flex-col gap-4 px-5 justify-start items-center">
@@ -90,24 +86,24 @@ const Login = () => {
         </div>
     );
 
-    const footer = (
-        <div className="  text-neutral-500 text-sm text-center mt-4 font-light">
-            <p>
-                {"You dont have an account?"}
-                <span
-                    onClick={onToggle}
-                    className="
-              text-red-500
-              text-sm
-              cursor-pointer 
-              hover:underline
-            "
-                >
-                    {"Create an account"}
-                </span>
-            </p>
-        </div>
-    );
+    // const footer = (
+    //     <div className="  text-neutral-500 text-sm text-center mt-4 font-light">
+    //         <p>
+    //             {"You dont have an account?"}
+    //             <span
+    //                 onClick={onToggle}
+    //                 className="
+    //           text-red-500
+    //           text-sm
+    //           cursor-pointer
+    //           hover:underline
+    //         "
+    //             >
+    //                 {"Create an account"}
+    //             </span>
+    //         </p>
+    //     </div>
+    // );
 
     return (
         <Container>
@@ -119,7 +115,6 @@ const Login = () => {
                         width={120}
                         height={40}
                         loading="eager"
-
                     />
                 </div>
                 <div
@@ -173,7 +168,7 @@ const Login = () => {
                                         disabled={isLoading}
                                     />
                                 </div>
-                                <div className="w-full">{footer}</div>
+                                {/* <div className="w-full">{footer}</div> */}
                             </div>
                         </div>
                     </div>
