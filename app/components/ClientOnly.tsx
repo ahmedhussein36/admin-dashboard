@@ -5,7 +5,6 @@ import TableSkelton from "./TableSkelton";
 
 interface ClientOnlyProps {
     children: React.ReactNode;
-    loader: React.ReactNode;
 }
 
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
