@@ -143,7 +143,7 @@ const Login = () => {
                         <div className="p-2 md:p-6 relative flex justify-start items-center">
                             <div
                                 className="realive flex flex-col gap-2 rounded-lg justify-center
-                                            items-start w-[450px] p-8 shadow-lg shadow-zinc-100/50  bg-white"
+                                            items-start w-[450px] p-8 shadow-lg shadow-zinc-200/80  bg-white"
                             >
                                 <div className="w-full">{emailLogin}</div>
                                 <div className="w-full my-2 px-4">

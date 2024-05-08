@@ -48,7 +48,7 @@ const ListinClient: React.FC<ListinClientProps> = ({
                         <LuSearch size={20} color="#757575" />
                     </div>
                 </div>
-                <ClientOnly loader={<TableSkelton />}>
+                <ClientOnly>
                     <ListingsTable listings={filteredData as any} />
                 </ClientOnly>
             </div>
