@@ -55,7 +55,7 @@ const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
                     />
                 </div>
 
-                <ClientOnly loader={<TableSkelton />}>
+                <ClientOnly>
                     {listings.length ? (
                         <ListinClient
                             listings={listings as any}
