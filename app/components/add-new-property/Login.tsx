@@ -86,24 +86,24 @@ const Login = () => {
         </div>
     );
 
-    // const footer = (
-    //     <div className="  text-neutral-500 text-sm text-center mt-4 font-light">
-    //         <p>
-    //             {"You dont have an account?"}
-    //             <span
-    //                 onClick={onToggle}
-    //                 className="
-    //           text-red-500
-    //           text-sm
-    //           cursor-pointer
-    //           hover:underline
-    //         "
-    //             >
-    //                 {"Create an account"}
-    //             </span>
-    //         </p>
-    //     </div>
-    // );
+    const footer = (
+        <div className="  text-neutral-500 text-sm text-left mt-4 font-light px-4">
+            <p>
+                
+                <span
+                    onClick={() => router.push("/")}
+                    className="
+              text-zinc-500
+              text-lg font-medium
+              cursor-pointer
+              hover:underline
+            "
+                >
+                    {"Forget Password?"}
+                </span>
+            </p>
+        </div>
+    );
 
     return (
         <Container>
@@ -168,7 +168,7 @@ const Login = () => {
                                         disabled={isLoading}
                                     />
                                 </div>
-                                {/* <div className="w-full">{footer}</div> */}
+                                <div className="w-full">{footer}</div>
                             </div>
                         </div>
                     </div>

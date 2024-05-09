@@ -15,6 +15,13 @@ export const authOptions: AuthOptions = {
             clientSecret: process.env.GITHUB_SECRET as string,
         }),
         GoogleProvider({
+            profile(profile) {
+                return {
+                    ...profile,
+                    role: profile.role ?? "user",
+                    id: profile.id.toString(),
+                };
+            },
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
@@ -26,7 +33,7 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.email || !credentials?.password) {
-                    throw new Error("خطأ في اسم المستخدم أو كلمة المرور");
+                    throw new Error("Invalid email or password!");
                 }
 
                 const user = await prisma.user.findUnique({
@@ -35,8 +42,12 @@ export const authOptions: AuthOptions = {
                     },
                 });
 
+                if (!user) {
+                    throw new Error("User not found!");
+                }
+
                 if (!user || !user?.hashedPassword) {
-                    throw new Error("خطأ في اسم المستخدم أو كلمة المرور");
+                    throw new Error("Invalid email or password!");
                 }
 
                 const isCorrectPassword = await bcrypt.compare(
@@ -45,13 +56,26 @@ export const authOptions: AuthOptions = {
                 );
 
                 if (!isCorrectPassword) {
-                    throw new Error("خطأ في اسم المستخدم أو كلمة المرور");
+                    throw new Error("Invalid email or password!");
                 }
+
+                user.role = user.role || "user";
 
                 return user;
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) token.role = user.role;
+            return token;
+        },
+        async session({ user, session, token }) {
+            if (session?.user) session.user.role = token.role;
+            return session;
+        },
+    },
+
     pages: {
         signIn: "/login",
         signOut: "/login",

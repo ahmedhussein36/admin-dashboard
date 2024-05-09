@@ -30,20 +30,20 @@ export default async function RootLayout({
                         <RegisterModal />
                         <ToasterProvider />
                     </div>
-                    {currentUser ? (
-                        <main className=" flex justify-start items-start relative gap-2">
-                            <div className="w-full h-[calc(100vh)] md:w-[90px] md:min-w-[90px] bottom-24 md:left-0 md:sticky top-0 z-50">
-                                <MainSidebar />
-                            </div>
+                        {currentUser ? (
+                            <main className=" flex justify-start items-start relative gap-2">
+                                <div className="w-full h-[calc(100vh)] md:w-[90px] md:min-w-[90px] bottom-24 md:left-0 md:sticky top-0 z-50">
+                                    <MainSidebar />
+                                </div>
 
-                            <div className="flex-grow ml-2 overflow-auto h-[99vh]">
-                                <Navbar currentUser={currentUser} />
-                                {children}
-                            </div>
-                        </main>
-                    ) : (
-                        <Login />
-                    )}
+                                <div className="flex-grow ml-2 overflow-auto h-[99vh]">
+                                    <Navbar currentUser={currentUser} />
+                                    {children}
+                                </div>
+                            </main>
+                        ) : (
+                            <Login />
+                        )}
                 </div>
             </body>
         </html>

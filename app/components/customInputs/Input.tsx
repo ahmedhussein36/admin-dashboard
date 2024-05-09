@@ -94,7 +94,7 @@ const Input: React.FC<InputProps> = ({
                     ${
                         errors[id]
                             ? "focus:border-rose-500"
-                            : "focus:border-black"
+                            : ""
                     }
         `}
             />

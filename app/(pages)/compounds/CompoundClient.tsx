@@ -69,7 +69,7 @@ const CompoundClient: React.FC<Props> = ({
     useEffect(() => {
         if (title !== "") {
             const data = compounds.filter((item) => {
-                return item.title.includes(title.toLocaleLowerCase());
+                return item.title.toLocaleLowerCase().includes(title);
             });
             setFilteredData(data);
         } else {
@@ -101,7 +101,7 @@ const CompoundClient: React.FC<Props> = ({
                         Inactive
                     </div>
                 </>
-            ); 
+            );
     }, []);
 
     return (
@@ -123,7 +123,6 @@ const CompoundClient: React.FC<Props> = ({
                         <LuSearch size={20} color="#757575" />
                     </div>
                 </div>
-               
             </div>
 
             <div
@@ -159,7 +158,7 @@ const CompoundClient: React.FC<Props> = ({
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y font-medium text-lg">
-                                    {filteredData.map((item : any) => (
+                                    {filteredData.map((item: any) => (
                                         <Table.Row
                                             key={item.id}
                                             className="bg-white dark:border-gray-700 dark:bg-gray-800"

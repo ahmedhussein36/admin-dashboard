@@ -1,5 +1,4 @@
 import ClientOnly from "@/app/components/ClientOnly";
-import EmptyState from "@/app/components/EmptyState";
 import DevClient from "./DevClient";
 import getDeveloperById from "@/app/actions/getDeveloperById";
 import getCompounds from "@/app/actions/getCompounds";

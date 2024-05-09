@@ -90,7 +90,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             deliveryStatus: "",
             furniture: "",
             paymentPlan: "",
-            rentalPlan: '',
+            rentalPlan: "",
             rentValue: null,
             RentalPeriod: null,
             rentAvailableDate: null,
@@ -108,14 +108,16 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             currency: "ج.م",
             size: 0,
             sizeUnit: "sqm",
-            compound: null, developer: null, area: null
+            compound: null,
+            developer: null,
+            area: null,
         },
     });
 
     const city = watch("city");
     const area = watch("area");
     const compound = watch("araa");
-    const developer = watch("araa");
+    const developer = watch("developer");
     const category = watch("category");
     const propertyType = watch("propertyType");
     const group = watch("group");
@@ -153,10 +155,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                 : amenities.filter((id: any) => id !== e.target.id)
         );
 
-        console.log(amenities)
-
+        console.log(amenities);
     };
-
 
     const slugGeneration = (title: string) => {
         const slug = title.toLowerCase().replace(/\s+/g, "-");
@@ -170,9 +170,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
 
         setIsLoading(true);
 
-
         const generatedSlug = slugGeneration(data.title);
-        data.slug = generatedSlug; // Set t  
+        data.slug = generatedSlug; // Set t
 
         axios
             .post("/api/properties", data)
@@ -239,11 +238,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     let bodyContent = (
         <div className="w-full flex flex-col gap-8">
             <div className=" absolute -top-12 right-1 w-[150px] ">
-                <Button
-                    label={"Back"}
-                    outline
-                    onClick={() => router.back()}
-                />
+                <Button label={"Back"} outline onClick={() => router.back()} />
             </div>
             <Heading
                 title="مرحباَ، اختر التصنيف المناسب للوحدة"
@@ -295,10 +290,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         <div key={item.id} className="col-span-1 p-2">
                             <CategoryInput
                                 onClick={(group) => {
-                                    setCustomValue(
-                                        "group",
-                                        group
-                                    );
+                                    setCustomValue("group", group);
                                     setGetGroup(item.id);
                                 }}
                                 selected={group === item.value}
@@ -380,7 +372,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
 
     const salePayment = (
         <div className=" flex flex-col gap-4 justify-center">
-            <div className=" grid grid-cols-1 md:grid-cols-2 gap-4  max-h-full " >
+            <div className=" grid grid-cols-1 md:grid-cols-2 gap-4  max-h-full ">
                 {paymentPlans.map((item) => (
                     <div key={item.name} className="col-span-1">
                         <CategoryInput
@@ -395,8 +387,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                             label={item.name}
                         />
                     </div>
-                ))
-                }
+                ))}
             </div>
 
             {isInstallment ? (
@@ -481,38 +472,34 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                 ))}
             </div>
 
-            {
-
-                (isDeveloper ? (
-                    <Input
-                        id="developerName"
-                        label="اسم المطور"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                        required={isDeveloper}
-                        message="مطلوب"
-                    />
-                ) : (
-                    <Input
-                        id="commissionValue"
-                        label="عمولة الشركة (اختياري*)"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                        type="number"
-                        customFormat
-                        unit="%"
-                    />)
-                )}
-
-
+            {isDeveloper ? (
+                <Input
+                    id="developerName"
+                    label="اسم المطور"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required={isDeveloper}
+                    message="مطلوب"
+                />
+            ) : (
+                <Input
+                    id="commissionValue"
+                    label="عمولة الشركة (اختياري*)"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    type="number"
+                    customFormat
+                    unit="%"
+                />
+            )}
         </div>
-    )
+    );
 
     const rentPayment = (
         <div className=" flex flex-col gap-4 justify-center">
-            <div className=" grid grid-cols-1 md:grid-cols-2 gap-4  max-h-full " >
+            <div className=" grid grid-cols-1 md:grid-cols-2 gap-4  max-h-full ">
                 {rentTypes.map((item) => (
                     <div key={item.id} className="col-span-1">
                         <CategoryInput
@@ -523,8 +510,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                             label={item.name}
                         />
                     </div>
-                ))
-                }
+                ))}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -537,7 +523,6 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         type="date"
                         errors={errors}
                     />
-
                 </div>
                 <div className="flex gap-2 w-full">
                     <Input
@@ -569,9 +554,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                     />
                 </div>
             </div>
-
         </div>
-    )
+    );
 
     if (step === STEPS.INFO) {
         bodyContent = (
@@ -635,9 +619,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     isSearchable={false}
                                     options={compounds}
                                     placeholder="Select compound"
-                                    formatOptionLabel={(compound: SafeCompound) => (
-                                        <div>{compound.title}</div>
-                                    )}
+                                    formatOptionLabel={(
+                                        compound: SafeCompound
+                                    ) => <div>{compound.title}</div>}
                                     classNames={{
                                         control: () =>
                                             "p-1 border placeholder:text-slate-400 focus:border-primary-500",
@@ -697,7 +681,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         subtitle=""
                     />
                     <Counter
-                        onChange={(value) => setCustomValue("bathroomCount", value)}
+                        onChange={(value) =>
+                            setCustomValue("bathroomCount", value)
+                        }
                         value={bathroomCount}
                         title="عدد الحمامات"
                         subtitle=""
@@ -716,7 +702,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         message="من فضلك أدخل قيمة صالحة"
                         min={1}
                     />
-                     <Input
+                    <Input
                         id="deliveryDate"
                         label="تاريخ التسليم :"
                         disabled={isLoading}
@@ -739,14 +725,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         min={1}
                     />
 
+                    {category === "للبيع" && salePayment}
 
-                    {
-                        category === "للبيع" && salePayment
-                    }
-
-                    {
-                        category === "للإيجار" && rentPayment
-                    }
+                    {category === "للإيجار" && rentPayment}
 
                     <Input
                         id="phone"
@@ -790,7 +771,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                             <CitySelect
                                 label="اختر المدينة"
                                 value={city}
-                                onChange={(value) => setCustomValue("city", value)}
+                                onChange={(value) =>
+                                    setCustomValue("city", value)
+                                }
                             />
                         </div>
                     </div>
@@ -970,7 +953,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     value="مفروش جزئي"
                                     className=" focus:ring-0 transition-all"
                                 />
-                                <Label htmlFor="half-furnitured">مفروش جزئي</Label>
+                                <Label htmlFor="half-furnitured">
+                                    مفروش جزئي
+                                </Label>
                             </div>
                             <div className=" flex gap-2 justify-start items-center">
                                 <Radio
@@ -981,7 +966,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                 />
                                 <Label htmlFor="notfurnitured">غير مفروش</Label>
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
                     <div className=" w-full mt-4 mx-4 flex justify-start items-center gap-3">
@@ -1089,7 +1074,6 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                     </div>
                 </div>
             </>
-
         );
     }
 

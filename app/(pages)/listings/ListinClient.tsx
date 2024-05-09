@@ -26,7 +26,7 @@ const ListinClient: React.FC<ListinClientProps> = ({
     useEffect(() => {
         if (title !== "") {
             const data = listings.filter((item) => {
-                return item.title.includes(title.toLocaleLowerCase());
+                return item.title.toLocaleLowerCase().includes(title)
             });
             setFilteredData(data);
         } else {

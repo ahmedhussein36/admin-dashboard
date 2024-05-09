@@ -131,7 +131,7 @@ export function MainSidebar() {
     return (
         <div
             className=" h-full overflow-auto flex 
-        flex-col justify-start items-start gap-3 py-4 
+        flex-col justify-start items-start gap-1 py-4
          bg-slate-900 shadow-slate-200"
         >
             <SidebarItem

@@ -23,7 +23,7 @@ const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
     const compounds = await getCompounds(searchParams);
     const developers = await getDevelopers(searchParams);
     const areas = await getAreas(searchParams);
-    const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser(); 
     const listings = await getProperties(searchParams);
 
     return (

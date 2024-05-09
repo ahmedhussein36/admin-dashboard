@@ -72,7 +72,7 @@ const DeveloperClient: React.FC<Props> = ({
     useEffect(() => {
         if (title !== "") {
             const data = developers.filter((item) => {
-                return item.title.includes(title.toLocaleLowerCase());
+                return item.title.toLocaleLowerCase().includes(title)
             });
             setFilteredData(data);
         } else {

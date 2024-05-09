@@ -12,11 +12,14 @@ datasource db {
 
 model User {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?        @unique
+  name           String
+  username       String?
+  email          String       @unique
+  role           String?
+  status         String?
   emailVerified  DateTime?
   image          String?
-  hashedPassword String?
+  hashedPassword String
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
   favoriteIds    String[]       @db.ObjectId
@@ -238,7 +241,7 @@ model Post {
   isAddHome       Boolean?
   isFooterMenu    Boolean?
   isRecommended   Boolean?
-  metaTitle        String?
+  metaTitle       String?
   metaDescription String?
   tags            PostTags[]
   categories      PostCategory[]

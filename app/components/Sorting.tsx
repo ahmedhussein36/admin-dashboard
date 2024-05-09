@@ -5,7 +5,6 @@ import {
     MdCheckCircleOutline,
     MdErrorOutline,
 } from "react-icons/md";
-import { IoMdCloseCircleOutline } from "react-icons/io";
 import { FaRegTrashCan } from "react-icons/fa6";
 import Link from "next/link";
 
@@ -23,7 +22,7 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
 
     useEffect(() => {
         setAllData(data);
-    });
+    },[data]);
 
     useEffect(() => {
         let activeListings: any[] = data.filter(
@@ -31,21 +30,21 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
         );
 
         setActive(activeListings);
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         let pendingListings = data.filter(
             (item: any) => item.status === "pending"
         );
         setPending(pendingListings);
-    }, []);
+    }, [data]);
 
     useMemo(() => {
         let inactiveListings = data.filter(
             (item: any) => item.status === "inactive"
         );
         setInctive(inactiveListings);
-    }, []);
+    }, [data]);
 
     useMemo(() => {
         let trashedListings: any[] = [];

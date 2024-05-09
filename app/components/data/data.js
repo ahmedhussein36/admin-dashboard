@@ -9,6 +9,34 @@ import {
 import { FaShop } from "react-icons/fa6";
 import { MdVilla } from "react-icons/md";
 
+export const userRoles = [
+    {
+        id: 1,
+        name: "admin",
+        label: "Admin",
+    },
+    {
+        id: 2,
+        name: "manager",
+        label: "Manager",
+    },
+    {
+        id: 3,
+        name: "editor",
+        label: "Editor",
+    },
+    {
+        id: 4,
+        name: "auther",
+        label: "Auther",
+    },
+    {
+        id: 5,
+        name: "user",
+        label: "User",
+    },
+];
+
 export const categories = [
     {
         id: "1",

@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "admin",
+        "label": "Admin"
+    },
+    {
+        "id": 2,
+        "name": "manager",
+        "label": "Manager"
+    },
+    {
+        "id": 3,
+        "name": "editor",
+        "label": "Editor"
+    },
+    {
+        "id": 4,
+        "name": "auther",
+        "label": "Auther"
+    },
+    {
+        "id": 5,
+        "name": "user",
+        "label": "User"
+    }
+]

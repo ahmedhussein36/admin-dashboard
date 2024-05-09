@@ -27,9 +27,17 @@ const page = async () => {
                             id="vector"
                             className=" w-1/2 flex justify-center items-center p-4"
                         >
-                            <Image src={"/images/Build your home.gif"} alt="login-images/Build your home"/>
+                            <Image
+                                objectFit="cover"
+                                priority
+                                src={"/images/Build your home.png"}
+                                alt="login-images/Build your home"
+                            />
                         </div>
-                        <div  id="login" className=" w-1/2 flex justify-center items-center p-4">
+                        <div
+                            id="login"
+                            className=" w-1/2 flex justify-center items-center p-4"
+                        >
                             <Login />
                         </div>
                     </div>
