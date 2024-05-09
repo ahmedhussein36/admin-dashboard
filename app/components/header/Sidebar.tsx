@@ -68,8 +68,10 @@ export const SidebarItem: FC<
             >
                 <div className=" w-fit">{icon}</div>
                 <div
-                    className={` ${
-                        isOpen ? "opacity-100" : "hidden opacity-0"
+                    className={` 
+                     overflow-hidden
+                    ${
+                        isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
                     } "hidden font-medium duration-300 transition-all"`}
                 >
                     {label}
@@ -159,8 +161,9 @@ export function MainSidebar() {
     return (
         <div
             className={`
+             overflow-hidden
             ${isOpen? "w-[130px]" : "w-[70px]"}
-                h-full min-w-[70px]
+                h-full min-w-[70px] 
                 overflow-auto 
                 flex transition-all duration-300
                 flex-col 
