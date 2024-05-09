@@ -1,22 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import React, { Children, FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import {
     MdSpaceDashboard,
     MdFeaturedPlayList,
     MdMapsHomeWork,
     MdPieChart,
-    MdOutlineMoreHoriz,
-    MdKeyboardArrowRight,
     MdMoreHoriz,
 } from "react-icons/md";
 import { TbArticleFilledFilled, TbCategoryFilled } from "react-icons/tb";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaMapLocationDot, FaTag, FaUsers } from "react-icons/fa6";
-import { CgMoreO } from "react-icons/cg";
 import { LuNetwork } from "react-icons/lu";
-import { block } from "sharp";
+import {
+    IoIosArrowDropleftCircle,
+    IoIosArrowDroprightCircle,
+} from "react-icons/io";
 
 interface SidebarItemProps {
     href: string;
@@ -26,11 +26,21 @@ interface SidebarItemProps {
     activeLabel?: string;
     isMore?: boolean;
     onClick?: () => void;
+    isOpen?: boolean;
 }
 
 export const SidebarItem: FC<
     SidebarItemProps & { setActiveLabel: (label: string) => void }
-> = ({ href, icon, label, setActiveLabel, activeLabel, isMore, onClick }) => {
+> = ({
+    href,
+    icon,
+    label,
+    setActiveLabel,
+    activeLabel,
+    isMore,
+    onClick,
+    isOpen,
+}) => {
     const isActive = activeLabel === label;
 
     return (
@@ -40,17 +50,30 @@ export const SidebarItem: FC<
                     setActiveLabel(label);
                 }}
                 href={href}
-                className={`flex justify-start items-center w-full px-4 duration-300
-                ${isMore ? "flex-row gap-3" : "flex-col"}
-                            gap-1 
-                            hover:bg-slate-800 py-2 ${
-                                isActive
-                                    ? " text-rose-500 font-bold bg-slate-800"
-                                    : "text-slate-500"
-                            }`}
+                className={`
+                flex transition-all  
+                ${
+                    isOpen
+                        ? "justify-start items-center"
+                        : "justify-start items-center"
+                }
+                 w-full px-4 duration-300
+                gap-3 flex-row
+                hover:bg-slate-800 py-2
+                ${
+                    isActive
+                        ? " text-rose-500 font-bold bg-slate-800"
+                        : "text-slate-500"
+                }`}
             >
-                <div className="w-[20px h-[20px]">{icon}</div>
-                <div className="font-medium">{label}</div>
+                <div className=" w-fit">{icon}</div>
+                <div
+                    className={` ${
+                        isOpen ? "opacity-100" : "hidden opacity-0"
+                    } "hidden font-medium duration-300 transition-all"`}
+                >
+                    {label}
+                </div>
             </Link>
         </div>
     );
@@ -116,6 +139,7 @@ export const MoreList = ({
 
 export function MainSidebar() {
     const [activeLabel, setActiveLabel] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const iconActive = useCallback(
         (item: string) => {
             let activColor = "#f43f5e" || "#38bdf8";
@@ -128,17 +152,40 @@ export function MainSidebar() {
         [activeLabel]
     );
 
+    const toggleOpen = useCallback(() => {
+        setIsOpen((value) => !value);
+    }, []);
+
     return (
         <div
-            className=" h-full overflow-auto flex 
-        flex-col justify-start items-start gap-1 py-4
-         bg-slate-900 shadow-slate-200"
+            className={`
+            ${isOpen? "w-[130px]" : "w-[70px]"}
+                h-full min-w-[70px]
+                overflow-auto 
+                flex transition-all duration-300
+                flex-col 
+                justify-start 
+                items-start py-4
+                gap-2               
+                bg-slate-900 shadow-slate-200
+            `}
         >
+            <div className=" flex justify-start px-4 items-center w-full mt-1 mb-2">
+                <button onClick={toggleOpen}>
+                    {isOpen ? (
+                        <IoIosArrowDropleftCircle color="orange" size={24} />
+                    ) : (
+                        <IoIosArrowDroprightCircle color="orange" size={24} />
+                    )}
+                </button>
+            </div>
+
             <SidebarItem
+                isOpen={isOpen}
                 href="/"
                 icon={
                     <MdSpaceDashboard
-                        size="20"
+                        size={isOpen ? "24" : "24"}
                         color={iconActive("Dashboard")}
                     />
                 }
@@ -147,10 +194,11 @@ export function MainSidebar() {
                 activeLabel={activeLabel}
             />
             <SidebarItem
+                isOpen={isOpen}
                 href="/listings"
                 icon={
                     <MdFeaturedPlayList
-                        size="20"
+                        size={isOpen ? "24" : "24"}
                         color={iconActive("Listings")}
                     />
                 }
@@ -159,26 +207,40 @@ export function MainSidebar() {
                 activeLabel={activeLabel}
             />
             <SidebarItem
+                isOpen={isOpen}
                 href="/compounds"
                 icon={
-                    <MdMapsHomeWork size="20" color={iconActive("Compounds")} />
+                    <MdMapsHomeWork
+                        size={isOpen ? "24" : "24"}
+                        color={iconActive("Compounds")}
+                    />
                 }
                 label="Compounds"
                 setActiveLabel={setActiveLabel}
                 activeLabel={activeLabel}
             />
             <SidebarItem
+                isOpen={isOpen}
                 href="/developers"
-                icon={<MdPieChart size="20" color={iconActive("Developers")} />}
+                icon={
+                    <MdPieChart
+                        size={isOpen ? "24" : "24"}
+                        color={iconActive("Developers")}
+                    />
+                }
                 label="Developers"
                 setActiveLabel={setActiveLabel}
                 activeLabel={activeLabel}
             />
 
             <SidebarItem
+                isOpen={isOpen}
                 href="/areas"
                 icon={
-                    <FaMapLocationDot size="20" color={iconActive("Areas")} />
+                    <FaMapLocationDot
+                        size={isOpen ? "24" : "24"}
+                        color={iconActive("Areas")}
+                    />
                 }
                 label="Areas"
                 setActiveLabel={setActiveLabel}
@@ -187,10 +249,11 @@ export function MainSidebar() {
 
             <SidebarGroup>
                 <SidebarItem
+                    isOpen={isOpen}
                     href="/blog/posts"
                     icon={
                         <TbArticleFilledFilled
-                            size="20"
+                            size={isOpen ? "24" : "24"}
                             color={iconActive("Posts")}
                         />
                     }
@@ -199,10 +262,11 @@ export function MainSidebar() {
                     activeLabel={activeLabel}
                 />
                 <SidebarItem
+                    isOpen={isOpen}
                     href="/blog/categories"
                     icon={
                         <TbCategoryFilled
-                            size="20"
+                            size={isOpen ? "24" : "24"}
                             color={iconActive("Categories")}
                         />
                     }
@@ -211,8 +275,14 @@ export function MainSidebar() {
                     activeLabel={activeLabel}
                 />
                 <SidebarItem
+                    isOpen={isOpen}
                     href="/"
-                    icon={<FaTag size="20" color={iconActive("Tags")} />}
+                    icon={
+                        <FaTag
+                            size={isOpen ? "24" : "24"}
+                            color={iconActive("Tags")}
+                        />
+                    }
                     label="Tags"
                     setActiveLabel={setActiveLabel}
                     activeLabel={activeLabel}
@@ -220,39 +290,45 @@ export function MainSidebar() {
             </SidebarGroup>
 
             <SidebarGroup>
-                <MoreList color={iconActive("More")}>
-                    <SidebarItem
-                        isMore
-                        href="/users"
-                        icon={<FaUsers size="20" color={iconActive("Users")} />}
-                        label="Users"
-                        setActiveLabel={setActiveLabel}
-                        activeLabel={activeLabel}
-                    />
-                    <SidebarItem
-                        isMore
-                        href="/rules"
-                        icon={
-                            <LuNetwork size="20" color={iconActive("Rules")} />
-                        }
-                        label="Rules"
-                        setActiveLabel={setActiveLabel}
-                        activeLabel={activeLabel}
-                    />
-                    <SidebarItem
-                        isMore
-                        href="/settings"
-                        icon={
-                            <RiSettings5Fill
-                                size="20"
-                                color={iconActive("Settings")}
-                            />
-                        }
-                        label="Settings"
-                        setActiveLabel={setActiveLabel}
-                        activeLabel={activeLabel}
-                    />
-                </MoreList>
+                <SidebarItem
+                    isOpen={isOpen}
+                    href="/users"
+                    icon={
+                        <FaUsers
+                            size={isOpen ? "24" : "24"}
+                            color={iconActive("Users")}
+                        />
+                    }
+                    label="Users"
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
+                <SidebarItem
+                    isOpen={isOpen}
+                    href="/roles"
+                    icon={
+                        <LuNetwork
+                            size={isOpen ? "24" : "24"}
+                            color={iconActive("Rules")}
+                        />
+                    }
+                    label="Rules"
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
+                <SidebarItem
+                    isOpen={isOpen}
+                    href="/settings"
+                    icon={
+                        <RiSettings5Fill
+                            size={isOpen ? "24" : "24"}
+                            color={iconActive("Settings")}
+                        />
+                    }
+                    label="Settings"
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
             </SidebarGroup>
         </div>
     );

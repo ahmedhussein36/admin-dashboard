@@ -31,8 +31,14 @@ export default async function RootLayout({
                         <ToasterProvider />
                     </div>
                         {currentUser ? (
-                            <main className=" flex justify-start items-start relative gap-2">
-                                <div className="w-full h-[calc(100vh)] md:w-[90px] md:min-w-[90px] bottom-24 md:left-0 md:sticky top-0 z-50">
+                            <main className=" flex justify-start items-start relative gap-2 transition-all">
+                                <div className="
+                                                transition-all 
+                                                md:h-[calc(100vh)] 
+                                                w-fit
+                                                bottom-24 md:left-0 
+                                                md:sticky top-0 z-50"
+                                >
                                     <MainSidebar />
                                 </div>
 

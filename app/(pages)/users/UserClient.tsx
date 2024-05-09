@@ -64,7 +64,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
     }, [users, title]);
 
     const StutusColor = useCallback((status: string | null) => {
-        if (status === "Active")
+        if (status === "active")
             return (
                 <>
                     <div className="bg-lime-50 text-lime-500 text-center font-normal text-base rounded-full py-1 px-3 w-20">
@@ -72,7 +72,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                     </div>
                 </>
             );
-        if (status === "Pending")
+        if (status === "pending")
             return (
                 <>
                     <div className="bg-orange-50 text-orange-400 text-center font-normal text-base rounded-full py-1 px-3 w-20">
@@ -80,7 +80,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                     </div>
                 </>
             );
-        if (status === "Inactive")
+        if (status === "inactive")
             return (
                 <>
                     <div className="bg-red-50 text-red-400 text-center text-base font-normal rounded-full py-1 px-3 w-fit">

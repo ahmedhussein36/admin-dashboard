@@ -16,7 +16,7 @@ import Container from "@/app/components/Container";
 import { useRouter } from "next/navigation";
 import { Spinner } from "flowbite-react";
 
-const userStatus = ["Active", "Pending", "Inactive"];
+const userStatus = ["active", "pending", "inactive"];
 const userRoles = ["Admin", "Manager", "Editor", "Auther", "User"];
 
 const RegisterClient = () => {

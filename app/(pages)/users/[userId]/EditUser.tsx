@@ -10,9 +10,8 @@ import React, { FC, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Spinner } from "flowbite-react";
-import { Dropdown } from "primereact/dropdown";
 
-const userStatus = ["Active", "Pending", "Inactive"];
+const userStatus = ["active", "pending", "inactive"];
 const userRoles = ["Admin", "Manager", "Editor", "Auther", "User"];
 
 interface EditProps {
@@ -21,14 +20,11 @@ interface EditProps {
 
 const EditUser: FC<EditProps> = ({ user }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedCity, setSelectedCity] = useState(false);
     const router = useRouter();
 
     const {
         register,
-        watch,
         handleSubmit,
-        setValue,
         formState: { errors },
     } = useForm<FieldValues>({
         defaultValues: {
@@ -142,10 +138,14 @@ const EditUser: FC<EditProps> = ({ user }) => {
                         <select
                             {...register("role")}
                             placeholder="Select"
-                            className=" w-full rounded-md py-3"
+                            className=" w-full rounded-md py-3 font-medium text-lg"
                         >
                             {userRoles.map((role, i) => (
-                                <option key={i} value={role}>
+                                <option
+                                    className=" font-medium text-lg my-2"
+                                    key={i}
+                                    value={role}
+                                >
                                     {role}
                                 </option>
                             ))}
@@ -161,10 +161,11 @@ const EditUser: FC<EditProps> = ({ user }) => {
                             className=" w-full rounded-md py-3 font-medium text-lg"
                         >
                             {userStatus.map((status, i) => (
-                                <option 
-                                className=" font-medium text-lg hover:bg-slate-100 py-8"
-                                value={status} 
-                                key={i}>
+                                <option
+                                    className=" font-medium text-lg my-2"
+                                    value={status}
+                                    key={i}
+                                >
                                     {status}
                                 </option>
                             ))}
@@ -172,7 +173,6 @@ const EditUser: FC<EditProps> = ({ user }) => {
                     </div>
                 </div>
             </div>
-          
         </Container>
     );
 };
