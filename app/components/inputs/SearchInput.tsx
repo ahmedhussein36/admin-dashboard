@@ -66,9 +66,9 @@ const SearchInput: React.FC<InputProps> = ({
                         ${
                             button
                                 ? "rounded-none border-none h-full p-2 bg-none"
-                                : " rounded-md  bg-white p-3 "
+                                : " rounded-md  bg-white p-2 "
                         }
-                        focus:border-slate-400 focus:ring-0 border-2 border-slate-300
+                        focus:border-slate-400 focus:ring-0 border-1 text-lg font-medium
                         rounded-md
                         outline-none
                         transition

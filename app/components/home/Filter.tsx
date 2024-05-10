@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 interface FilterProps {
     areas?: SafeArea[] | any;
-    compounds?: SafeCompound[] | any;
+    compounds?: SafeCompound[] | any; 
     developers?: SafeDeveloper[] | any;
 }
 

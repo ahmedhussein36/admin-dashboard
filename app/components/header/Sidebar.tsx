@@ -162,7 +162,7 @@ export function MainSidebar() {
         <div
             className={`
              overflow-hidden
-            ${isOpen? "w-[130px]" : "w-[70px]"}
+            ${isOpen ? "w-[130px]" : "w-[70px]"}
                 h-full min-w-[70px] 
                 overflow-auto 
                 flex transition-all duration-300
@@ -188,7 +188,8 @@ export function MainSidebar() {
                 href="/"
                 icon={
                     <MdSpaceDashboard
-                        size={isOpen ? "24" : "24"}
+                        className=" transition-all duration-300"
+                        size={isOpen ? "20" : "24"}
                         color={iconActive("Dashboard")}
                     />
                 }
@@ -201,7 +202,8 @@ export function MainSidebar() {
                 href="/listings"
                 icon={
                     <MdFeaturedPlayList
-                        size={isOpen ? "24" : "24"}
+                        className=" transition-all duration-300"
+                        size={isOpen ? "20" : "24"}
                         color={iconActive("Listings")}
                     />
                 }
@@ -214,7 +216,8 @@ export function MainSidebar() {
                 href="/compounds"
                 icon={
                     <MdMapsHomeWork
-                        size={isOpen ? "24" : "24"}
+                        className=" transition-all duration-300"
+                        size={isOpen ? "20" : "24"}
                         color={iconActive("Compounds")}
                     />
                 }
@@ -227,7 +230,8 @@ export function MainSidebar() {
                 href="/developers"
                 icon={
                     <MdPieChart
-                        size={isOpen ? "24" : "24"}
+                        className=" transition-all duration-300"
+                        size={isOpen ? "20" : "24"}
                         color={iconActive("Developers")}
                     />
                 }
@@ -241,7 +245,8 @@ export function MainSidebar() {
                 href="/areas"
                 icon={
                     <FaMapLocationDot
-                        size={isOpen ? "24" : "24"}
+                        className=" transition-all duration-300"
+                        size={isOpen ? "20" : "24"}
                         color={iconActive("Areas")}
                     />
                 }
@@ -256,7 +261,8 @@ export function MainSidebar() {
                     href="/blog/posts"
                     icon={
                         <TbArticleFilledFilled
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Posts")}
                         />
                     }
@@ -269,7 +275,8 @@ export function MainSidebar() {
                     href="/blog/categories"
                     icon={
                         <TbCategoryFilled
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Categories")}
                         />
                     }
@@ -282,7 +289,8 @@ export function MainSidebar() {
                     href="/"
                     icon={
                         <FaTag
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Tags")}
                         />
                     }
@@ -298,7 +306,8 @@ export function MainSidebar() {
                     href="/users"
                     icon={
                         <FaUsers
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Users")}
                         />
                     }
@@ -311,7 +320,8 @@ export function MainSidebar() {
                     href="/roles"
                     icon={
                         <LuNetwork
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Rules")}
                         />
                     }
@@ -324,7 +334,8 @@ export function MainSidebar() {
                     href="/settings"
                     icon={
                         <RiSettings5Fill
-                            size={isOpen ? "24" : "24"}
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
                             color={iconActive("Settings")}
                         />
                     }

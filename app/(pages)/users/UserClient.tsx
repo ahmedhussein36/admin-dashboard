@@ -13,6 +13,10 @@ import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
+import UserFilter from "@/app/components/UserFilter";
+
+const userStatus = ["active", "pending", "inactive"];
+const userRoles = ["Admin", "Manager", "Editor", "Auther", "User"];
 
 interface Props {
     users: SafeUser[];
@@ -94,7 +98,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
         <>
             <Confirm isLoading={isLoading} onDelete={() => onDelete(userId)} />
 
-            <div className=" w-full flex justify-between items-center gap-4 my-8">
+            <div className=" w-full flex justify-start items-end gap-4 my-8">
                 <div className="w-1/4 relative">
                     <SearchInput
                         isFilter={false}
@@ -105,6 +109,11 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                     <div className=" absolute top-3 right-4">
                         <LuSearch size={20} color="#757575" />
                     </div>
+                </div>
+                <div className="w-1/3 flex justify-center items-center ">
+                    <UserFilter
+                        userRoles={userRoles as any[]}
+                    />
                 </div>
             </div>
 

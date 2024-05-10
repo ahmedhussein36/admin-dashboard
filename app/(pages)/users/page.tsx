@@ -7,8 +7,8 @@ import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { redirect } from "next/navigation";
 import ClientOnly from "@/app/components/ClientOnly";
-import Filter from "@/app/components/home/Filter";
 import getUsers, { UserParams } from "@/app/actions/getUsers";
+import UserFilter from "@/app/components/UserFilter";
 
 interface UsersProps {
     searchParams: UserParams;
@@ -46,13 +46,6 @@ const UserPage = async ({ searchParams }: UsersProps) => {
                 </div>
                 <div className=" my-2 flex justify-between items-center ">
                     <Sorting data={users} parent="users" />
-                </div>
-                <div className="my-2 flex justify-center items-center ">
-                    {/* <Filter
-                        users={users}
-                        areas={areas}
-                        developers={developers}
-                    /> */}
                 </div>
                 <ClientOnly>
                     <UserClient users={users as any} />
