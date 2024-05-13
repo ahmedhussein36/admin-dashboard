@@ -98,7 +98,7 @@ const PostClient: React.FC<Props> = ({ posts }) => {
                         isFilter={false}
                         value={title}
                         onChange={(e) => setTitle(e.target.value as any)}
-                        Placeholder="Search for compound"
+                        Placeholder="Search for posts"
                     />
                     <div className=" absolute top-3 right-4">
                         <LuSearch size={20} color="#757575" />
@@ -108,14 +108,13 @@ const PostClient: React.FC<Props> = ({ posts }) => {
 
             <div
                 className="
-
-                            pt-2
-                            mt-2
-                           w-full
-                            sm:grid-cols-2 
-                            md:grid-cols-3 
-                            gap-8
-                        "
+                        pt-2
+                        mt-2
+                        w-full
+                        sm:grid-cols-2 
+                        md:grid-cols-3 
+                        gap-8
+                    "
             >
                 <ClientOnly>
                     <EmptyState />

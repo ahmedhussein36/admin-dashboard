@@ -17,6 +17,7 @@ import {
     IoIosArrowDropleftCircle,
     IoIosArrowDroprightCircle,
 } from "react-icons/io";
+import { FaBullhorn } from "react-icons/fa";
 
 interface SidebarItemProps {
     href: string;
@@ -254,6 +255,22 @@ export function MainSidebar() {
                 setActiveLabel={setActiveLabel}
                 activeLabel={activeLabel}
             />
+            <SidebarGroup>
+                <SidebarItem
+                    isOpen={isOpen}
+                    label="Launches"
+                    href="/new-launches"
+                    icon={
+                        <FaBullhorn
+                            className=" transition-all duration-300"
+                            size={isOpen ? "20" : "24"}
+                            color={iconActive("Launches")}
+                        />
+                    }
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
+            </SidebarGroup>
 
             <SidebarGroup>
                 <SidebarItem
