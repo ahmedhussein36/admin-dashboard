@@ -116,9 +116,8 @@ const PostClient: React.FC<Props> = ({ posts }) => {
                         gap-8
                     "
             >
-                <ClientOnly>
+                
                     <EmptyState />
-                </ClientOnly>
             </div>
         </Container>
     );

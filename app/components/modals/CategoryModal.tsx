@@ -33,7 +33,7 @@ const CategoryModal = () => {
             slug: "",
             image: "",
             metaTitle: "",
-            metaDescription:""
+            metaDescription: "",
         },
     });
 
@@ -139,18 +139,14 @@ const CategoryModal = () => {
                 <div>
                     <h3 className="my-2">Main Image:</h3>
                     <ImageUpload
+                        onAction={() => setCustomValue("image", "")}
                         label="Upload thumbnail Image"
                         thumbnail={true}
                         onChange={(value) => {
                             setCustomValue("image", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
-                            setCustomValue("images", [
-                                ...allPropertyImages,
-                                value,
-                            ]);
                         }}
                         value={image}
-                        allImages={allPropertyImages}
+                        image={image}
                     />
                 </div>
             </div>{" "}

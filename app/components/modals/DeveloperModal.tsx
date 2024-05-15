@@ -140,16 +140,12 @@ const DeveloperModal = () => {
                     <ImageUpload
                         label="Upload thumbnail Image"
                         thumbnail={true}
+                        onAction={() => setCustomValue("image", "")}
                         onChange={(value) => {
                             setCustomValue("image", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
-                            setCustomValue("images", [
-                                ...allPropertyImages,
-                                value,
-                            ]);
                         }}
                         value={image}
-                        allImages={allPropertyImages}
+                        image={image}
                     />
                 </div>
             </div>{" "}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -9,22 +9,17 @@ import useAreaModal from "@/app/hooks/useAreaModal";
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
-import Textarea from "../customInputs/Textarea";
 import ImageUpload from "../customInputs/ImageUpload";
 import axios from "axios";
 import { Label, Radio, Spinner } from "flowbite-react";
-import RTE from "../postForm/RTE";
 
 const AreaModal = () => {
     const router = useRouter();
     const newAreaModal = useAreaModal();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
 
     const {
         register,
-        control,
-        getValues,
         handleSubmit,
         setValue,
         watch,
@@ -90,10 +85,6 @@ const AreaModal = () => {
             });
     };
 
-    const onToggle = useCallback(() => {
-        newAreaModal.onClose();
-        newAreaModal.onOpen();
-    }, [newAreaModal]);
 
     const body = (
         <div className="flex flex-col gap-4 px-2 md:px-5 lg:px-5 xl:px-5">
@@ -170,16 +161,12 @@ const AreaModal = () => {
                     <ImageUpload
                         label="Upload thumbnail Image"
                         thumbnail={true}
+                        onAction={() => setCustomValue("image", "")}
                         onChange={(value) => {
                             setCustomValue("image", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
-                            setCustomValue("images", [
-                                ...allPropertyImages,
-                                value,
-                            ]);
                         }}
                         value={image}
-                        allImages={allPropertyImages}
+                        image={image}
                     />
                 </div>
             </div>

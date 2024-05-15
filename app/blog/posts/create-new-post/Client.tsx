@@ -258,19 +258,14 @@ const Client: FC<Props> = ({ categories, tags }) => {
                         <ImageUpload
                             label="Upload thumbnail Image"
                             thumbnail={true}
+                            onAction={() => {
+                                setCustomValue("mainImage", "");
+                            }}
                             onChange={(value) => {
                                 setCustomValue("mainImage", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                                setCustomValue("images", [
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
                             }}
                             value={mainImage}
-                            allImages={allPropertyImages}
+                            image={mainImage}
                         />
                     </div>
                 </div>

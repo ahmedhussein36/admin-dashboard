@@ -3,7 +3,6 @@ import React from "react";
 import EditUser from "./EditUser";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { redirect } from "next/navigation";
-import { SafeUser } from "@/app/types";
 
 interface UserParams {
     userId: string;
@@ -11,8 +10,6 @@ interface UserParams {
 
 const UserPage = async ({ params }: { params: UserParams }) => {
     const currentUser = await getCurrentUser();
-    const user = await getUserById(params);
-
     if (!currentUser) {
         redirect("/login");
     }
@@ -20,6 +17,8 @@ const UserPage = async ({ params }: { params: UserParams }) => {
     if (currentUser?.role?.toLocaleLowerCase() !== "admin") {
         return redirect("/");
     }
+
+    const user = await getUserById(params);
 
     return (
         <div>
