@@ -17,7 +17,7 @@ const PropertyPage = async ({ params, searchParams }: PageParams) => {
     const compounds = await getCompounds(searchParams);
     const areas = await getAreas(searchParams);
     const currentUser = await getCurrentUser();
- 
+
     if (!listing) {
         return (
             <ClientOnly>
@@ -27,7 +27,7 @@ const PropertyPage = async ({ params, searchParams }: PageParams) => {
     }
 
     return (
-        <ClientOnly>
+        <>
             <PropertyClient
                 compounds={compounds as any}
                 areas={areas as any}
@@ -35,7 +35,7 @@ const PropertyPage = async ({ params, searchParams }: PageParams) => {
                 listing={listing as any}
                 currentUser={currentUser}
             />
-        </ClientOnly>
+        </>
     );
 };
 

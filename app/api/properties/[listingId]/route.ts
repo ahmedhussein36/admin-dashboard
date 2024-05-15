@@ -45,7 +45,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         title,
         description,
         content,
-        slug,
         images,
         mainImage,
         category,
@@ -74,7 +73,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         developerName,
         commissionValue,
         deliveryDate,
-        seoDetails,
         metaDescription,
         metaTitle,
         country,
@@ -110,7 +108,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
             title,
             description,
             content,
-            slug,
             images,
             mainImage,
             category,
@@ -154,7 +151,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
             developerId: developer?.id,
             areaId: area?.id,
             compoundId: compound?.id,
-            userId: currentUser.id,
         },
     });
 

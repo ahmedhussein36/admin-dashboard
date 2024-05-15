@@ -24,9 +24,8 @@ import {
 } from "@/app/types";
 import Select from "react-select";
 
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
-import ClientOnly from "@/app/components/ClientOnly";
 import Container from "@/app/components/Container";
 import Input from "@/app/components/customInputs/Input";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
@@ -73,54 +72,50 @@ const PropertyClient: FC<PropertyClientProps> = ({
     } = useForm<FieldValues>({
         defaultValues: {
             title: listing?.title,
-            description: listing?.description || "",
-            content: listing?.content || "",
-            slug: listing?.slug || "",
-            images: listing?.images || [],
-            mainImage: listing?.mainImage || "",
-            category: listing?.category || "",
-            roomCount: listing?.roomCount || 0,
-            bathroomCount: listing?.bathroomCount || 0,
-            propertyType: listing?.propertyType || "",
-            group: listing?.group || "",
-            saleType: listing?.saleType || "",
-            amenities: listing?.amenities || [],
-            status: listing.status || "",
-            isFeatured: listing.isFeatured || false,
-            isAddHome: listing.isAddHome || false,
-            isRecommended: listing.isRecommended || false,
-            isFooterMenu: listing.isFooterMenu || false,
-            finishing: listing.finishing || "",
-            deliveryStatus: listing.deliveryStatus || "",
-            furniture: listing.furniture || "",
-            paymentPlan: listing.paymentPlan || "",
-            rentalPlan: listing.rentalPlan || "",
-            rentValue: listing.rentValue || null,
-            RentalPeriod: listing.RentalPeriod || null,
-            rentAvailableDate: listing.rentAvailableDate || null,
-            downPayment: listing.downPayment || 0,
-            installmentValue: listing.installmentValue || 0,
-            installmentPeriod: listing.installmentPeriod || 0,
-            developerName: listing.developerName || "",
-            commissionValue: listing.commissionValue || 0,
-            deliveryDate: listing.deliveryDate || null,
+            slug: listing.slug,
+            description: listing?.description,
+            content: listing?.content,
+            images: listing?.images,
+            mainImage: listing?.mainImage,
+            category: listing?.category,
+            roomCount: listing?.roomCount,
+            bathroomCount: listing?.bathroomCount,
+            propertyType: listing?.propertyType,
+            group: listing?.group,
+            saleType: listing?.saleType,
+            amenities: listing?.amenities,
+            status: listing.status,
+            isFeatured: listing.isFeatured,
+            isAddHome: listing.isAddHome,
+            isRecommended: listing.isRecommended,
+            isFooterMenu: listing.isFooterMenu,
+            finishing: listing.finishing,
+            deliveryStatus: listing.deliveryStatus,
+            furniture: listing.furniture,
+            paymentPlan: listing.paymentPlan,
+            rentalPlan: listing.rentalPlan,
+            rentValue: listing.rentValue,
+            RentalPeriod: listing.RentalPeriod,
+            rentAvailableDate: listing.rentAvailableDate,
+            downPayment: listing.downPayment,
+            installmentValue: listing.installmentValue,
+            installmentPeriod: listing.installmentPeriod,
+            developerName: listing.developerName,
+            commissionValue: listing.commissionValue,
+            deliveryDate: listing.deliveryDate,
             country: "مصر",
-            city: listing.city || null,
-            phone: listing.phone || "",
-            whatsapp: listing.whatsapp || "",
-            price: listing.price || 0,
-            currency: listing.currency || "ج.م",
-            size: listing.size || 0,
-            sizeUnit: listing.sizeUnit || "sqm",
-            compound: listing.compound || null,
-            developer: listing.developer || null,
-            area: listing.area || null,
-            // metaTitle: listing?.seoDetails?.metaTitle || "",
-            // metaDescription: listing?.seoDetails?.metaDescription || "",
-            seoDetails: {
-                metaDescription: "",
-                metaTitle: "",
-            },
+            city: listing.city,
+            phone: listing.phone,
+            whatsapp: listing.whatsapp,
+            price: listing.price,
+            currency: listing.currency,
+            size: listing.size,
+            sizeUnit: listing.sizeUnit,
+            compound: listing.compound,
+            developer: listing.developer,
+            area: listing.area,
+            metaTitle: listing?.seoDetails?.metaTitle,
+            metaDescription: listing?.seoDetails?.metaDescription,
         },
     });
 
@@ -172,15 +167,14 @@ const PropertyClient: FC<PropertyClientProps> = ({
         axios
             .put(`/api/properties/${listing.id}`, data)
             .then(() => {
-                toast.success("تم إضافة وحدتك بنجاح !", {
+                toast.success("Done : Item updated successfuly!", {
                     position: "bottom-right",
                 });
 
                 router.refresh();
-                reset();
             })
             .catch(() => {
-                toast.error("!خطأ. تعذر اضافة وحدتك", {
+                toast.error("Error :can't update Item ", {
                     position: "bottom-right",
                 });
             })
@@ -292,28 +286,25 @@ const PropertyClient: FC<PropertyClientProps> = ({
                     />
                 </div>
                 <div className=" w-full">
-                <h3 className="my-2">Other Images:</h3>
-                        <ImageUpload
-                            label="Upload compound Images"
-                            thumbnail={false}
-                            onAction={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages(
-                                    allPropertyImages.filter(
-                                        (image) => image !== value
-                                    )
-                                );
-                            }}
-                            onChange={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                            }}
-                            value={images}
-                            allImages={allPropertyImages}
-                        />
+                    <h3 className="my-2">Other Images:</h3>
+                    <ImageUpload
+                        label="Upload compound Images"
+                        thumbnail={false}
+                        onAction={(value) => {
+                            setCustomValue("images", value);
+                            setAllPropertyImages(
+                                allPropertyImages.filter(
+                                    (image) => image !== value
+                                )
+                            );
+                        }}
+                        onChange={(value) => {
+                            setCustomValue("images", value);
+                            setAllPropertyImages([...allPropertyImages, value]);
+                        }}
+                        value={images}
+                        allImages={allPropertyImages}
+                    />
                 </div>
             </div>
         );
@@ -528,6 +519,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
                             label="Slug"
                             register={register}
                             errors={errors}
+                            disabled
                         />
 
                         <div className="flex gap-2 w-full z-10 my-6">
