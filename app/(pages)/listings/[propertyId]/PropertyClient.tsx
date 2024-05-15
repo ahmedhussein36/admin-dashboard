@@ -283,42 +283,37 @@ const PropertyClient: FC<PropertyClientProps> = ({
                         thumbnail={true}
                         onAction={() => {
                             setCustomValue("mainImage", "");
-                            setAllPropertyImages(mainImage);
                         }}
                         onChange={(value) => {
                             setCustomValue("mainImage", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
-                            setCustomValue("images", [
-                                ...allPropertyImages,
-                                value,
-                            ]);
                         }}
                         value={mainImage}
-                        allImages={allPropertyImages}
+                        image={mainImage}
                     />
                 </div>
                 <div className=" w-full">
-                    <h3 className="my-2">Other Images:</h3>
-                    <ImageUpload
-                        label="Upload compound Images"
-                        thumbnail={false}
-                        onAction={() => {
-                            setCustomValue("mainImage", "");
-                            setAllPropertyImages(
-                                allPropertyImages.slice(0, -1)
-                            );
-                        }}
-                        onChange={(value) => {
-                            setCustomValue("images", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
-                            setCustomValue("images", [
-                                ...allPropertyImages,
-                                value,
-                            ]);
-                        }}
-                        value={images}
-                        allImages={allPropertyImages}
-                    />
+                <h3 className="my-2">Other Images:</h3>
+                        <ImageUpload
+                            label="Upload compound Images"
+                            thumbnail={false}
+                            onAction={(value) => {
+                                setCustomValue("images", value);
+                                setAllPropertyImages(
+                                    allPropertyImages.filter(
+                                        (image) => image !== value
+                                    )
+                                );
+                            }}
+                            onChange={(value) => {
+                                setCustomValue("images", value);
+                                setAllPropertyImages([
+                                    ...allPropertyImages,
+                                    value,
+                                ]);
+                            }}
+                            value={images}
+                            allImages={allPropertyImages}
+                        />
                 </div>
             </div>
         );
