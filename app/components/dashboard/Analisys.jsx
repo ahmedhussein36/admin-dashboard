@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export const Card = ({ label, data, color, onAction }) => {
     return (
-        <div className=" flex justify-between items-center bg-white p-6 rounded-2xl shadow shadow-zinc-400/10">
+        <div className="flex justify-between items-center bg-white p-6 rounded-2xl shadow shadow-zinc-400/10">
             <div className=" flex flex-col gap-3 justify-start items-start">
                 <span className=" text-neutral-400 text-xl font-medium">
                     {label}

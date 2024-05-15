@@ -49,7 +49,8 @@ const ListinClient: React.FC<ListinClientProps> = ({
                     </div>
                 </div>
                 <ClientOnly>
-                    <ListingsTable listings={filteredData as any} />
+                    <ListingsTable 
+                    listings={filteredData as any} />
                 </ClientOnly>
             </div>
         </>

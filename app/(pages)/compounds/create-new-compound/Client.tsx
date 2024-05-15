@@ -40,10 +40,8 @@ const Client: FC<Props> = ({ developers, areas }) => {
             content: "",
             slug: "",
             mainImage: "",
-            seoDetails: {
-                metaTitle: "",
-                metaDescription: "",
-            },
+            metaTitle: "",
+            metaDescription: "",
             isLaunch: "",
             area: null,
             developer: null,
@@ -104,7 +102,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
 
     return (
         <>
-            {" "}
             <div className="w-full flex justify-between items-center gap-3 mt-4 mb-4 p-4">
                 <Heading title="Add New Compound" />
 

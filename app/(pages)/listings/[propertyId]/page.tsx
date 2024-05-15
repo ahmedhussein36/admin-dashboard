@@ -17,7 +17,7 @@ const PropertyPage = async ({ params, searchParams }: PageParams) => {
     const compounds = await getCompounds(searchParams);
     const areas = await getAreas(searchParams);
     const currentUser = await getCurrentUser();
-
+ 
     if (!listing) {
         return (
             <ClientOnly>

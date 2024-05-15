@@ -1,56 +1,55 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
-// import getCurrentUser from "@/app/actions/getCurrentUser";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface IParams {
     compoundId?: string;
+}
+
+interface Meta {
+    title: string;
+    description: string;
 }
 
 export async function DELETE(
     request: Request,
     { params }: { params: IParams }
 ) {
-    // const currentUser = await getCurrentUser();
+    const currentUser = await getCurrentUser();
 
-    // if (!currentUser) {
-    //   return NextResponse.error();
-    // }
+    if (!currentUser) {
+        return NextResponse.error();
+    }
 
     const { compoundId } = params;
 
-    if (!compoundId || typeof compoundId !== 'string') {
-        throw new Error('Invalid ID');
+    if (!compoundId || typeof compoundId !== "string") {
+        throw new Error("Invalid ID");
     }
 
     const compound = await prisma.compound.deleteMany({
         where: {
             id: compoundId,
-        }
+        },
     });
 
     return NextResponse.json(compound);
 }
 
+export async function PUT(request: Request, { params }: { params: IParams }) {
+    const currentUser = await getCurrentUser();
 
-export async function PUT(
-    request: Request,
-    { params }: { params: IParams }
-) {
-    // const currentUser = await getCurrentUser();
-
-    // if (!currentUser) {
-    //     return NextResponse.error();
-    // }
+    if (!currentUser) {
+        return NextResponse.error();
+    }
 
     const body = await request.json();
     const {
         title,
         description,
         content,
-        slug,
         mainImage,
         images,
-        seoDetails,
         metaTitle,
         metaDescription,
         latLong,
@@ -62,7 +61,6 @@ export async function PUT(
         isRecommended,
         developer,
         area,
-
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -73,24 +71,23 @@ export async function PUT(
 
     const { compoundId } = params;
 
-    if (!compoundId || typeof compoundId !== 'string') {
-        throw new Error('Invalid ID');
+    if (!compoundId || typeof compoundId !== "string") {
+        throw new Error("Invalid ID");
     }
 
     const compound = await prisma.compound.updateMany({
         where: {
-            id: compoundId
+            id: compoundId,
         },
         data: {
             title,
             description,
             content,
-            slug,
             mainImage,
             images,
             seoDetails: {
                 metaDescription,
-                metaTitle
+                metaTitle,
             },
             latLong: parseFloat(latLong),
             isLaunch,

@@ -147,7 +147,6 @@ const CompoundClient: React.FC<Props> = ({
                                         <Checkbox />
                                     </Table.HeadCell>
                                     <Table.HeadCell>Title</Table.HeadCell>
-                                    <Table.HeadCell>slug</Table.HeadCell>
                                     <Table.HeadCell>Developer</Table.HeadCell>
                                     <Table.HeadCell>Launch</Table.HeadCell>
                                     <Table.HeadCell>Properties</Table.HeadCell>
@@ -170,7 +169,6 @@ const CompoundClient: React.FC<Props> = ({
                                             <Table.Cell>
                                                 {item.title}
                                             </Table.Cell>
-                                            <Table.Cell>{item.slug}</Table.Cell>
                                             <Table.Cell>
                                                 {item?.developer?.title}
                                             </Table.Cell>

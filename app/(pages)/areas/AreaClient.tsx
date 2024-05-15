@@ -211,7 +211,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                                 <div
                                                     onClick={() => {
                                                         router.push(
-                                                            `/areas/${item.id}`
+                                                            `/areas/${item.slug}`
                                                         );
                                                     }}
                                                     title="Edit"

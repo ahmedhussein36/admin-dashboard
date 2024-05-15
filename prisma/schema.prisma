@@ -10,6 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type Meta {
+  metaTitle       String
+  metaDescription String
+}
+
 model User {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
   name           String
@@ -154,7 +159,7 @@ model Compound {
   slug          String     @unique
   mainImage     String
   images        String[]
-  seoDetails    Json?
+  seoDetails    Meta?
   latLong       Float
   isLaunch      String
   status        String
@@ -285,4 +290,3 @@ model PostCategory {
 
   @@index([postId, categoryId])
 }
-

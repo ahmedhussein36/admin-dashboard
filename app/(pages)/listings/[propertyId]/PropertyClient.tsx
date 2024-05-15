@@ -49,7 +49,6 @@ interface PropertyClientProps {
 }
 const PropertyClient: FC<PropertyClientProps> = ({
     listing,
-    currentUser,
     compounds,
     areas,
     developers,
@@ -85,7 +84,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             propertyType: listing?.propertyType || "",
             group: listing?.group || "",
             saleType: listing?.saleType || "",
-            amenities: /*listing?.amenities ||*/ [],
+            amenities: listing?.amenities || [],
             status: listing.status || "",
             isFeatured: listing.isFeatured || false,
             isAddHome: listing.isAddHome || false,
@@ -156,7 +155,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
                 : amenities.filter((id: any) => id !== e.target.id)
         );
 
-        console.log(amenities)
+        console.log(amenities);
     };
 
     const slugGeneration = (title: string) => {

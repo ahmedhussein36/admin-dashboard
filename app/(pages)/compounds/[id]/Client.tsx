@@ -40,29 +40,23 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
-            title: compound?.title || "",
-            description: compound?.description || "",
-            content: compound?.content || "",
-            slug: compound?.slug || "",
-            mainImage: compound?.mainImage || "",
-
-            // metaTitle: compound?.seoDetails?.metaTitle || "",
-            // metaDescription: compound?.seoDetails?.metaDescription || "",
-
-            seoDetails: {
-                metaTitle: "",
-                metaDescription: "",
-            },
-            isLaunch: compound.isLaunch || "",
-            area: compound?.area || null,
-            developer: compound?.developer || null,
-            images: compound.images || [],
-            latLong: compound.latLong || 0,
-            status: compound.status || "",
-            isFeatured: compound.isFeatured || false,
-            isAddHome: compound.isAddHome || false,
-            isRecommended: compound.isRecommended || false,
-            isFooterMenu: compound.isFooterMenu || false,
+            title: compound?.title,
+            description: compound?.description,
+            content: compound?.content,
+            slug: compound?.slug,
+            mainImage: compound?.mainImage,
+            metaTitle: compound?.seoDetails?.metaTitle,
+            metaDescription: compound?.seoDetails?.metaDescription,
+            isLaunch: compound.isLaunch,
+            area: compound?.area,
+            developer: compound?.developer,
+            images: compound.images,
+            latLong: compound.latLong,
+            status: compound.status,
+            isFeatured: compound.isFeatured,
+            isAddHome: compound.isAddHome,
+            isRecommended: compound.isRecommended,
+            isFooterMenu: compound.isFooterMenu,
         },
     });
 
@@ -77,11 +71,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
             shouldTouch: true,
             shouldValidate: true,
         });
-    };
-
-    const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
-        return slug;
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {

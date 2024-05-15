@@ -1,18 +1,18 @@
 import prisma from "@/app/libs/prismadb";
 
 interface IParams {
-    areaId: string;
+    slug: string;
 }
 
 export default async function getareaById(params: IParams) {
     try {
-        const { areaId } = params;
+        const { slug } = params;
 
         const area = await prisma.area.findUnique({
             where: {
-                id: areaId,
-            }
-        })
+                slug: decodeURI(slug),
+            },
+        });
 
         if (!area) {
             return null;
@@ -20,9 +20,8 @@ export default async function getareaById(params: IParams) {
 
         const safearea = {
             ...area,
-            createdAat: area?.createdAt?.toString()
-
-        }
+            createdAat: area?.createdAt?.toString(),
+        };
 
         return safearea;
     } catch (error: any) {
