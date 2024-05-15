@@ -55,7 +55,6 @@ export async function POST(request: Request) {
         developer,
         area,
         compound,
-        seoDetails,
         metaDescription,
         metaTitle,
     } = body;

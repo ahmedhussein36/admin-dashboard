@@ -23,13 +23,13 @@ const page = async ({ searchParams }: PageProps) => {
                     <Heading title={"Add New Listings"} />
                 </div>
             </div>
-            <ClientOnly>
+            <>
                 <ListingClient
                     compounds={compounds as any}
                     developers={developers as any}
                     areas={areas as any}
                 />
-            </ClientOnly>
+            </>
         </Container>
     );
 };

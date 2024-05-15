@@ -18,6 +18,8 @@ import {
     IoIosArrowDroprightCircle,
 } from "react-icons/io";
 import { FaBullhorn } from "react-icons/fa";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import { SafeUser } from "@/app/types";
 
 interface SidebarItemProps {
     href: string;
@@ -140,7 +142,9 @@ export const MoreList = ({
     );
 };
 
-export function MainSidebar() {
+export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
+    const role = currentUser.role;
+
     const [activeLabel, setActiveLabel] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const iconActive = useCallback(
@@ -317,50 +321,56 @@ export function MainSidebar() {
                 />
             </SidebarGroup>
 
-            <SidebarGroup>
-                <SidebarItem
-                    isOpen={isOpen}
-                    href="/users"
-                    icon={
-                        <FaUsers
-                            className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
-                            color={iconActive("Users")}
-                        />
-                    }
-                    label="Users"
-                    setActiveLabel={setActiveLabel}
-                    activeLabel={activeLabel}
-                />
-                <SidebarItem
-                    isOpen={isOpen}
-                    href="/roles"
-                    icon={
-                        <LuNetwork
-                            className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
-                            color={iconActive("Rules")}
-                        />
-                    }
-                    label="Rules"
-                    setActiveLabel={setActiveLabel}
-                    activeLabel={activeLabel}
-                />
-                <SidebarItem
-                    isOpen={isOpen}
-                    href="/settings"
-                    icon={
-                        <RiSettings5Fill
-                            className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
-                            color={iconActive("Settings")}
-                        />
-                    }
-                    label="Settings"
-                    setActiveLabel={setActiveLabel}
-                    activeLabel={activeLabel}
-                />
-            </SidebarGroup>
+            {role?.toLocaleLowerCase() === "admin" && (
+                <SidebarGroup>
+                    <SidebarItem
+                        isOpen={isOpen}
+                        href="/users"
+                        icon={
+                            <FaUsers
+                                className=" transition-all duration-300"
+                                size={isOpen ? "20" : "24"}
+                                color={iconActive("Users")}
+                            />
+                        }
+                        label="Users"
+                        setActiveLabel={setActiveLabel}
+                        activeLabel={activeLabel}
+                    />
+                    <SidebarItem
+                        isOpen={isOpen}
+                        href="/roles"
+                        icon={
+                            <LuNetwork
+                                className=" transition-all duration-300"
+                                size={isOpen ? "20" : "24"}
+                                color={iconActive("Rules")}
+                            />
+                        }
+                        label="Rules"
+                        setActiveLabel={setActiveLabel}
+                        activeLabel={activeLabel}
+                    />
+                </SidebarGroup>
+            )}
+            <div className=" relative bottom-0">
+                <SidebarGroup>
+                    <SidebarItem
+                        isOpen={isOpen}
+                        href="/settings"
+                        icon={
+                            <RiSettings5Fill
+                                className=" transition-all duration-300"
+                                size={isOpen ? "20" : "24"}
+                                color={iconActive("Settings")}
+                            />
+                        }
+                        label="Settings"
+                        setActiveLabel={setActiveLabel}
+                        activeLabel={activeLabel}
+                    />
+                </SidebarGroup>
+            </div>
         </div>
     );
 }

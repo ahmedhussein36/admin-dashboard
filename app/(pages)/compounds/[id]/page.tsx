@@ -25,13 +25,13 @@ const CompoundPage = async ({ params, searchParams }: PageProps) => {
     }
 
     return (
-        <ClientOnly>
+        <>
             <Client
                 compound={compound as any}
                 developers={developers as any}
                 areas={areas as any}
             />
-        </ClientOnly>
+        </>
     );
 };
 

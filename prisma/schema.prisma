@@ -134,7 +134,7 @@ model Property {
   city              String?
   phone             String
   whatsapp          String
-  seoDetails        Json?
+  seoDetails        Meta?
   price             Int
   currency          String
   size              Int

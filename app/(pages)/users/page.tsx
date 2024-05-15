@@ -8,7 +8,6 @@ import { FaPlus } from "react-icons/fa";
 import { redirect } from "next/navigation";
 import ClientOnly from "@/app/components/ClientOnly";
 import getUsers, { UserParams } from "@/app/actions/getUsers";
-import UserFilter from "@/app/components/UserFilter";
 
 interface UsersProps {
     searchParams: UserParams;
@@ -20,6 +19,10 @@ const UserPage = async ({ searchParams }: UsersProps) => {
 
     if (!currentUser) {
         redirect("/login");
+    }
+
+    if (currentUser?.role?.toLocaleLowerCase() !== "admin") {
+        return redirect("/");
     }
 
     return (

@@ -20,6 +20,8 @@ export default async function RootLayout({
 }) {
     const currentUser = await getCurrentUser();
 
+    if (!currentUser) return <Login />;
+
     return (
         <html lang="en">
             <body className={`relative`}>
@@ -30,26 +32,23 @@ export default async function RootLayout({
                         <RegisterModal />
                         <ToasterProvider />
                     </div>
-                        {currentUser ? (
-                            <main className=" flex justify-start items-start relative gap-2 transition-all">
-                                <div className="
+                    <main className=" flex justify-start items-start relative gap-2 transition-all">
+                        <div
+                            className="
                                                 transition-all 
                                                 md:h-[calc(100vh)] 
                                                 w-fit
                                                 bottom-24 md:left-0 
                                                 md:sticky top-0 z-50"
-                                >
-                                    <MainSidebar />
-                                </div>
+                        >
+                            <MainSidebar currentUser={currentUser} />
+                        </div>
 
-                                <div className="flex-grow ml-2 overflow-auto h-[99vh]">
-                                    <Navbar currentUser={currentUser} />
-                                    {children}
-                                </div>
-                            </main>
-                        ) : (
-                            <Login />
-                        )}
+                        <div className="flex-grow ml-2 overflow-auto h-[99vh]">
+                            <Navbar currentUser={currentUser} />
+                            {children}
+                        </div>
+                    </main>
                 </div>
             </body>
         </html>

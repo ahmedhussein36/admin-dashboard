@@ -1,7 +1,6 @@
 import React from "react";
 import Client from "./Client";
 import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
-import { inflateRaw } from "zlib";
 import getAreas from "@/app/actions/getAreas";
 
 interface PageProps {

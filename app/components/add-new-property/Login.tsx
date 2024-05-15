@@ -89,7 +89,6 @@ const Login = () => {
     const footer = (
         <div className="  text-neutral-500 text-sm text-left mt-4 font-light px-4">
             <p>
-                
                 <span
                     onClick={() => router.push("/")}
                     className="
@@ -106,75 +105,85 @@ const Login = () => {
     );
 
     return (
-        <Container>
-            <div className="p-6 w-full flex flex-col justify-center items-start gap-3">
-                <div id="logo">
-                    <Image
-                        src={"/images/royal-logo.png"}
-                        alt="logo"
-                        width={120}
-                        height={40}
-                        loading="eager"
-                    />
-                </div>
-                <div
-                    id="content"
-                    className="w-full flex justify-center items-center gap-4"
-                >
-                    <div
-                        id="vector"
-                        className="hidden w-1/2 md:flex justify-center items-center p-4"
-                    >
-                        <Image
-                            width={600}
-                            height={600}
-                            loading="eager"
-                            src={"/images/House searching-bro.png"}
-                            alt="login-images/Build your home"
-                        />
-                    </div>
-                    <div
-                        id="login"
-                        className="w-full hidden text-center md:w-1/2 md:flex flex-col justify-center items-center p-4 "
-                    >
-                        <h1 className="w-full mb-6 font-medium text-slate-500 text-3xl">
-                            Welcome to Remax Royal Admin
-                        </h1>
-                        <div className="p-2 md:p-6 relative flex justify-start items-center">
+        <html>
+            <head>
+                <title>login</title>
+                <meta name="title" content="login page" />
+            </head>
+            <body>
+                <Container>
+                    <div className="p-6 w-full flex flex-col justify-center items-start gap-3">
+                        <div id="logo">
+                            <Image
+                                src={"/images/royal-logo.png"}
+                                alt="logo"
+                                width={120}
+                                height={40}
+                                loading="eager"
+                            />
+                        </div>
+                        <div
+                            id="content"
+                            className="w-full flex justify-center items-center gap-4"
+                        >
                             <div
-                                className="realive flex flex-col gap-2 rounded-lg justify-center
-                                            items-start w-[450px] p-8 shadow-lg shadow-zinc-200/80  bg-white"
+                                id="vector"
+                                className="hidden w-1/2 md:flex justify-center items-center p-4"
                             >
-                                <div className="w-full">{emailLogin}</div>
-                                <div className="w-full my-2 px-4">
-                                    <Button
-                                        label={
-                                            isLoading ? (
-                                                <div className="flex justify-center items-center gap-2">
-                                                    <Spinner
-                                                        aria-label="Spinner button"
-                                                        size="md"
-                                                        className=" text-white fill-rose-500"
-                                                    />
-                                                    <span className="">
-                                                        Login...
-                                                    </span>
-                                                </div>
-                                            ) : (
-                                                "Login"
-                                            )
-                                        }
-                                        onClick={handleSubmit(onSubmit)}
-                                        disabled={isLoading}
-                                    />
+                                <Image
+                                    width={600}
+                                    height={600}
+                                    loading="eager"
+                                    src={"/images/House searching-bro.png"}
+                                    alt="login-images/Build your home"
+                                />
+                            </div>
+                            <div
+                                id="login"
+                                className="w-full hidden text-center md:w-1/2 md:flex flex-col justify-center items-center p-4 "
+                            >
+                                <h1 className="w-full mb-6 font-medium text-slate-500 text-3xl">
+                                    Welcome to Remax Royal Admin
+                                </h1>
+                                <div className="p-2 md:p-6 relative flex justify-start items-center">
+                                    <div
+                                        className="realive flex flex-col gap-2 rounded-lg justify-center
+                                            items-start w-[450px] p-8 shadow-lg shadow-zinc-200/80  bg-white"
+                                    >
+                                        <div className="w-full">
+                                            {emailLogin}
+                                        </div>
+                                        <div className="w-full my-2 px-4">
+                                            <Button
+                                                label={
+                                                    isLoading ? (
+                                                        <div className="flex justify-center items-center gap-2">
+                                                            <Spinner
+                                                                aria-label="Spinner button"
+                                                                size="md"
+                                                                className=" text-white fill-rose-500"
+                                                            />
+                                                            <span className="">
+                                                                Login...
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        "Login"
+                                                    )
+                                                }
+                                                onClick={handleSubmit(onSubmit)}
+                                                disabled={isLoading}
+                                            />
+                                        </div>
+                                        <div className="w-full">{footer}</div>
+                                    </div>
                                 </div>
-                                <div className="w-full">{footer}</div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </Container>
+                </Container>
+            </body>
+        </html>
     );
 };
 

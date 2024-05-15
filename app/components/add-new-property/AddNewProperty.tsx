@@ -111,6 +111,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             compound: null,
             developer: null,
             area: null,
+            metaTitle: "",
+            metaDescription: "",
         },
     });
 
@@ -977,23 +979,12 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                 thumbnail={true}
                                 onAction={() => {
                                     setCustomValue("mainImage", "");
-                                    setAllPropertyImages(
-                                        allPropertyImages.slice(0, -1)
-                                    );
                                 }}
                                 onChange={(value) => {
                                     setCustomValue("mainImage", value);
-                                    setAllPropertyImages([
-                                        ...allPropertyImages,
-                                        value,
-                                    ]);
-                                    setCustomValue("images", [
-                                        ...allPropertyImages,
-                                        value,
-                                    ]);
                                 }}
                                 value={mainImage}
-                                allImages={allPropertyImages}
+                                image={mainImage}
                             />
                         </div>
                         <div className=" w-full">
@@ -1001,19 +992,13 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                             <ImageUpload
                                 label="Upload compound Images"
                                 thumbnail={false}
-                                onAction={() => {
-                                    setCustomValue("mainImage", "");
-                                    setAllPropertyImages(
-                                        allPropertyImages.slice(0, -1)
-                                    );
+                                onAction={(value) => {
+                                    setCustomValue("images", value);
+                                    setAllPropertyImages(allPropertyImages.filter((image)=> image !== value));
                                 }}
                                 onChange={(value) => {
                                     setCustomValue("images", value);
                                     setAllPropertyImages([
-                                        ...allPropertyImages,
-                                        value,
-                                    ]);
-                                    setCustomValue("images", [
                                         ...allPropertyImages,
                                         value,
                                     ]);
@@ -1024,7 +1009,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                         </div>
                     </div>
                     <strong>Amenities: </strong>
-                    <div className="w-full flex gap-5 justify-between items-start flex-wrap bg-white py-8 p-4 rounded-lg">
+                    <div className="w-full flex gap-5 justify-between items-start border flex-wrap bg-white py-8 px-6 rounded-lg">
                         {amenitiesItems.map((item) => (
                             <div
                                 key={item.id}

@@ -359,19 +359,14 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                         <ImageUpload
                             label="Upload thumbnail Image"
                             thumbnail={true}
+                            onAction={() => {
+                                setCustomValue("mainImage", "");
+                            }}
                             onChange={(value) => {
                                 setCustomValue("mainImage", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                                setCustomValue("images", [
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
                             }}
                             value={mainImage}
-                            allImages={allPropertyImages}
+                            image={mainImage}
                         />
                     </div>
                     <div className=" w-full">
@@ -379,13 +374,17 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                         <ImageUpload
                             label="Upload compound Images"
                             thumbnail={false}
+                            onAction={(value) => {
+                                setCustomValue("images", value);
+                                setAllPropertyImages(
+                                    allPropertyImages.filter(
+                                        (image) => image !== value
+                                    )
+                                );
+                            }}
                             onChange={(value) => {
                                 setCustomValue("images", value);
                                 setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
-                                setCustomValue("images", [
                                     ...allPropertyImages,
                                     value,
                                 ]);

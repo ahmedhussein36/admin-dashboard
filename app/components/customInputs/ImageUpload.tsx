@@ -4,8 +4,6 @@ import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useCallback } from "react";
 import { FiTrash2 } from "react-icons/fi";
-import { TbPhotoPlus } from "react-icons/tb";
-import Button from "../Button";
 
 declare global {
     var cloudinary: any;
@@ -17,17 +15,18 @@ interface ImageUploadProps {
     onChange: (value: string) => void;
     value: string;
     allImages?: string[];
+    image?: string;
     label?: string;
     thumbnail?: boolean;
-    onAction?: () => void;
+    onAction: (value: string) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
     onChange,
-    value,
     label,
     allImages,
     thumbnail,
+    image,
     onAction,
 }) => {
     const handleUpload = useCallback(
@@ -49,10 +48,10 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             {({ open }) => {
                 return (
                     <div className="w-full relative  justify-start items-start flex flex-col gap-3 ">
-                        {thumbnail && allImages?.length ? (
+                        {thumbnail && image !== "" ? (
                             <div className=" rounded-md overflow-hidden  relative w-[200px] h-[130px]">
                                 <Image
-                                    src={allImages[allImages?.length - 1]}
+                                    src={image || ""}
                                     alt="thumbnail"
                                     objectFit="cover"
                                     fill
@@ -60,23 +59,19 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                                 <div className="w-full absolute top-2 right-[-170px]">
                                     <button
                                         className=" rounded-full p-1 bg-red-600 hover:bg-red-500 transition-all"
-                                        onClick={onAction}
+                                        onClick={() => onAction}
                                     >
-                                        {" "}
-                                        <FiTrash2
-                                            color="#ffff"
-                                            size={18}
-                                        />{" "}
+                                        <FiTrash2 color="#ffff" size={18} />
                                     </button>
                                 </div>
                             </div>
                         ) : allImages?.length ? (
                             <div className=" flex justify-start flex-wrap items-center gap-1">
-                                {allImages.map((image, i) => (
+                                {allImages.map((imagesrc) => (
                                     <>
                                         <div className=" rounded-md overflow-hidden  w-[120px] h-[100px]  relative">
                                             <Image
-                                                src={image}
+                                                src={imagesrc}
                                                 objectFit="cover"
                                                 fill
                                                 alt=""
@@ -84,13 +79,12 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                                             <div className="w-full absolute top-[0] left-[0]">
                                                 <button
                                                     className=" rounded-full p-1 bg-red-600 hover:bg-red-500 transition-all"
-                                                    onClick={onAction}
+                                                    onClick={() => onAction(imagesrc)}
                                                 >
-                                                    {" "}
                                                     <FiTrash2
                                                         color="#ffff"
                                                         size={18}
-                                                    />{" "}
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
