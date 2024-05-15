@@ -381,6 +381,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                         (image) => image !== value
                                     )
                                 );
+                                console.log("clicked");
                             }}
                             onChange={(value) => {
                                 setCustomValue("images", value);

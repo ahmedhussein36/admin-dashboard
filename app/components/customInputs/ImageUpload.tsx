@@ -18,7 +18,7 @@ interface ImageUploadProps {
     image?: string;
     label?: string;
     thumbnail?: boolean;
-    onAction: (value: string) => void;
+    onAction: (value?: string) => void;
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -59,7 +59,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                                 <div className="w-full absolute top-2 right-[-170px]">
                                     <button
                                         className=" rounded-full p-1 bg-red-600 hover:bg-red-500 transition-all"
-                                        onClick={() => onAction}
+                                        onClick={() => onAction()}
                                     >
                                         <FiTrash2 color="#ffff" size={18} />
                                     </button>

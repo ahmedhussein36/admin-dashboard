@@ -17,7 +17,6 @@ const CategoryModal = () => {
     const router = useRouter();
     const categoryModal = useCategoryModal();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
 
     const {
         register,
