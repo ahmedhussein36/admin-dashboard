@@ -26,7 +26,7 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
 
     useEffect(() => {
         let activeListings: any[] = data.filter(
-            (item: any) => item.status.toLowerCase() == "active"
+            (item: any) => item?.status?.toLowerCase() == "active"
         );
 
         setActive(activeListings);
@@ -34,14 +34,14 @@ const Sorting: FC<SortingProps> = ({ data, parent }) => {
 
     useEffect(() => {
         let pendingListings = data.filter(
-            (item: any) => item.status.toLowerCase() == "pending"
+            (item: any) => item?.status?.toLowerCase() == "pending"
         );
         setPending(pendingListings);
     }, [data]);
 
     useMemo(() => {
-        let inactiveListings = data.filter(
-            (item: any) => item.status.toLowerCase() == "inactive"
+        let inactiveListings = data?.filter(
+            (item: any) => item?.status?.toLowerCase() == "inactive"
         );
         setInctive(inactiveListings);
     }, [data]);

@@ -241,14 +241,12 @@ const Client: FC<Props> = ({ area }) => {
                         thumbnail={true}
                         onChange={(value) => {
                             setCustomValue("image", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
                         }}
                         onAction={() => {
-                            setAllPropertyImages([]);
                             setCustomValue("image", "");
                         }}
                         value={image}
-                        allImages={allPropertyImages}
+                        image={image}
                     />
                 </div>
             </div>

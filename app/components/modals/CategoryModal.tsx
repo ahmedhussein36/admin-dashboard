@@ -33,6 +33,11 @@ const CategoryModal = () => {
             image: "",
             metaTitle: "",
             metaDescription: "",
+            status: "pending",
+            isFeatured: false,
+            isAddHome: false,
+            isFooterMenu: false,
+            isRecommended: false,
         },
     });
 

@@ -41,7 +41,7 @@ const DevClient: FC<Props> = ({ developer }) => {
             description: developer.description,
             content: developer.content,
             slug: developer.slug,
-            image: developer.image,
+            image: developer?.image,
             status: developer?.status,
             isFeatured: developer?.isFeatured,
             isAddHome: developer?.isAddHome,
@@ -99,7 +99,7 @@ const DevClient: FC<Props> = ({ developer }) => {
                         onClick={() => {
                             router.refresh();
                             router.back();
-                        }} 
+                        }}
                     />
                     <Button
                         label={
@@ -219,14 +219,12 @@ const DevClient: FC<Props> = ({ developer }) => {
                         thumbnail={true}
                         onChange={(value) => {
                             setCustomValue("image", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
                         }}
                         onAction={() => {
-                            setAllPropertyImages([]);
                             setCustomValue("image", "");
                         }}
                         value={image}
-                        allImages={allPropertyImages}
+                        image={image}
                     />
                 </div>
             </div>

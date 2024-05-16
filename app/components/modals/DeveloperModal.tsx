@@ -18,7 +18,6 @@ const DeveloperModal = () => {
     const router = useRouter();
     const newDeveloperModal = useDeveloperModal();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
 
     const {
         register,
@@ -33,6 +32,11 @@ const DeveloperModal = () => {
             description: "",
             slug: "",
             image: "",
+            status: "pending",
+            isFeatured: false,
+            isAddHome: false,
+            isFooterMenu: false,
+            isRecommended: false,
         },
     });
 
@@ -78,10 +82,6 @@ const DeveloperModal = () => {
             });
     };
 
-    const onToggle = useCallback(() => {
-        newDeveloperModal.onClose();
-        newDeveloperModal.onOpen();
-    }, [newDeveloperModal]);
 
     const body = (
         <div className="flex flex-col gap-4 px-2 md:px-5 lg:px-5 xl:px-5">
