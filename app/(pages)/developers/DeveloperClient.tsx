@@ -23,6 +23,7 @@ import useConfirm from "@/app/hooks/useConfirm";
 import { MdCheckCircleOutline } from "react-icons/md";
 import useDeveloperModal from "@/app/hooks/useDeveloperModal";
 import DeveloperModal from "@/app/components/modals/DeveloperModal";
+import Link from "next/link";
 
 interface Props {
     developers: SafeDeveloper[];
@@ -72,7 +73,7 @@ const DeveloperClient: React.FC<Props> = ({
     useEffect(() => {
         if (title !== "") {
             const data = developers.filter((item) => {
-                return item.title.toLocaleLowerCase().includes(title)
+                return item.title.toLocaleLowerCase().includes(title);
             });
             setFilteredData(data);
         } else {
@@ -192,22 +193,32 @@ const DeveloperClient: React.FC<Props> = ({
                                         <Table.Cell>{item.title}</Table.Cell>
                                         <Table.Cell>{item.slug}</Table.Cell>
                                         <Table.Cell>
-                                            {
-                                                compounds.filter(
-                                                    (compound) =>
-                                                        compound.developerId ===
-                                                        item.id
-                                                ).length
-                                            }
+                                            <Link
+                                                href={`/compounds?developerId=${item.id}`}
+                                                className=" hover:text-blue-500 hover:underline"
+                                            >
+                                                {
+                                                    compounds.filter(
+                                                        (compound) =>
+                                                            compound.developerId ===
+                                                            item.id
+                                                    ).length
+                                                }
+                                            </Link>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {
-                                                listings.filter(
-                                                    (listing) =>
-                                                        listing.developerId ===
-                                                        item.id
-                                                ).length
-                                            }
+                                            <Link
+                                                href={`/listings?developerId=${item.id}`}
+                                                className=" hover:text-blue-500 hover:underline"
+                                            >
+                                                {
+                                                    listings.filter(
+                                                        (listing) =>
+                                                            listing.developerId ===
+                                                            item.id
+                                                    ).length
+                                                }
+                                            </Link>
                                         </Table.Cell>
                                         <Table.Cell>
                                             {StutusColor(item.status)}

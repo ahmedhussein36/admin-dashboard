@@ -17,8 +17,7 @@ import {
     IoIosArrowDropleftCircle,
     IoIosArrowDroprightCircle,
 } from "react-icons/io";
-import { FaBullhorn } from "react-icons/fa";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import { FaBullhorn, FaComment } from "react-icons/fa";
 import { SafeUser } from "@/app/types";
 
 interface SidebarItemProps {
@@ -34,16 +33,7 @@ interface SidebarItemProps {
 
 export const SidebarItem: FC<
     SidebarItemProps & { setActiveLabel: (label: string) => void }
-> = ({
-    href,
-    icon,
-    label,
-    setActiveLabel,
-    activeLabel,
-    isMore,
-    onClick,
-    isOpen,
-}) => {
+> = ({ href, icon, label, setActiveLabel, activeLabel, isOpen }) => {
     const isActive = activeLabel === label;
 
     return (
@@ -92,7 +82,7 @@ export const SidebarGroup = ({
     title?: string;
 }) => {
     return (
-        <div className=" flex flex-col gap-3 w-full py-4 border-t-2 border-slate-700 justify-center items-start fixed:top-0">
+        <div className=" flex flex-col gap-3 w-full py-1 border-t-2 border-slate-700 justify-center items-start fixed:top-0">
             <div className=" px-8 font-semibold text-slate-400 ">{title}</div>
             <div className=" w-full flex flex-col justify-between items-start gap-2">
                 {children}
@@ -146,7 +136,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
     const role = currentUser.role;
 
     const [activeLabel, setActiveLabel] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const iconActive = useCallback(
         (item: string) => {
             let activColor = "#f43f5e" || "#38bdf8";
@@ -158,6 +148,9 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
         },
         [activeLabel]
     );
+
+    const S_iconSize: string = "20";
+    const L_iconSize: string = "20";
 
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
@@ -181,7 +174,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
             <div className=" flex justify-start px-4 items-center w-full mt-1 mb-2">
                 <button onClick={toggleOpen}>
                     {isOpen ? (
-                        <IoIosArrowDropleftCircle color="orange" size={24} />
+                        <IoIosArrowDropleftCircle color="gray" size={24} />
                     ) : (
                         <IoIosArrowDroprightCircle color="orange" size={24} />
                     )}
@@ -194,7 +187,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 icon={
                     <MdSpaceDashboard
                         className=" transition-all duration-300"
-                        size={isOpen ? "20" : "24"}
+                        size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Dashboard")}
                     />
                 }
@@ -202,13 +195,29 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 setActiveLabel={setActiveLabel}
                 activeLabel={activeLabel}
             />
+
+            <SidebarItem
+                isOpen={isOpen}
+                label="Launches"
+                href="/new-launches"
+                icon={
+                    <FaBullhorn
+                        className=" transition-all duration-300"
+                        size={isOpen ? L_iconSize : S_iconSize}
+                        color={iconActive("Launches")}
+                    />
+                }
+                setActiveLabel={setActiveLabel}
+                activeLabel={activeLabel}
+            />
+
             <SidebarItem
                 isOpen={isOpen}
                 href="/listings"
                 icon={
                     <MdFeaturedPlayList
                         className=" transition-all duration-300"
-                        size={isOpen ? "20" : "24"}
+                        size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Listings")}
                     />
                 }
@@ -222,7 +231,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 icon={
                     <MdMapsHomeWork
                         className=" transition-all duration-300"
-                        size={isOpen ? "20" : "24"}
+                        size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Compounds")}
                     />
                 }
@@ -236,7 +245,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 icon={
                     <MdPieChart
                         className=" transition-all duration-300"
-                        size={isOpen ? "20" : "24"}
+                        size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Developers")}
                     />
                 }
@@ -251,7 +260,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 icon={
                     <FaMapLocationDot
                         className=" transition-all duration-300"
-                        size={isOpen ? "20" : "24"}
+                        size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Areas")}
                     />
                 }
@@ -262,28 +271,11 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
             <SidebarGroup>
                 <SidebarItem
                     isOpen={isOpen}
-                    label="Launches"
-                    href="/new-launches"
-                    icon={
-                        <FaBullhorn
-                            className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
-                            color={iconActive("Launches")}
-                        />
-                    }
-                    setActiveLabel={setActiveLabel}
-                    activeLabel={activeLabel}
-                />
-            </SidebarGroup>
-
-            <SidebarGroup>
-                <SidebarItem
-                    isOpen={isOpen}
                     href="/blog/posts"
                     icon={
                         <TbArticleFilledFilled
                             className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
+                            size={isOpen ? L_iconSize : S_iconSize}
                             color={iconActive("Posts")}
                         />
                     }
@@ -297,7 +289,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                     icon={
                         <TbCategoryFilled
                             className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
+                            size={isOpen ? L_iconSize : S_iconSize}
                             color={iconActive("Categories")}
                         />
                     }
@@ -311,11 +303,25 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                     icon={
                         <FaTag
                             className=" transition-all duration-300"
-                            size={isOpen ? "20" : "24"}
+                            size={isOpen ? L_iconSize : S_iconSize}
                             color={iconActive("Tags")}
                         />
                     }
                     label="Tags"
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
+                <SidebarItem
+                    isOpen={isOpen}
+                    href="/"
+                    icon={
+                        <FaComment
+                            className=" transition-all duration-300"
+                            size={isOpen ? L_iconSize : S_iconSize}
+                            color={iconActive("Comments")}
+                        />
+                    }
+                    label="Comments"
                     setActiveLabel={setActiveLabel}
                     activeLabel={activeLabel}
                 />
@@ -329,7 +335,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                         icon={
                             <FaUsers
                                 className=" transition-all duration-300"
-                                size={isOpen ? "20" : "24"}
+                                size={isOpen ? L_iconSize : S_iconSize}
                                 color={iconActive("Users")}
                             />
                         }
@@ -343,7 +349,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                         icon={
                             <LuNetwork
                                 className=" transition-all duration-300"
-                                size={isOpen ? "20" : "24"}
+                                size={isOpen ? L_iconSize : S_iconSize}
                                 color={iconActive("Rules")}
                             />
                         }
@@ -361,7 +367,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                         icon={
                             <RiSettings5Fill
                                 className=" transition-all duration-300"
-                                size={isOpen ? "20" : "24"}
+                                size={isOpen ? L_iconSize : S_iconSize}
                                 color={iconActive("Settings")}
                             />
                         }
