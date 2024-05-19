@@ -1,43 +1,38 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IParams {
-    title?: string
-    status?: string
-
+    title?: string;
+    status?: string;
 }
 
 export default async function getAreas(params: IParams) {
     try {
-        const {
-            title, status
-        } = params;
+        const { title, status } = params;
 
         let query: any = {};
 
         if (title) {
-            query.title = { contains: title }
+            query.title = { contains: title };
         }
         if (status) {
-            query.status = status
+            query.status = status;
         }
-
-
 
         const areas = await prisma.area.findMany({
             where: query,
             include: {
                 compounds: true,
-                properties: true
+                properties: true,
+                user: true,
             },
             orderBy: {
                 createdAt: "desc",
-
             },
         });
 
         const safeAreas = areas.map((area) => ({
             ...area,
-            createdAt: area.createdAt
+            createdAt: area.createdAt,
         }));
 
         return safeAreas;

@@ -162,7 +162,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 </Table.HeadCell>
                                 <Table.HeadCell>Image</Table.HeadCell>
                                 <Table.HeadCell>Title</Table.HeadCell>
-                                <Table.HeadCell>slug</Table.HeadCell>
+                                <Table.HeadCell>Author</Table.HeadCell>
                                 <Table.HeadCell>Compounds</Table.HeadCell>
                                 <Table.HeadCell>Properties</Table.HeadCell>
                                 <Table.HeadCell>Status</Table.HeadCell>
@@ -172,7 +172,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 </Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y font-medium text-lg">
-                                {filteredData.map((item) => (
+                                {filteredData.map((item: any) => (
                                     <Table.Row
                                         key={item.id}
                                         className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -191,7 +191,9 @@ const DeveloperClient: React.FC<Props> = ({
                                             </div>
                                         </Table.Cell>
                                         <Table.Cell>{item.title}</Table.Cell>
-                                        <Table.Cell>{item.slug}</Table.Cell>
+                                        <Table.Cell>
+                                            {item?.user?.name}
+                                        </Table.Cell>
                                         <Table.Cell>
                                             <Link
                                                 href={`/compounds?developerId=${item.id}`}

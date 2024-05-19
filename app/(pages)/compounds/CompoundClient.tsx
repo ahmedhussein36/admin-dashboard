@@ -150,8 +150,8 @@ const CompoundClient: React.FC<Props> = ({
                                     <Table.HeadCell>Developer</Table.HeadCell>
                                     <Table.HeadCell>Launch</Table.HeadCell>
                                     <Table.HeadCell>Properties</Table.HeadCell>
+                                    <Table.HeadCell>Author</Table.HeadCell>
                                     <Table.HeadCell>Status</Table.HeadCell>
-
                                     <Table.HeadCell>
                                         <span className="">Action</span>
                                     </Table.HeadCell>
@@ -165,7 +165,6 @@ const CompoundClient: React.FC<Props> = ({
                                             <Table.Cell className="p-4">
                                                 <Checkbox />
                                             </Table.Cell>
-
                                             <Table.Cell>
                                                 {item.title}
                                             </Table.Cell>
@@ -183,6 +182,9 @@ const CompoundClient: React.FC<Props> = ({
                                                             item.id
                                                     ).length
                                                 }
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item?.user?.name || ""}
                                             </Table.Cell>
                                             <Table.Cell>
                                                 {StutusColor(

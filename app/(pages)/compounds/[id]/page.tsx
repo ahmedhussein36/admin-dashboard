@@ -1,10 +1,6 @@
-import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import Client from "./Client";
 import getCompoundById from "@/app/actions/getCompoundById";
-import getDeveloperById from "@/app/actions/getDeveloperById";
-import { SafeCompound } from "@/app/types";
-import AddNewProperty from "@/app/components/add-new-property/AddNewProperty";
 import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
 import getAreas from "@/app/actions/getAreas";
 

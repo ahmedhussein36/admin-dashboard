@@ -1,11 +1,17 @@
 "use client";
-import { SafeArea, SafeCompound, SafeListing, SafeProperty } from "@/app/types";
+import {
+    SafeArea,
+    SafeCompound,
+    SafeListing,
+    SafeProperty,
+    SafeUser,
+} from "@/app/types";
 import ClientOnly from "@/app/components/ClientOnly";
 import useAreaModal from "@/app/hooks/useAreaModal";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
 import Sorting from "@/app/components/Sorting";
-import { Checkbox, Table } from "flowbite-react";
+import { Checkbox, Table, TableCell } from "flowbite-react";
 import { FaEdit } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import Image from "next/legacy/image";
@@ -61,7 +67,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
     useEffect(() => {
         if (title !== "") {
             const data = areas.filter((item) => {
-                return item.title.toLocaleLowerCase().includes(title)
+                return item.title.toLocaleLowerCase().includes(title);
             });
             setFilteredData(data);
         } else {
@@ -150,6 +156,8 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                     <Table.HeadCell>slug</Table.HeadCell>
                                     <Table.HeadCell>Compounds</Table.HeadCell>
                                     <Table.HeadCell>Properties</Table.HeadCell>
+                                    <Table.HeadCell>Author</Table.HeadCell>
+
                                     <Table.HeadCell>Status</Table.HeadCell>
 
                                     <Table.HeadCell>
@@ -157,7 +165,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y font-medium text-lg">
-                                    {filteredData.map((item) => (
+                                    {filteredData.map((item: any) => (
                                         <Table.Row
                                             key={item.id}
                                             className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -193,6 +201,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                                     ).length
                                                 }
                                             </Table.Cell>
+
                                             <Table.Cell>
                                                 {
                                                     listings.filter(
@@ -201,6 +210,9 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                                             item.id
                                                     ).length
                                                 }
+                                            </Table.Cell>
+                                            <Table.Cell>
+                                                {item?.user?.name}
                                             </Table.Cell>
                                             <Table.Cell>
                                                 {StutusColor(

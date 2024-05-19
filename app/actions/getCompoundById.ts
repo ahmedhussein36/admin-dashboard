@@ -16,6 +16,7 @@ export default async function getCompoundById(params: IParams) {
                 developer: true,
                 area: true,
                 properties: true,
+                user: true,
             }
         })
 

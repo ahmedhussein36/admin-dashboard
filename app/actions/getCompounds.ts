@@ -36,6 +36,7 @@ export default async function getCompounds(params: IParams) {
             where: query,
             include: {
                 developer: true,
+                user: true,
             },
             orderBy: {
                 createdAt: "desc",

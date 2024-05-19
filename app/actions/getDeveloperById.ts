@@ -15,6 +15,7 @@ export default async function getDeveloperById(params: IParams) {
             include: {
                 property: true,
                 compound: true,
+                user: true
             }
         })
 
