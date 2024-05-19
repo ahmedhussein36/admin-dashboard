@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 interface FilterProps {
     areas?: SafeArea[] | any;
-    compounds?: SafeCompound[] | any; 
+    compounds?: SafeCompound[] | any;
     developers?: SafeDeveloper[] | any;
 }
 
@@ -84,7 +84,7 @@ const Filter: FC<FilterProps> = ({ areas, compounds, developers }) => {
                     <LuFilter color="#ffff" /> Filter
                 </button>
 
-                {!area || !compound || !developer ? (
+                {area == "" || compound == "" || developer == "" ? (
                     <div className="justify-start text-red-500 underline font-semibold">
                         <button
                             onClick={() => {

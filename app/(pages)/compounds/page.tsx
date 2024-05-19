@@ -62,8 +62,6 @@ const CompoundsPage = async ({ searchParams }: DevelopersPageProps) => {
                     <CompoundClient
                         listings={properties as any}
                         compounds={compounds as any}
-                        areas={areas as any[]}
-                        developers={developers as any}
                     />
                 </ClientOnly>
             </Container>

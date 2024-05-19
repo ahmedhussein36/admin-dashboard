@@ -18,24 +18,13 @@ import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
-import Filter from "@/app/components/home/Filter";
 
 interface Props {
-    areas: SafeArea[];
-    developers: SafeDeveloper[];
-    compounds: SafeCompound[] & {
-        area: SafeArea;
-        developer: SafeDeveloper;
-    };
+    compounds: SafeCompound[] | any[];
     listings: SafeProperty[];
 }
 
-const CompoundClient: React.FC<Props> = ({
-    compounds,
-    listings,
-    areas,
-    developers,
-}) => {
+const CompoundClient: React.FC<Props> = ({ compounds, listings }) => {
     const [title, setTitle] = useState("");
     const [filteredData, setFilteredData] = useState<SafeCompound[]>(compounds);
     const [compoundId, setCompoundId] = useState("");
@@ -148,84 +137,102 @@ const CompoundClient: React.FC<Props> = ({
                                     </Table.HeadCell>
                                     <Table.HeadCell>Title</Table.HeadCell>
                                     <Table.HeadCell>Developer</Table.HeadCell>
+                                    <Table.HeadCell>Area</Table.HeadCell>
                                     <Table.HeadCell>Launch</Table.HeadCell>
                                     <Table.HeadCell>Properties</Table.HeadCell>
                                     <Table.HeadCell>Author</Table.HeadCell>
                                     <Table.HeadCell>Status</Table.HeadCell>
+
                                     <Table.HeadCell>
                                         <span className="">Action</span>
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y font-medium text-lg">
-                                    {filteredData.map((item: any) => (
-                                        <Table.Row
-                                            key={item.id}
-                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                                        >
-                                            <Table.Cell className="p-4">
-                                                <Checkbox />
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item.title}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.developer?.title}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item.isLaunch}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {
-                                                    listings.filter(
-                                                        (listing) =>
-                                                            listing.compoundId ===
-                                                            item.id
-                                                    ).length
-                                                }
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.user?.name || ""}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {StutusColor(
-                                                    item?.status || ""
-                                                )}
-                                            </Table.Cell>
-                                            <Table.Cell className=" flex justify-start items-center gap-3">
-                                                <div
-                                                    onClick={() => {
-                                                        router.push(
-                                                            `/compounds/${item.id}`
-                                                        );
-                                                    }}
-                                                    title="Edit"
-                                                    className=" hover:bg-blue-100 hover:rounded-full
+                                    {filteredData.map(
+                                        (item: SafeCompound | any) => (
+                                            <Table.Row
+                                                key={item.id}
+                                                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                            >
+                                                <Table.Cell className="p-4">
+                                                    <Checkbox />
+                                                </Table.Cell>
+
+                                                <Table.Cell>
+                                                    {item.title.length > 35
+                                                        ? "..." +
+                                                          item.title.slice(
+                                                              0,
+                                                              35
+                                                          )
+                                                        : item.title}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item?.developer?.title ||
+                                                        ""}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item?.area.title || ""}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item.isLaunch}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {
+                                                        listings.filter(
+                                                            (listing) =>
+                                                                listing.compoundId ===
+                                                                item.id
+                                                        ).length
+                                                    }
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {item?.user?.name || ""}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {StutusColor(
+                                                        item?.status || ""
+                                                    )}
+                                                </Table.Cell>
+
+                                                <Table.Cell className=" flex justify-start items-center gap-3">
+                                                    <span
+                                                        onClick={() => {
+                                                            router.push(
+                                                                `/compounds/${item.id}`
+                                                            );
+                                                        }}
+                                                        title="Edit"
+                                                        className=" hover:bg-blue-100 hover:rounded-full
                             cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Edit  */}
-                                                    <FaEdit
-                                                        color="#3b82f6"
-                                                        size={16}
-                                                    />
-                                                </div>
-                                                <div
-                                                    onClick={() => {
-                                                        setCompoundId(item.id);
-                                                        confirm.onOpen();
-                                                    }}
-                                                    title="Delete"
-                                                    className=" hover:bg-red-100 hover:rounded-full
+                                                    >
+                                                        {/* Edit  */}
+                                                        <FaEdit
+                                                            color="#3b82f6"
+                                                            size={16}
+                                                        />
+                                                    </span>
+                                                    <span
+                                                        onClick={() => {
+                                                            setCompoundId(
+                                                                item.id
+                                                            );
+                                                            confirm.onOpen();
+                                                        }}
+                                                        title="Delete"
+                                                        className=" hover:bg-red-100 hover:rounded-full
                             cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Remove{" "} */}
-                                                    <FiTrash2
-                                                        color="#ef4444"
-                                                        size={16}
-                                                    />
-                                                </div>
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    ))}
+                                                    >
+                                                        {/* Remove{" "} */}
+                                                        <FiTrash2
+                                                            color="#ef4444"
+                                                            size={16}
+                                                        />
+                                                    </span>
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        )
+                                    )}
                                 </Table.Body>
                             </Table>
                         </div>

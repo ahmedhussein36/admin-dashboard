@@ -8,9 +8,8 @@ import {
 import ClientOnly from "@/app/components/ClientOnly";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
-import Sorting from "@/app/components/Sorting";
 import { Checkbox, Table } from "flowbite-react";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaRegEye } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import Image from "next/legacy/image";
 import SearchInput from "@/app/components/inputs/SearchInput";
@@ -20,10 +19,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
-import { MdCheckCircleOutline } from "react-icons/md";
 import useDeveloperModal from "@/app/hooks/useDeveloperModal";
 import DeveloperModal from "@/app/components/modals/DeveloperModal";
 import Link from "next/link";
+
+const BASE_URL = "https://remaxroyal.vercel.app"
 
 interface Props {
     developers: SafeDeveloper[];
@@ -242,6 +242,19 @@ const DeveloperClient: React.FC<Props> = ({
                                                     size={16}
                                                 />
                                             </div>
+                                            <Link
+                                                href={`${BASE_URL}/developers/${item.slug}`}
+                        
+                                                title="Preview"
+                                                className=" hover:bg-red-100 hover:rounded-full
+                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
+                                            >
+                                                {/* Remove{" "} */}
+                                                <FaRegEye
+                                                    color="gray"
+                                                    size={16}
+                                                />
+                                            </Link>
                                             <div
                                                 onClick={() => {
                                                     setDeveloperId(item.id);
@@ -261,7 +274,8 @@ const DeveloperClient: React.FC<Props> = ({
                                     </Table.Row>
                                 ))}
                             </Table.Body>
-                        </Table>
+                        </Table>{" "}
+                        FaRegEye
                     </div>
                 </ClientOnly>
             </div>
