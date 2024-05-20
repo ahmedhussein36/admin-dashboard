@@ -22,19 +22,18 @@ import useConfirm from "@/app/hooks/useConfirm";
 import useDeveloperModal from "@/app/hooks/useDeveloperModal";
 import DeveloperModal from "@/app/components/modals/DeveloperModal";
 import Link from "next/link";
+import Pagination from "@/app/components/Pagination";
 
-const BASE_URL = "https://remaxroyal.vercel.app"
+const BASE_URL = "https://remaxroyal.vercel.app";
 
 interface Props {
     developers: SafeDeveloper[];
-    areas: SafeArea[];
     compounds: SafeCompound[];
     listings: SafeProperty[];
 }
 
 const DeveloperClient: React.FC<Props> = ({
     developers,
-    areas,
     compounds,
     listings,
 }) => {
@@ -42,6 +41,12 @@ const DeveloperClient: React.FC<Props> = ({
     const [filteredData, setFilteredData] = useState(developers);
     const [developerId, setDeveloperId] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
+
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const currentItems = filteredData.slice(firstIndex, lastIndex);
 
     const router = useRouter();
     const newDeveloperModal = useDeveloperModal();
@@ -172,7 +177,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 </Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y font-medium text-lg">
-                                {filteredData.map((item: any) => (
+                                {currentItems.map((item: any) => (
                                     <Table.Row
                                         key={item.id}
                                         className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -244,7 +249,6 @@ const DeveloperClient: React.FC<Props> = ({
                                             </div>
                                             <Link
                                                 href={`${BASE_URL}/developers/${item.slug}`}
-                        
                                                 title="Preview"
                                                 className=" hover:bg-red-100 hover:rounded-full
                             cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
@@ -275,8 +279,16 @@ const DeveloperClient: React.FC<Props> = ({
                                 ))}
                             </Table.Body>
                         </Table>{" "}
-                        FaRegEye
                     </div>
+                    <Pagination
+                        totalItems={filteredData.length}
+                        defaultPageSize={itemsPerPage}
+                        onChangePage={(page) => setCurrentPage(page)}
+                        onChangeRowsPerPage={(num) => {
+                            setItemsPerPage(num);
+                            setCurrentPage(1); // Reset to first page with new number of items per page
+                        }}
+                    />
                 </ClientOnly>
             </div>
         </>

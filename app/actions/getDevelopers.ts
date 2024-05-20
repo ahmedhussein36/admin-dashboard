@@ -22,17 +22,27 @@ export default async function getDevelopers(params: IParams) {
 
         const developers = await prisma.developer.findMany({
             where: query,
-            include: {
-                user: true || null,
-            },
             orderBy: {
                 createdAt: "desc",
+            },
+            select: {
+                id: true,
+                image: true,
+                slug: true,
+                createdAt: true,
+                title: true,
+                status: true,
+                user: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
         });
 
         const safeDevelopers = developers.map((developer) => ({
             ...developer,
-            createdAt: developer.createdAt,
+            createdAt: developer.createdAt.toISOString(),
         }));
 
         return safeDevelopers;

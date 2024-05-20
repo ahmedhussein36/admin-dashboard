@@ -3,21 +3,21 @@ import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
 import DeveloperClient from "./DeveloperClient";
 import getDevelopers from "@/app/actions/getDevelopers";
-import getAreas from "@/app/actions/getAreas";
 import getCompounds from "@/app/actions/getCompounds";
 import getProperties, { IParams } from "@/app/actions/getProperties";
 import Sorting from "@/app/components/Sorting";
+import prisma from "@/app/libs/prismadb";
 
 interface DevelopersPageProps {
     searchParams: IParams;
 }
 
+let query = {};
+
 const DevelopersPage = async ({ searchParams }: DevelopersPageProps) => {
     const developers = await getDevelopers(searchParams);
-    const areas = await getAreas(searchParams);
     const compounds = await getCompounds(searchParams);
     const listings = await getProperties(searchParams);
-
     return (
         <div>
             <Container>
@@ -37,7 +37,6 @@ const DevelopersPage = async ({ searchParams }: DevelopersPageProps) => {
                         developers={developers as any}
                         listings={listings as any}
                         compounds={compounds as any}
-                        areas={areas as any}
                     />
                 </ClientOnly>
             </Container>

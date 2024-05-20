@@ -7,10 +7,10 @@ import getAreas from "./actions/getAreas";
 import getProperties, { IParams } from "./actions/getProperties";
 import { Suspense } from "react";
 
-// export const metadata = {
-//     title: "Remax royal",
-//     description: "Remax Royal all homes you search for",
-// };
+export const metadata = {
+    title: "Dashboard : Remax Royal",
+    description: "Remax Royal admin dashboard",
+};
 
 interface PageProps {
     searchParams: IParams;

@@ -20,10 +20,18 @@ export default async function getAreas(params: IParams) {
 
         const areas = await prisma.area.findMany({
             where: query,
-            include: {
-                compounds: true,
-                properties: true,
-                user: true,
+            select: {
+                id: true,
+                title: true,
+                image: true,
+                slug: true,
+                createdAt: true,
+                status: true,
+                user: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
             orderBy: {
                 createdAt: "desc",

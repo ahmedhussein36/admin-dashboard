@@ -47,7 +47,7 @@ const Client: FC<Props> = ({ developers, areas }) => {
             developer: null,
             images: [],
             latLong: 0,
-            status: "",
+            status: "pending",
             isFeatured: false,
             isAddHome: false,
             isRecommended: false,
