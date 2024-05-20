@@ -6,6 +6,7 @@ import getPropertyById from "@/app/actions/getPropertyById";
 import getCompounds from "@/app/actions/getCompounds";
 import getAreas from "@/app/actions/getAreas";
 import { IParams } from "@/app/actions/getProperties";
+import getDevelopers from "@/app/actions/getDevelopers";
 
 interface PageParams {
     params: IParams;
@@ -15,6 +16,7 @@ interface PageParams {
 const PropertyPage = async ({ params, searchParams }: PageParams) => {
     const listing = await getPropertyById(params as any);
     const compounds = await getCompounds(searchParams);
+    const developers = await getDevelopers(searchParams);
     const areas = await getAreas(searchParams);
     const currentUser = await getCurrentUser();
 
@@ -31,7 +33,7 @@ const PropertyPage = async ({ params, searchParams }: PageParams) => {
             <PropertyClient
                 compounds={compounds as any}
                 areas={areas as any}
-                developers={areas as any}
+                developers={developers as any}
                 listing={listing as any}
                 currentUser={currentUser}
             />
