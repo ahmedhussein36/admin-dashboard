@@ -8,7 +8,7 @@ export type CitySelectValue = {
     value: string;
 };
 
-interface CitySelectProps {
+interface CitySelectProps { 
     value?: CitySelectValue;
     onChange: (value: CitySelectValue) => void;
     isFilter?: boolean;

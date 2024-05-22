@@ -13,10 +13,10 @@ export default async function getPropertyById(params: IParams) {
                 id: propertyId,
             },
             include: {
-                // user: true,
+                user: true,
                 compound: true,
-                Area: true,
-                Developer: true,
+                area: true,
+                developer: true,
             },
         });
 

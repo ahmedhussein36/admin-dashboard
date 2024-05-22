@@ -16,11 +16,11 @@ import {
 } from "@/app/components/data/data";
 import RTE from "@/app/components/postForm/RTE";
 import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
     SafeProperty,
     SafeUser,
+    lightArea,
+    lightCompond,
+    lightDeveloper,
 } from "@/app/types";
 import Select from "react-select";
 
@@ -36,15 +36,14 @@ import Heading from "@/app/components/Heading";
 
 interface PropertyClientProps {
     listing: SafeProperty & {
-        user: SafeUser;
-        compound: SafeCompound;
-        area: SafeArea;
-        developer: SafeDeveloper;
+        compound: lightCompond;
+        area: lightArea;
+        developer: lightDeveloper;
     };
     currentUser?: SafeUser | null;
-    compounds: SafeCompound[];
-    areas: SafeArea[];
-    developers: SafeDeveloper[];
+    compounds: lightCompond[];
+    areas: lightArea[];
+    developers: lightDeveloper[];
 }
 const PropertyClient: FC<PropertyClientProps> = ({
     listing,
@@ -55,10 +54,11 @@ const PropertyClient: FC<PropertyClientProps> = ({
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [isInstallment, setIsInstallment] = useState(false);
-    const [isDeveloper, setIsDeveloper] = useState(false);
+    const [isDeveloper, setIsDeveloper] = useState(true);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>(
         listing.images
     );
+    const [allAmenities, setAmenities] = useState<string[]>([]);
 
     const {
         register,
@@ -75,7 +75,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             slug: listing.slug,
             description: listing?.description,
             content: listing?.content,
-            images: listing?.images,
+            images: listing?.images || [],
             mainImage: listing?.mainImage,
             category: listing?.category,
             roomCount: listing?.roomCount,
@@ -83,7 +83,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             propertyType: listing?.propertyType,
             group: listing?.group,
             saleType: listing?.saleType,
-            amenities: listing?.amenities,
+            amenities: [],
             status: listing.status,
             isFeatured: listing.isFeatured,
             isAddHome: listing.isAddHome,
@@ -104,7 +104,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             commissionValue: listing.commissionValue,
             deliveryDate: listing.deliveryDate,
             country: "مصر",
-            city: listing.city,
+            city: listing?.city,
             phone: listing.phone,
             whatsapp: listing.whatsapp,
             price: listing.price,
@@ -131,7 +131,6 @@ const PropertyClient: FC<PropertyClientProps> = ({
     const bathroomCount = watch("bathroomCount");
     const mainImage = watch("mainImage");
     const images = watch("images");
-    const amenities = watch("amenities");
     const price = watch("price");
 
     const setCustomValue = (id: string, value: any) => {
@@ -142,28 +141,24 @@ const PropertyClient: FC<PropertyClientProps> = ({
         });
     };
 
-    const handleCheck = (e: any) => {
-        setCustomValue(
-            "amenities",
-            e.target.checked
-                ? [...amenities, e.target.id]
-                : amenities.filter((id: any) => id !== e.target.id)
-        );
+    const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, checked } = event.target;
+        const item = amenitiesItems.find((item) => item.id === id);
 
-        console.log(amenities);
-    };
-
-    const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
-        return slug;
+        if (item) {
+            if (checked) {
+                setAmenities((prev) => [...prev, item.name]);
+            } else {
+                setAmenities((prev) =>
+                    prev.filter((name) => name !== item.name)
+                );
+            }
+            setCustomValue("amenities", allAmenities);
+        }
     };
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-
-        const generatedSlug = slugGeneration(data.title);
-        data.slug = generatedSlug; // Set t
-
         axios
             .put(`/api/properties/${listing.id}`, data)
             .then(() => {
@@ -256,10 +251,10 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                 value={item.name}
                                 className=" rounded-md focus:ring-0 transition-all"
                                 type="radio"
-                                id={item.name}
+                                id={item.id}
                                 {...register("propertyType")}
                             />
-                            <label htmlFor={item.name}>{item.name}</label>
+                            <label htmlFor={item.id}>{item.name}</label>
                         </div>
                     ))}
                 </div>
@@ -519,7 +514,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
                             label="Slug"
                             register={register}
                             errors={errors}
-                            disabled
+                            // disabled
                         />
 
                         <div className="flex gap-2 w-full z-10 my-6">
@@ -532,26 +527,11 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                     isClearable
                                     isSearchable={false}
                                     options={areas}
+                                    name={area}
                                     placeholder="Select area"
-                                    formatOptionLabel={(area: SafeArea) => (
+                                    formatOptionLabel={(area) => (
                                         <div>{area.title}</div>
                                     )}
-                                    classNames={{
-                                        control: () =>
-                                            "p-1 border placeholder:text-slate-400 focus:border-primary-500",
-                                        input: () => "text-slate-300",
-                                        option: () => "",
-                                    }}
-                                    theme={(theme) => ({
-                                        ...theme,
-                                        borderRadius: 8,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary50: "rgb(241 245 249)",
-                                            primary25: "rgb(241 245 249)",
-                                            primary: "#CBD2E0",
-                                        },
-                                    })}
                                 />
                             </div>
                             <div className=" w-1/2">
@@ -564,25 +544,9 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                     isSearchable={false}
                                     options={compounds}
                                     placeholder="Select compound"
-                                    formatOptionLabel={(
-                                        compound: SafeCompound
-                                    ) => <div>{compound.title}</div>}
-                                    classNames={{
-                                        control: () =>
-                                            "p-1 border placeholder:text-slate-400 focus:border-primary-500",
-                                        input: () => "text-slate-300",
-                                        option: () => "",
-                                    }}
-                                    theme={(theme) => ({
-                                        ...theme,
-                                        borderRadius: 8,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary50: "rgb(241 245 249)",
-                                            primary25: "rgb(241 245 249)",
-                                            primary: "#CBD2E0",
-                                        },
-                                    })}
+                                    formatOptionLabel={(compound) => (
+                                        <div>{compound.title}</div>
+                                    )}
                                 />
                             </div>
                             <div className=" w-1/2">
@@ -595,25 +559,9 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                     isSearchable={false}
                                     options={developers}
                                     placeholder="Select developer"
-                                    formatOptionLabel={(
-                                        developers: SafeDeveloper
-                                    ) => <div>{developers.title}</div>}
-                                    classNames={{
-                                        control: () =>
-                                            "p-1 border placeholder:text-slate-400 focus:border-primary-500",
-                                        input: () => "text-slate-300",
-                                        option: () => "",
-                                    }}
-                                    theme={(theme) => ({
-                                        ...theme,
-                                        borderRadius: 8,
-                                        colors: {
-                                            ...theme.colors,
-                                            primary50: "rgb(241 245 249)",
-                                            primary25: "rgb(241 245 249)",
-                                            primary: "#CBD2E0",
-                                        },
-                                    })}
+                                    formatOptionLabel={(developer) => (
+                                        <div>{developer.title}</div>
+                                    )}
                                 />
                             </div>
                         </div>
@@ -922,13 +870,14 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                 className="w-[30%] flex gap-2 justify-start items-center"
                             >
                                 <input
-                                    id={item.name}
+                                    value={item.name}
+                                    id={item.id}
                                     // {...register("amenities")}
                                     type="checkbox"
                                     className=" focus:ring-0 transition-all rounded"
                                     onChange={handleCheck}
                                 />
-                                <label htmlFor={item.name}>{item.name}</label>
+                                <label htmlFor={item.id}>{item.name}</label>
                             </div>
                         ))}
                     </div>

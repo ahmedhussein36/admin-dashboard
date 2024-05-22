@@ -419,7 +419,7 @@ export const paymentPlans = [
 export const saleTypes = [
     {
         id: "1",
-        name: " بيع من المطور",
+        name: "بيع من المطور",
         name_en: "By Developer",
     },
     {

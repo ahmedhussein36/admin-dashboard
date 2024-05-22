@@ -145,8 +145,8 @@ model Property {
   areaId            String?    @db.ObjectId
   compound          Compound?  @relation(fields: [compoundId], references: [id])
   compoundId        String?    @db.ObjectId
-  Area              Area?      @relation(fields: [areaId], references: [id])
-  Developer         Developer? @relation(fields: [developerId], references: [id])
+  area              Area?      @relation(fields: [areaId], references: [id])
+  developer         Developer? @relation(fields: [developerId], references: [id])
 }
 
 model Compound {
@@ -289,4 +289,12 @@ model PostCategory {
   user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([postId, categoryId])
+}
+
+model Lead {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  phone String
+  email String?
+  subject String 
 }

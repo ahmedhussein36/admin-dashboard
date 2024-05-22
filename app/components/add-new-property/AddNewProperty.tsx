@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues,SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -18,7 +18,6 @@ import {
     saleTypes,
     amenitiesItems,
     rentTypes,
-    allTypes,
 } from "../data/data";
 // import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
@@ -31,7 +30,6 @@ import Button from "../Button";
 import CitySelect from "../customInputs/CitySelect";
 import { FC, useMemo, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
-import ClientOnly from "../ClientOnly";
 
 enum STEPS {
     CATEGORY = 0,
@@ -56,6 +54,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const [isInstallment, setIsInstallment] = useState(false);
     const [isDeveloper, setIsDeveloper] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
+    const [allAmenities, setAmenities] = useState<string[]>([]);
 
     const {
         register,
@@ -130,7 +129,6 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const bathroomCount = watch("bathroomCount");
     const mainImage = watch("mainImage");
     const images = watch("images");
-    const amenities = watch("amenities");
     const price = watch("price");
 
     const setCustomValue = (id: string, value: any) => {
@@ -149,15 +147,22 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
         setStep((value) => value + 1);
     };
 
-    const handleCheck = (e: any) => {
-        setCustomValue(
-            "amenities",
-            e.target.checked
-                ? [...amenities, e.target.id]
-                : amenities.filter((id: any) => id !== e.target.id)
-        );
+    const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { id, checked } = event.target;
+        const item = amenitiesItems.find((item) => item.id === id);
 
-        console.log(amenities);
+        if (item) {
+            if (checked) {
+                setAmenities((prev) => [...prev, item.name]);
+            } else {
+                setAmenities((prev) =>
+                    prev.filter((name) => name !== item.name)
+                );
+            }
+            setCustomValue("amenities", allAmenities);
+            console.log(allAmenities)
+        }
+
     };
 
     const slugGeneration = (title: string) => {
@@ -994,7 +999,11 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                 thumbnail={false}
                                 onAction={(value) => {
                                     setCustomValue("images", value);
-                                    setAllPropertyImages(allPropertyImages.filter((image)=> image !== value));
+                                    setAllPropertyImages(
+                                        allPropertyImages.filter(
+                                            (image) => image !== value
+                                        )
+                                    );
                                 }}
                                 onChange={(value) => {
                                     setCustomValue("images", value);

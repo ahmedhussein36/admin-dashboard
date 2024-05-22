@@ -5,6 +5,8 @@ import {
     Area,
     Listing,
     Reservation,
+    Category,
+    Post,
     User,
 } from "@prisma/client";
 
@@ -45,10 +47,15 @@ export type SafeUser = Omit<
     emailVerified: string | null;
 };
 
-export type safeCategory = Omit<Compound, "createdAt"> & {
+export type safeCategory = Omit<Category, "createdAt"> & {
     createdAt: string;
 };
 
-export type safePost = Omit<Compound, "createdAt"> & {
+export type safePost = Omit<Post, "createdAt"> & {
     createdAt: string;
 };
+
+export type lightCompond = Pick<Compound, "title" | "id">;
+export type lightArea = Pick<Area, "title" | "id">;
+export type lightDeveloper = Pick<Developer, "title" | "id">;
+export type lightProperty = Pick<Property, "title" | "id">;

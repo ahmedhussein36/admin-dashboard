@@ -16,7 +16,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
     value,
     onChange,
     options,
-    placeholder,
+    placeholder, 
     isSearchable
 }) => {
     return (
