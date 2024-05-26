@@ -101,7 +101,7 @@ model Property {
   title             String
   description       String
   content           String
-  slug              String
+  slug              String @unique
   images            String[]
   mainImage         String
   category          String
@@ -291,10 +291,3 @@ model PostCategory {
   @@index([postId, categoryId])
 }
 
-model Lead {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  phone String
-  email String?
-  subject String 
-}

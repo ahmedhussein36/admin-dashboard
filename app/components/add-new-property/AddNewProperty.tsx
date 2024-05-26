@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { FieldValues,SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -160,13 +160,18 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                 );
             }
             setCustomValue("amenities", allAmenities);
-            console.log(allAmenities)
+            console.log(allAmenities);
         }
-
     };
 
     const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
+        const refNum = new Date().getTime();
+
+        const slug = (
+            title.toLowerCase().replace(/\s+/g, "-") +
+            "-" +
+            refNum.toString()
+        ).toString();
         return slug;
     };
 
