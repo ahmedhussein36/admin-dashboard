@@ -158,6 +158,18 @@ export const allTypes = [
         name_en: "Duplex",
     },
     {
+        id: "19",
+        label: "استديو",
+        name: "استديو",
+        name_en: "Studio",
+    },
+    {
+        id: "20",
+        label: "شاليه",
+        name: "شاليه",
+        name_en: "Chalet",
+    },
+    {
         id: "6",
         label: "مبنى سكني",
         name: "مبنى سكني",
@@ -361,6 +373,18 @@ export const residentalTypes = [
         name: "قطعة أرض",
         name_en: "Land",
     },
+    {
+        id: "11",
+        label: "استديو",
+        name: "استديو",
+        name_en: "Studio",
+    },
+    {
+        id: "12",
+        label: "شاليه",
+        name: "شاليه",
+        name_en: "Chalet",
+    },
 ];
 
 export const amenitiesItems = [
@@ -496,7 +520,7 @@ export const topSearchingAreas = [
         name: "القاهرة الجديدة",
         name_en: "New Cairo",
         image: "/assets/images/new-cairo.jpg",
-        slug: `/search?aria=القاهرة الجديدة`,
+        slug: `/القاهرة الجديدة`,
     },
     {
         id: "2",
@@ -504,7 +528,7 @@ export const topSearchingAreas = [
         name: "العاصمة الإدارية ",
         name_en: "New Capital City",
         image: "/assets/images/new-capital-city.jpg",
-        slug: `/search?aria=العاصمة الإدارية الجديدة`,
+        slug: `/area/العاصمة الإدارية الجديدة`,
     },
     {
         id: "3",
@@ -512,7 +536,7 @@ export const topSearchingAreas = [
         name: " السادس من اكتوبر",
         name_en: " 6th October City",
         image: "/assets/images/6th-october-city.jpg",
-        slug: `/search?aria=مدينة السادس من اكتوبر`,
+        slug: `/area/مدينة السادس من اكتوبر`,
     },
     {
         id: "4",
@@ -520,7 +544,7 @@ export const topSearchingAreas = [
         name: "الساحل الشمالي",
         name_en: "The North Coast",
         image: "/assets/images/north-coast.jpg",
-        slug: `/search?aria=الساحل الشمالي`,
+        slug: `/area/الساحل الشمالي`,
     },
     {
         id: "5",
@@ -528,7 +552,7 @@ export const topSearchingAreas = [
         name: "مدينة الشيخ زايد",
         name_en: "Shiekh Zayed City",
         image: "/assets/images/shiekh-zayed-city.jpg",
-        slug: `/search?aria=مدينة الشيخ زايد`,
+        slug: `/area/مدينة الشيخ زايد`,
     },
     {
         id: "6",
@@ -536,7 +560,7 @@ export const topSearchingAreas = [
         name: "الجونة",
         name_en: "El-Gouna",
         image: "/assets/images/algouna.jpg",
-        slug: `/search?aria=الجونة`,
+        slug: `/area/الجونة`,
     },
     {
         id: "7",
@@ -544,7 +568,7 @@ export const topSearchingAreas = [
         name: "مدينة المستقبل",
         name_en: "Al Mustakbal City",
         image: "/assets/images/almustakbal.jpg",
-        slug: `/search?aria=مدينة المستقبل`,
+        slug: `/area/مدينة المستقبل`,
     },
     {
         id: "8",
@@ -552,6 +576,6 @@ export const topSearchingAreas = [
         name: "العين السخنة",
         name_en: "Al-Ain Alsokhna",
         image: "/assets/images/alsokhna.jpg",
-        slug: `/search?aria=العين السخنة`,
+        slug: `/area/العين السخنة`,
     },
 ];
