@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import { FaEdit } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
+import Link from "next/link";
 
 interface TableProps {
     listings: SafeProperty[] & {
@@ -83,20 +84,18 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
             );
     }, []);
 
-    const actions = (listing : any) => {
+    const actions = (listing: any) => {
         return (
             <>
-                <div
-                    onClick={() => {
-                        router.push(`/listings/${listing.id}`);
-                    }}
+                <Link
+                    href={`/listings/${listing.id}`}
                     title="Edit"
                     className=" hover:bg-blue-100 hover:rounded-full
                             cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
                 >
                     {/* Edit  */}
                     <FaEdit color="#3b82f6" size={16} />
-                </div>
+                </Link>
                 <div
                     onClick={() => {
                         setListingId(listing.id);
