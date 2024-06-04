@@ -165,13 +165,12 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     };
 
     const slugGeneration = (title: string) => {
-        const refNum = new Date().getTime();
-
-        const slug = (
-            title.toLowerCase().replace(/\s+/g, "-") +
-            "-" +
-            refNum.toString()
-        ).toString();
+        const slug = title
+            .toLowerCase()
+            .replace(/\|+/g, "")
+            .replace(/\%+/g, "")
+            .replace(/\s+/g, "-")
+            .toString();
         return slug;
     };
 
@@ -183,7 +182,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
         setIsLoading(true);
 
         const generatedSlug = slugGeneration(data.title);
-        data.slug = generatedSlug; // Set t
+        data.slug = generatedSlug;
 
         axios
             .post("/api/properties", data)

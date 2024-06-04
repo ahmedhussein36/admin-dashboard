@@ -112,7 +112,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             size: listing.size,
             sizeUnit: listing.sizeUnit,
             compound: listing.compound,
-            developer: listing.developer,
+            developer: listing.developer || null,
             area: listing.area,
             metaTitle: listing?.seoDetails?.metaTitle,
             metaDescription: listing?.seoDetails?.metaDescription,
@@ -157,16 +157,29 @@ const PropertyClient: FC<PropertyClientProps> = ({
         }
     };
 
+    // const slugGeneration = (title: string) => {
+    //     const slug = title
+    //         .toLowerCase()
+    //         .replace(/\|+/g, "")
+    //         .replace(/\s+/g, "-")
+    //         .toString();
+    //     return slug;
+    // };
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
+
+        // const generatedSlug = slugGeneration(data.title);
+        // data.slug = generatedSlug;
+
         axios
             .put(`/api/properties/${listing.id}`, data)
             .then(() => {
+                router.refresh();
+
                 toast.success("Done : Item updated successfuly!", {
                     position: "bottom-right",
                 });
-
-                router.refresh();
             })
             .catch(() => {
                 toast.error("Error :can't update Item ", {

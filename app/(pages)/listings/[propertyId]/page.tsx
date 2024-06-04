@@ -2,19 +2,19 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import PropertyClient from "./PropertyClient";
-import getPropertyById from "@/app/actions/getPropertyById";
+import getPropertyById, { IParam } from "@/app/actions/getPropertyById";
 import getCompounds from "@/app/actions/getCompounds";
 import getAreas from "@/app/actions/getAreas";
 import { IParams } from "@/app/actions/getProperties";
 import getDevelopers from "@/app/actions/getDevelopers";
 
 interface PageParams {
-    params: IParams;
+    params: IParam;
     searchParams: IParams;
 }
 
 const PropertyPage = async ({ params, searchParams }: PageParams) => {
-    const listing = await getPropertyById(params as any);
+    const listing = await getPropertyById(params);
     const compounds = await getCompounds(searchParams);
     const developers = await getDevelopers(searchParams);
     const areas = await getAreas(searchParams);

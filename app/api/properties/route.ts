@@ -13,9 +13,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         title,
+        slug,
         description,
         content,
-        slug,
         images,
         mainImage,
         category,
@@ -68,9 +68,9 @@ export async function POST(request: Request) {
     const property = await prisma.property.create({
         data: {
             title,
+            slug,
             description,
             content,
-            slug,
             images,
             mainImage,
             category,

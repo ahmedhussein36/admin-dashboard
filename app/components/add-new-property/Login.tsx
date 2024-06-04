@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -12,10 +12,13 @@ import Button from "../Button";
 import { Spinner } from "flowbite-react";
 import Image from "next/legacy/image";
 import Container from "../Container";
+import RegisterModal from "../modals/RegisterModal";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const Login = () => {
     const router = useRouter();
     const loginModal = useLoginModal();
+    const RegisterModel = useRegisterModal();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(Boolean);
 
@@ -58,10 +61,10 @@ const Login = () => {
         }
     }, [loginModal.isOpen]);
 
-    // const onToggle = useCallback(() => {
-    //     loginModal.onClose();
-    //     registerModal.onOpen();
-    // }, [loginModal, registerModal]);
+    const onToggle = useCallback(() => {
+        loginModal.onClose();
+        RegisterModel.onOpen();
+    }, [RegisterModel, loginModal]);
 
     const emailLogin = (
         <div className="flex flex-col gap-4 px-5 justify-start items-center">
@@ -101,6 +104,7 @@ const Login = () => {
                     {"Forget Password?"}
                 </span>
             </p>
+            <button onClick={onToggle}>register</button>
         </div>
     );
 

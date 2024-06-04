@@ -1,10 +1,10 @@
 import prisma from "@/app/libs/prismadb";
 
-interface IParams {
+export interface IParam {
     propertyId?: string;
 }
 
-export default async function getPropertyById(params: IParams) {
+export default async function getPropertyById(params: IParam) {
     try {
         const { propertyId } = params;
 
@@ -26,7 +26,6 @@ export default async function getPropertyById(params: IParams) {
 
         return {
             ...property,
-            createdAt: property.createdAt.toString(),
             // user: {
             //     ...property.user,
             // },

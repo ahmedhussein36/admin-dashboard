@@ -96,12 +96,12 @@ model Reservation {
 
 model Property {
   id                String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug              String     @unique
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
   title             String
   description       String
   content           String
-  slug              String @unique
   images            String[]
   mainImage         String
   category          String
@@ -139,8 +139,8 @@ model Property {
   currency          String
   size              Int
   sizeUnit          String
-  userId            String     @db.ObjectId
-  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String?    @db.ObjectId
+  user              User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   developerId       String?    @db.ObjectId
   areaId            String?    @db.ObjectId
   compound          Compound?  @relation(fields: [compoundId], references: [id])
@@ -151,12 +151,12 @@ model Property {
 
 model Compound {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String     @unique
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   title         String
   content       String
   description   String
-  slug          String     @unique
   mainImage     String
   images        String[]
   seoDetails    Meta?
@@ -178,12 +178,13 @@ model Compound {
 
 model Developer {
   id            String     @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
   slug          String     @unique
+  title         String
   image         String
   description   String
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
+  seoDetails    Meta?
   status        String?
   isFeatured    Boolean?
   isAddHome     Boolean?
@@ -204,9 +205,10 @@ model Area {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   image         String?
-  lat           Float
-  long          Float
+  lat           Float?
+  long          Float?
   status        String?
+  seoDetails    Meta?
   isFeatured    Boolean?
   isAddHome     Boolean?
   isFooterMenu  Boolean?
@@ -220,10 +222,11 @@ model Area {
 
 model Category {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  title           String
   slug            String         @unique
+  title           String
   image           String
   description     String
+  seoDetails      Meta?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   status          String?
@@ -240,8 +243,8 @@ model Category {
 
 model Post {
   id              String         @id @default(auto()) @map("_id") @db.ObjectId
-  title           String
   slug            String         @unique
+  title           String
   image           String?
   content         String?
   createdAt       DateTime       @default(now())
@@ -290,4 +293,3 @@ model PostCategory {
 
   @@index([postId, categoryId])
 }
-
