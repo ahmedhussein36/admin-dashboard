@@ -33,6 +33,7 @@ import CitySelect from "@/app/components/customInputs/CitySelect";
 import Counter from "@/app/components/customInputs/Counter";
 import Button from "@/app/components/Button";
 import Heading from "@/app/components/Heading";
+import useRandomNumber from "@/app/hooks/useRandomNumber";
 
 interface PropertyClientProps {
     listing: SafeProperty & {
@@ -59,6 +60,8 @@ const PropertyClient: FC<PropertyClientProps> = ({
         listing.images
     );
     const [allAmenities, setAmenities] = useState<string[]>([]);
+
+    const randomNumber = useRandomNumber();
 
     const {
         register,
@@ -158,11 +161,15 @@ const PropertyClient: FC<PropertyClientProps> = ({
     };
 
     // const slugGeneration = (title: string) => {
-    //     const slug = title
+    //     const formatedSlug = title
     //         .toLowerCase()
     //         .replace(/\|+/g, "")
+    //         .replace(/\%+/g, "")
     //         .replace(/\s+/g, "-")
     //         .toString();
+
+    //     const slug = `${randomNumber}-${formatedSlug}`;
+
     //     return slug;
     // };
 
@@ -527,7 +534,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
                             label="Slug"
                             register={register}
                             errors={errors}
-                            // disabled
+                            disabled
                         />
 
                         <div className="flex gap-2 w-full z-10 my-6">

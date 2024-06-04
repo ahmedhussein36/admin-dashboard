@@ -30,6 +30,7 @@ import Button from "../Button";
 import CitySelect from "../customInputs/CitySelect";
 import { FC, useMemo, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
+import useRandomNumber from "@/app/hooks/useRandomNumber";
 
 enum STEPS {
     CATEGORY = 0,
@@ -55,6 +56,8 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const [isDeveloper, setIsDeveloper] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
     const [allAmenities, setAmenities] = useState<string[]>([]);
+
+    const randomNumber = useRandomNumber();
 
     const {
         register,
@@ -165,12 +168,20 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     };
 
     const slugGeneration = (title: string) => {
-        const slug = title
+        const formatedSlug = title
             .toLowerCase()
             .replace(/\|+/g, "")
             .replace(/\%+/g, "")
+            .replace(/\)+/g, "")
+            .replace(/\(+/g, "")
+            .replace(/\مقدم+/g, "")
+            .replace(/\0-9/g, "")
+            .replace(/\a-z/g, "")
             .replace(/\s+/g, "-")
             .toString();
+
+        const slug = `${formatedSlug}-${randomNumber}-${formatedSlug}`;
+
         return slug;
     };
 
