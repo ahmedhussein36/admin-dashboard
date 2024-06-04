@@ -180,7 +180,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             .replace(/\s+/g, "-")
             .toString();
 
-        const slug = `${formatedSlug}-${randomNumber}-${formatedSlug}`;
+        const slug = `${randomNumber}-${formatedSlug}`;
 
         return slug;
     };
