@@ -1,17 +1,19 @@
 import React from "react";
 import ListingClient from "./ListingClient";
-import getDevelopers, { IParams } from "@/app/actions/getDevelopers";
+import getDevelopers from "@/app/actions/getDevelopers";
 import getAreas from "@/app/actions/getAreas";
 import getCompounds from "@/app/actions/getCompounds";
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
+import getProperties, { IParams } from "@/app/actions/getProperties";
 
 interface PageProps {
     searchParams: IParams;
 }
 
 const page = async ({ searchParams }: PageProps) => {
+    const listings = await getProperties(searchParams);
     const developers = await getDevelopers(searchParams);
     const compounds = await getCompounds(searchParams);
     const areas = await getAreas(searchParams);
@@ -25,6 +27,7 @@ const page = async ({ searchParams }: PageProps) => {
             </div>
             <>
                 <ListingClient
+                    listings={listings as any}
                     compounds={compounds as any}
                     developers={developers as any}
                     areas={areas as any}

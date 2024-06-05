@@ -104,7 +104,7 @@ export async function POST(request: Request) {
             commissionValue: parseFloat(commissionValue) || null,
             deliveryDate,
             country,
-            city: city.value,
+            city: city?.value || "N/A",
             phone,
             whatsapp,
             price: parseInt(price),

@@ -6,6 +6,9 @@ import {
     SafeCompound,
     SafeDeveloper,
     SafeProperty,
+    lightArea,
+    lightCompond,
+    lightDeveloper,
 } from "@/app/types";
 import axios from "axios";
 import { Checkbox, Table } from "flowbite-react";
@@ -19,9 +22,9 @@ import Link from "next/link";
 
 interface TableProps {
     listings: SafeProperty[] & {
-        compound: SafeCompound;
-        area: SafeArea;
-        developer: SafeDeveloper;
+        compound: lightCompond;
+        area: lightArea;
+        developer: lightDeveloper;
     };
 }
 

@@ -15,15 +15,15 @@ import ClientOnly from "@/app/components/ClientOnly";
 import { redirect } from "next/navigation";
 import TableSkelton from "@/app/components/TableSkelton";
 
-interface ForRentPageProps {
+interface ListingsProps {
     searchParams: IParams;
 }
 
-const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
+const ListingsPage = async ({ searchParams }: ListingsProps) => {
     const compounds = await getCompounds(searchParams);
     const developers = await getDevelopers(searchParams);
     const areas = await getAreas(searchParams);
-    const currentUser = await getCurrentUser(); 
+    const currentUser = await getCurrentUser();
     const listings = await getProperties(searchParams);
 
     return (
@@ -59,7 +59,7 @@ const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
                     {listings.length ? (
                         <ListinClient
                             listings={listings as any}
-                            currentUser={currentUser}
+                            // currentUser={currentUser}
                         />
                     ) : (
                         <EmptyState />
@@ -70,4 +70,4 @@ const ForRentPage = async ({ searchParams }: ForRentPageProps) => {
     );
 };
 
-export default ForRentPage;
+export default ListingsPage;

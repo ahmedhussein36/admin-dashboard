@@ -8,17 +8,18 @@ import ClientOnly from "@/app/components/ClientOnly";
 import TableSkelton from "@/app/components/TableSkelton";
 
 interface ListinClientProps {
-    listings: SafeProperty[] & {
-        user: SafeUser;
-        compound: SafeCompound;
-        area: SafeArea;
-    };
-    currentUser?: SafeUser | null;
+    listings: SafeProperty[]
+    //  & {
+    //     user: SafeUser;
+    //     compound: SafeCompound;
+    //     area: SafeArea;
+    // };
+    // currentUser?: SafeUser | null;
 }
 
 const ListinClient: React.FC<ListinClientProps> = ({
     listings,
-    currentUser,
+    // currentUser,
 }) => {
     const [title, setTitle] = useState<string>("");
     const [filteredData, setFilteredData] = useState<SafeProperty[]>(listings);

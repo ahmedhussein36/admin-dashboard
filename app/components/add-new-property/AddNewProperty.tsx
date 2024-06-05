@@ -21,14 +21,22 @@ import {
 } from "../data/data";
 // import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
-import { SafeArea, SafeCompound, SafeDeveloper } from "@/app/types";
+import {
+    SafeArea,
+    SafeCompound,
+    SafeDeveloper,
+    lightArea,
+    lightCompond,
+    lightDeveloper,
+    lightProperty,
+} from "@/app/types";
 import Select from "react-select";
 
 import ImageUpload from "../customInputs/ImageUpload";
 import Heading from "../Heading";
 import Button from "../Button";
 import CitySelect from "../customInputs/CitySelect";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import useRandomNumber from "@/app/hooks/useRandomNumber";
 
@@ -40,14 +48,21 @@ enum STEPS {
 }
 
 interface PageProps {
-    compounds: SafeCompound[];
-    areas: SafeArea[];
-    developers: SafeDeveloper[];
+    compounds: lightCompond[];
+    areas: lightArea[];
+    developers: lightDeveloper[];
+    listings: lightProperty[];
 }
 
-const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
+const AddNewProperty: FC<PageProps> = ({
+    compounds,
+    areas,
+    developers,
+    listings,
+}) => {
     const router = useRouter();
     const [isSelected, setIsSelected] = useState(true);
+    const [incrementNumber, setIncrementNumber] = useState<number>();
     const [isLoading, setIsLoading] = useState(false);
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [getGroup, setGetGroup] = useState("1");
@@ -56,8 +71,6 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const [isDeveloper, setIsDeveloper] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
     const [allAmenities, setAmenities] = useState<string[]>([]);
-
-    const randomNumber = useRandomNumber();
 
     const {
         register,
@@ -167,6 +180,12 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
         }
     };
 
+    useEffect(() => {
+        const count = listings.length;
+        setIncrementNumber(count + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
+
     const slugGeneration = (title: string) => {
         const formatedSlug = title
             .toLowerCase()
@@ -174,13 +193,10 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             .replace(/\%+/g, "")
             .replace(/\)+/g, "")
             .replace(/\(+/g, "")
-            .replace(/\مقدم+/g, "")
-            .replace(/\0-9/g, "")
-            .replace(/\a-z/g, "")
             .replace(/\s+/g, "-")
             .toString();
 
-        const slug = `${randomNumber}-${formatedSlug}`;
+        const slug = `${incrementNumber}-${formatedSlug}`;
 
         return slug;
     };
@@ -610,7 +626,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     isSearchable={false}
                                     options={areas}
                                     placeholder="Select area"
-                                    formatOptionLabel={(areas: SafeArea) => (
+                                    formatOptionLabel={(areas) => (
                                         <div>{areas.title}</div>
                                     )}
                                     classNames={{
@@ -641,9 +657,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     isSearchable={false}
                                     options={compounds}
                                     placeholder="Select compound"
-                                    formatOptionLabel={(
-                                        compound: SafeCompound
-                                    ) => <div>{compound.title}</div>}
+                                    formatOptionLabel={(compound) => (
+                                        <div>{compound.title}</div>
+                                    )}
                                     classNames={{
                                         control: () =>
                                             "p-1 border placeholder:text-slate-400 focus:border-primary-500",
@@ -672,9 +688,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     isSearchable={false}
                                     options={developers}
                                     placeholder="Select developer"
-                                    formatOptionLabel={(
-                                        developers: SafeDeveloper
-                                    ) => <div>{developers.title}</div>}
+                                    formatOptionLabel={(developers) => (
+                                        <div>{developers.title}</div>
+                                    )}
                                     classNames={{
                                         control: () =>
                                             "p-1 border placeholder:text-slate-400 focus:border-primary-500",
