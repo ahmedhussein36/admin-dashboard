@@ -2,9 +2,6 @@
 
 import useConfirm from "@/app/hooks/useConfirm";
 import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
     SafeProperty,
     lightArea,
     lightCompond,
@@ -129,6 +126,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
                             <Checkbox />
                         </Table.HeadCell>
                         <Table.HeadCell>Title</Table.HeadCell>
+                        <Table.HeadCell>Ref.</Table.HeadCell>
                         <Table.HeadCell>Category</Table.HeadCell>
                         <Table.HeadCell>Type</Table.HeadCell>
                         <Table.HeadCell>Rooms</Table.HeadCell>
@@ -147,6 +145,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
                                     <Checkbox />
                                 </Table.Cell>
                                 <Table.Cell>{listing.title}</Table.Cell>
+                                <Table.Cell>{listing?.ref || ""}</Table.Cell>
                                 <Table.Cell>{listing.category}</Table.Cell>
                                 <Table.Cell>{listing.propertyType}</Table.Cell>
                                 <Table.Cell>{listing.roomCount}</Table.Cell>

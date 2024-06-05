@@ -62,7 +62,6 @@ const AddNewProperty: FC<PageProps> = ({
 }) => {
     const router = useRouter();
     const [isSelected, setIsSelected] = useState(true);
-    const [incrementNumber, setIncrementNumber] = useState<number>();
     const [isLoading, setIsLoading] = useState(false);
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [getGroup, setGetGroup] = useState("1");
@@ -99,6 +98,7 @@ const AddNewProperty: FC<PageProps> = ({
             status: "",
             isFeatured: false,
             isAddHome: false,
+            ref: `RR-${listings.length + 1}`,
             isRecommended: false,
             isFooterMenu: false,
             finishing: "",
@@ -180,23 +180,15 @@ const AddNewProperty: FC<PageProps> = ({
         }
     };
 
-    useEffect(() => {
-        const count = listings.length;
-        setIncrementNumber(count + 1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
-
     const slugGeneration = (title: string) => {
+        const count = listings.length;
         const formatedSlug = title
             .toLowerCase()
-            .replace(/\|+/g, "")
-            .replace(/\%+/g, "")
-            .replace(/\)+/g, "")
-            .replace(/\(+/g, "")
+            .replace(/[|%\)\(\#\*\@\$\~\!]+/g, "")
             .replace(/\s+/g, "-")
             .toString();
 
-        const slug = `${incrementNumber}-${formatedSlug}`;
+        const slug = `${count + 1}-${formatedSlug}`;
 
         return slug;
     };

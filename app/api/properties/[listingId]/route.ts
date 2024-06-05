@@ -43,6 +43,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     const body = await request.json();
     const {
         title,
+        ref,
         // slug,
         description,
         content,
@@ -107,6 +108,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         },
         data: {
             title,
+            ref,
             // slug,
             description,
             content,
