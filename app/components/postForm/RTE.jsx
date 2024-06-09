@@ -6,7 +6,10 @@ function RTE({ name, control, label, defaultValue = "" }) {
     return (
         <div className="w-full">
             {label && (
-                <label className="inline-block text-lg font-medium mb-1 "> {label}</label>
+                <label className="inline-block text-lg font-medium mb-1 ">
+                    {" "}
+                    {label}
+                </label>
             )}
             <Controller
                 name={name || "content"}
@@ -14,7 +17,7 @@ function RTE({ name, control, label, defaultValue = "" }) {
                 render={({ field: { onChange } }) => (
                     <Editor
                         initialValue={defaultValue}
-                        apiKey="pnf7sel7lb3s19de2uc6sohu7ow2zgioakibpt7k0mph14ka"
+                        apiKey="l3zohleki0oftwikgqrslpbi6vv1lb9j60s3a0h2actu81x5"
                         init={{
                             branding: false,
                             height: 350,
