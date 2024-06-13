@@ -40,6 +40,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: compound?.title,
+            name: compound?.name || "",
             description: compound?.description,
             content: compound?.content,
             slug: compound?.slug,
@@ -81,7 +82,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                 toast.success("item Updated successfully!", {
                     position: "bottom-right",
                 });
-                router.refresh()
+                router.refresh();
             })
             .catch(() => {
                 toast.error("Error : Can't update current item! ", {
@@ -134,6 +135,15 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                             <Input
                                 id="title"
                                 label="Title"
+                                disabled={isLoading}
+                                register={register}
+                                errors={errors}
+                                required
+                            />
+
+                            <Input
+                                id="name"
+                                label="name"
                                 disabled={isLoading}
                                 register={register}
                                 errors={errors}

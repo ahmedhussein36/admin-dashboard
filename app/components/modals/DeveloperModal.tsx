@@ -29,6 +29,7 @@ const DeveloperModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
+            name: "",
             description: "",
             slug: "",
             image: "",
@@ -82,7 +83,6 @@ const DeveloperModal = () => {
             });
     };
 
-
     const body = (
         <div className="flex flex-col gap-4 px-2 md:px-5 lg:px-5 xl:px-5">
             <Heading title="New Developer" subtitle={"Create new developer"} />
@@ -122,6 +122,14 @@ const DeveloperModal = () => {
                     <Input
                         id="title"
                         label="Title"
+                        disabled={isLoading}
+                        register={register}
+                        errors={errors}
+                        required
+                    />
+                    <Input
+                        id="name"
+                        label="name"
                         disabled={isLoading}
                         register={register}
                         errors={errors}

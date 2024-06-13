@@ -99,7 +99,7 @@ model Property {
   slug              String     @unique
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
-  ref               String? 
+  ref               String?
   title             String
   description       String
   content           String
@@ -156,6 +156,7 @@ model Compound {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   title         String
+  name          String?
   content       String
   description   String
   mainImage     String
@@ -182,6 +183,7 @@ model Developer {
   slug          String     @unique
   title         String
   image         String
+  name          String?
   description   String
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
