@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
+import Link from "next/link";
 
 interface Props {
     compounds: SafeCompound[] | any[];
@@ -142,10 +143,7 @@ const CompoundClient: React.FC<Props> = ({ compounds, listings }) => {
                                     <Table.HeadCell>Properties</Table.HeadCell>
                                     <Table.HeadCell>Author</Table.HeadCell>
                                     <Table.HeadCell>Status</Table.HeadCell>
-
-                                    <Table.HeadCell>
-                                        <span className="">Action</span>
-                                    </Table.HeadCell>
+                                    <Table.HeadCell>Action</Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y font-medium text-lg">
                                     {filteredData.map(
@@ -196,12 +194,8 @@ const CompoundClient: React.FC<Props> = ({ compounds, listings }) => {
                                                 </Table.Cell>
 
                                                 <Table.Cell className=" flex justify-start items-center gap-3">
-                                                    <span
-                                                        onClick={() => {
-                                                            router.push(
-                                                                `/compounds/${item.id}`
-                                                            );
-                                                        }}
+                                                    <Link
+                                                        href={`/compounds/${item.id}`}
                                                         title="Edit"
                                                         className=" hover:bg-blue-100 hover:rounded-full
                             cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
@@ -211,7 +205,7 @@ const CompoundClient: React.FC<Props> = ({ compounds, listings }) => {
                                                             color="#3b82f6"
                                                             size={16}
                                                         />
-                                                    </span>
+                                                    </Link>
                                                     <span
                                                         onClick={() => {
                                                             setCompoundId(

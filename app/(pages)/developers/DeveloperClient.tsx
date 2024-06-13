@@ -171,10 +171,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 <Table.HeadCell>Compounds</Table.HeadCell>
                                 <Table.HeadCell>Properties</Table.HeadCell>
                                 <Table.HeadCell>Status</Table.HeadCell>
-
-                                <Table.HeadCell>
-                                    <span className="">Action</span>
-                                </Table.HeadCell>
+                                <Table.HeadCell>Action</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y font-medium text-lg">
                                 {currentItems.map((item: any) => (
@@ -231,12 +228,8 @@ const DeveloperClient: React.FC<Props> = ({
                                             {StutusColor(item.status)}
                                         </Table.Cell>
                                         <Table.Cell className=" flex justify-start items-center gap-3">
-                                            <div
-                                                onClick={() => {
-                                                    router.push(
-                                                        `/developers/${item.id}`
-                                                    );
-                                                }}
+                                            <Link
+                                                href={`/developers/${item.id}`}
                                                 title="Edit"
                                                 className=" hover:bg-blue-100 hover:rounded-full
                             cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
@@ -246,7 +239,7 @@ const DeveloperClient: React.FC<Props> = ({
                                                     color="#3b82f6"
                                                     size={16}
                                                 />
-                                            </div>
+                                            </Link>
                                             <Link
                                                 href={`${BASE_URL}/developers/${item.slug}`}
                                                 title="Preview"

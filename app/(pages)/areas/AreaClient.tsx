@@ -25,6 +25,7 @@ import useConfirm from "@/app/hooks/useConfirm";
 import { MdCheckCircleOutline } from "react-icons/md";
 import EmptyState from "@/app/components/EmptyState";
 import AreaModal from "@/app/components/modals/AreaModal";
+import Link from "next/link";
 
 interface Props {
     areas: SafeArea[];
@@ -157,12 +158,8 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                     <Table.HeadCell>Compounds</Table.HeadCell>
                                     <Table.HeadCell>Properties</Table.HeadCell>
                                     <Table.HeadCell>Author</Table.HeadCell>
-
                                     <Table.HeadCell>Status</Table.HeadCell>
-
-                                    <Table.HeadCell>
-                                        <span className="">Action</span>
-                                    </Table.HeadCell>
+                                    <Table.HeadCell>Action</Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y font-medium text-lg">
                                     {filteredData.map((item: any) => (
@@ -220,22 +217,17 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                                 )}
                                             </Table.Cell>
                                             <Table.Cell className=" flex justify-start items-center gap-3">
-                                                <div
-                                                    onClick={() => {
-                                                        router.push(
-                                                            `/areas/${item.slug}`
-                                                        );
-                                                    }}
+                                                <Link
+                                                    href={`/areas/${item.slug}`}
                                                     title="Edit"
-                                                    className=" hover:bg-blue-100 hover:rounded-full
-                            cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
+                                                    className=" hover:bg-blue-100 hover:rounded-full p-2 rounded-md text-white flex gap-1 justify-center items-center"
                                                 >
                                                     {/* Edit  */}
                                                     <FaEdit
                                                         color="#3b82f6"
                                                         size={16}
                                                     />
-                                                </div>
+                                                </Link>
                                                 <div
                                                     onClick={() => {
                                                         setAreaId(item.id);
