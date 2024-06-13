@@ -29,7 +29,6 @@ const DeveloperModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
-            name: "",
             description: "",
             slug: "",
             image: "",
@@ -122,14 +121,6 @@ const DeveloperModal = () => {
                     <Input
                         id="title"
                         label="Title"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                        required
-                    />
-                    <Input
-                        id="name"
-                        label="name"
                         disabled={isLoading}
                         register={register}
                         errors={errors}

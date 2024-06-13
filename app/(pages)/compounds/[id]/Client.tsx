@@ -147,7 +147,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 disabled={isLoading}
                                 register={register}
                                 errors={errors}
-                                required
                             />
                             <Input
                                 id="slug"

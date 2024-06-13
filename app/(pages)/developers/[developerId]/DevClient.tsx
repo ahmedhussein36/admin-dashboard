@@ -38,8 +38,7 @@ const DevClient: FC<Props> = ({ developer }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: developer.title,
-            name: developer.name,
-            description: developer.description,
+            description: developer?.description || "",
             content: developer.content,
             slug: developer.slug,
             image: developer?.image,
@@ -127,14 +126,6 @@ const DevClient: FC<Props> = ({ developer }) => {
                     <Input
                         id="title"
                         label="Title"
-                        disabled={isLoading}
-                        register={register}
-                        errors={errors}
-                        required
-                    />
-                    <Input
-                        id="name"
-                        label="name"
                         disabled={isLoading}
                         register={register}
                         errors={errors}
