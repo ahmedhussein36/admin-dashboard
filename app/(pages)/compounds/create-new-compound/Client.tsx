@@ -36,7 +36,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
-            name: "",
             description: "",
             content: "",
             slug: "",
@@ -146,13 +145,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 register={register}
                                 errors={errors}
                                 required
-                            />
-                            <Input
-                                id="name"
-                                label="name"
-                                disabled={isLoading}
-                                register={register}
-                                errors={errors}
                             />
                             <Input
                                 id="slug"

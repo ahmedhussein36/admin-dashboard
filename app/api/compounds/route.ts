@@ -12,7 +12,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         title,
-        name,
         description,
         content,
         slug,
@@ -41,7 +40,6 @@ export async function POST(request: Request) {
     const compound = await prisma.compound.create({
         data: {
             title,
-            name,
             description,
             content,
             slug,

@@ -40,7 +40,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: compound?.title,
-            name: compound?.name || "",
             description: compound?.description,
             content: compound?.content,
             slug: compound?.slug,
@@ -141,13 +140,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 required
                             />
 
-                            <Input
-                                id="name"
-                                label="name"
-                                disabled={isLoading}
-                                register={register}
-                                errors={errors}
-                            />
                             <Input
                                 id="slug"
                                 label="Slug"

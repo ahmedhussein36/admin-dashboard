@@ -1,5 +1,3 @@
-import LoginModal from "@/app/components/modals/LoginModal";
-import RegisterModal from "@/app/components/modals/RegisterModal";
 import ToasterProvider from "@/app/providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
 import TopLoader from "./components/TopLoader";
@@ -28,8 +26,6 @@ export default async function RootLayout({
                 <TopLoader />
                 <div className=" flex flex-col">
                     <div className=" z-10">
-                        <LoginModal />
-                        <RegisterModal />
                         <ToasterProvider />
                     </div>
                     <main className=" flex justify-start items-start relative gap-2 transition-all">
