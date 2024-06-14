@@ -5,7 +5,6 @@ import getCompounds from "./actions/getCompounds";
 import getDevelopers from "./actions/getDevelopers";
 import getAreas from "./actions/getAreas";
 import getProperties, { IParams } from "./actions/getProperties";
-import { Suspense } from "react";
 
 export const metadata = {
     title: "Dashboard : Remax Royal",
@@ -29,7 +28,7 @@ const Home = async ({ searchParams }: PageProps) => {
                     <Heading title={"Dashboard"} />
                 </div>
             </div>
-            <Suspense>
+            <>
                 <div className=" w-full mt-6">
                     <Analisys
                         listings={listings}
@@ -38,12 +37,12 @@ const Home = async ({ searchParams }: PageProps) => {
                         developers={developers}
                     />
                 </div>
-            </Suspense>
-            <Suspense>
+            </>
+            <>
                 <div>
                     <MyListitngs listings={listings} />
                 </div>
-            </Suspense>
+            </>
         </Container>
     );
 };
