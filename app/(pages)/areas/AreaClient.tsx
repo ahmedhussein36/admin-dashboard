@@ -161,7 +161,7 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                     <Table.HeadCell>Status</Table.HeadCell>
                                     <Table.HeadCell>Action</Table.HeadCell>
                                 </Table.Head>
-                                <Table.Body className="divide-y font-medium text-lg">
+                                <Table.Body className="divide-y font-medium ">
                                     {filteredData.map((item: any) => (
                                         <Table.Row
                                             key={item.id}

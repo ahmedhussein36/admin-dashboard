@@ -173,7 +173,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 <Table.HeadCell>Status</Table.HeadCell>
                                 <Table.HeadCell>Action</Table.HeadCell>
                             </Table.Head>
-                            <Table.Body className="divide-y font-medium text-lg">
+                            <Table.Body className="divide-y font-medium ">
                                 {currentItems.map((item: any) => (
                                     <Table.Row
                                         key={item.id}

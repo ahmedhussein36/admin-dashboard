@@ -135,7 +135,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
                         <Table.HeadCell>Status</Table.HeadCell>
                         <Table.HeadCell>Action</Table.HeadCell>
                     </Table.Head>
-                    <Table.Body className="divide-y text-lg font-medium">
+                    <Table.Body className="divide-y font-medium">
                         {listings.map((listing: any) => (
                             <Table.Row
                                 key={listing.id}

@@ -1,11 +1,10 @@
 "use client";
-import { SafeArea, SafeCompound, SafeProperty, SafeUser } from "@/app/types";
+import { SafeProperty } from "@/app/types";
 import ListingsTable from "@/app/components/listings/ListingsTable";
 import SearchInput from "@/app/components/inputs/SearchInput";
 import { useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import ClientOnly from "@/app/components/ClientOnly";
-import TableSkelton from "@/app/components/TableSkelton";
 
 interface ListinClientProps {
     listings: SafeProperty[]
