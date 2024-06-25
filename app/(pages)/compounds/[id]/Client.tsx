@@ -40,6 +40,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: compound?.title,
+            name: compound?.name,
             description: compound?.description,
             content: compound?.content,
             slug: compound?.slug,
@@ -146,6 +147,15 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 disabled
                                 register={register}
                                 errors={errors}
+                            />
+
+                            <Input
+                                id="name"
+                                label="name"
+                                disabled={isLoading}
+                                register={register}
+                                errors={errors}
+                                required
                             />
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
