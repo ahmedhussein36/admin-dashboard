@@ -157,7 +157,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
                             <Input
                                 id="name"
                                 label="name"
-                                disabled
                                 register={register}
                                 errors={errors}
                             />

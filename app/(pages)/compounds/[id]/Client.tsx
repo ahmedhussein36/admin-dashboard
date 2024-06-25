@@ -155,7 +155,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 disabled={isLoading}
                                 register={register}
                                 errors={errors}
-                                required
                             />
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
