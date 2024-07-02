@@ -46,14 +46,12 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     const body = await request.json();
     const {
         title,
-        name,
         description,
         content,
         mainImage,
         images,
         metaTitle,
         metaDescription,
-        latLong,
         isLaunch,
         status,
         isFeatured,
@@ -82,7 +80,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         },
         data: {
             title,
-            name,
             description,
             content,
             mainImage,
@@ -91,7 +88,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
                 metaDescription,
                 metaTitle,
             },
-            latLong: parseFloat(latLong),
+
             isLaunch,
             status,
             isFeatured,

@@ -36,7 +36,6 @@ const Client: FC<Props> = ({ developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: "",
-            name: "",
             description: "",
             content: "",
             slug: "",
@@ -154,12 +153,15 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
+<<<<<<< HEAD
                             <Input
                                 id="name"
                                 label="name"
                                 register={register}
                                 errors={errors}
                             />
+=======
+>>>>>>> parent of bc11369 (commit name field)
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
                                     <Select

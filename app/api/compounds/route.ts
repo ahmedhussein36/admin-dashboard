@@ -12,7 +12,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
         title,
-        name,
         description,
         content,
         slug,
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
         seoDetails,
         metaTitle,
         metaDescription,
-        latLong,
+      
         isLaunch,
         status,
         isFeatured,
@@ -41,7 +40,6 @@ export async function POST(request: Request) {
     const compound = await prisma.compound.create({
         data: {
             title,
-            name,
             description,
             content,
             slug,
@@ -51,7 +49,7 @@ export async function POST(request: Request) {
                 metaDescription,
                 metaTitle,
             },
-            latLong: parseFloat(latLong),
+         
             isLaunch,
             status,
             isFeatured,
