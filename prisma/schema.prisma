@@ -162,7 +162,8 @@ model Compound {
   mainImage     String
   images        String[]
   seoDetails    Meta?
-  latLong       Float
+  lat           Float? 
+  lng           Float?
   isLaunch      String
   status        String
   isFeatured    Boolean
