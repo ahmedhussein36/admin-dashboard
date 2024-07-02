@@ -51,7 +51,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
             area: compound?.area,
             developer: compound?.developer,
             images: compound.images,
-            latLong: compound.latLong,
             status: compound.status,
             isFeatured: compound.isFeatured,
             isAddHome: compound.isAddHome,
@@ -220,15 +219,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                     />
                                 </div>
                             </div>
-
-                            <Input
-                                id="latLong"
-                                label="Lat Long"
-                                type="number"
-                                disabled={isLoading}
-                                register={register}
-                                errors={errors}
-                            />
                         </div>
 
                         <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-between items-start rounded-md border">
