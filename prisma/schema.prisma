@@ -103,8 +103,8 @@ model Property {
   slug              String     @unique
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
-  ref               String?
-  title             String?
+  ref               String
+  title             String
   description       String?
   content           String?
   images            String[]

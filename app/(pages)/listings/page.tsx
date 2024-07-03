@@ -12,9 +12,7 @@ interface ListingParams {
 }
 
 const ListingsPage = async ({ searchParams }: ListingParams) => {
-    // const listings = await getProperties(searchParams);
-
-    const listings: [] = [];
+    const listings = await getProperties(searchParams);
 
     return (
         <>
