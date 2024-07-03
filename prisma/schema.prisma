@@ -135,9 +135,9 @@ model Property {
   commissionValue   Float?
   deliveryDate      String?
   country           String
-  city              String?
-  phone             String?
-  whatsapp          String?
+  city              String
+  phone             String
+  whatsapp          String
   seoDetails        Meta?
   price             Int
   currency          String
