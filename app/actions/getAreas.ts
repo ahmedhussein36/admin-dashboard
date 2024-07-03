@@ -1,11 +1,12 @@
 import prisma from "@/app/libs/prismadb";
+import { SafeArea } from "../types";
 
 export interface IParams {
     title?: string;
     status?: string;
 }
 
-export default async function getAreas(params: IParams) {
+export default async function getAreas(params: IParams){
     try {
         const { title, status } = params;
 
@@ -20,19 +21,6 @@ export default async function getAreas(params: IParams) {
 
         const areas = await prisma.area.findMany({
             where: query,
-            select: {
-                id: true,
-                title: true,
-                image: true,
-                slug: true,
-                createdAt: true,
-                status: true,
-                user: {
-                    select: {
-                        name: true,
-                    },
-                },
-            },
             orderBy: {
                 createdAt: "desc",
             },

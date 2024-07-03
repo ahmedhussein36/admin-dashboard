@@ -23,7 +23,6 @@ export async function POST(request: Request) {
         bathroomCount,
         propertyType,
         saleType,
-        amenities,
         group,
         status,
         isFeatured,
@@ -89,7 +88,6 @@ export async function POST(request: Request) {
             isFooterMenu,
             saleType,
             ref,
-            amenities,
             paymentPlan,
             rentalPlan,
             seoDetails: {

@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import EmptyState from "../EmptyState";
 import { useRouter } from "next/navigation";
@@ -30,7 +28,7 @@ export const MyListitngs = ({ listings }) => {
         <div className="my-8 flex gap-3 flex-col justify-between items-start bg-white p-6 rounded-xl shadow-md shadow-blue-400/10">
             <div className=" w-full border-b border-slate-200">
                 <h2 className="w-full my-2 pb-4  text-xl font-medium">
-                    My Listitngs ({listings.length || 0})
+                    My Listitngs ({listings.lenght || 0})
                 </h2>
             </div>
             <div className=" w-full my-2 flex justify-center items-center">
@@ -40,7 +38,7 @@ export const MyListitngs = ({ listings }) => {
     );
 };
 
-export const Analisys = ({ areas, compounds, developers, listings }) => {
+export const Analisys = ({ areas, developers, listings, compounds }) => {
     const router = useRouter();
     return (
         <div className="grid">
@@ -50,7 +48,7 @@ export const Analisys = ({ areas, compounds, developers, listings }) => {
                         router.push("/listings//create-new-listing")
                     }
                     label="Listings"
-                    data={listings.length}
+                    data={listings}
                     color="bg-rose-500"
                 />
                 <Card
@@ -58,17 +56,17 @@ export const Analisys = ({ areas, compounds, developers, listings }) => {
                         router.push("/compounds//create-new-compound")
                     }
                     label="Compounds"
-                    data={compounds.length}
+                    data={compounds}
                     color={"bg-blue-500"}
                 />
                 <Card
                     label="Devlopers"
-                    data={developers.length}
+                    data={developers}
                     color={"bg-lime-500"}
                 />
                 <Card
                     label="New Lounches"
-                    data={areas.length}
+                    data={areas}
                     color={"bg-orange-400"}
                 />
             </div>

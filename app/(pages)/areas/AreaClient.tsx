@@ -1,17 +1,10 @@
 "use client";
-import {
-    SafeArea,
-    SafeCompound,
-    SafeListing,
-    SafeProperty,
-    SafeUser,
-} from "@/app/types";
+import { SafeArea, SafeCompound, SafeProperty } from "@/app/types";
 import ClientOnly from "@/app/components/ClientOnly";
 import useAreaModal from "@/app/hooks/useAreaModal";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
-import Sorting from "@/app/components/Sorting";
-import { Checkbox, Table, TableCell } from "flowbite-react";
+import { Checkbox, Table } from "flowbite-react";
 import { FaEdit } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import Image from "next/legacy/image";
@@ -22,18 +15,15 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
-import { MdCheckCircleOutline } from "react-icons/md";
 import EmptyState from "@/app/components/EmptyState";
 import AreaModal from "@/app/components/modals/AreaModal";
 import Link from "next/link";
 
 interface Props {
     areas: SafeArea[];
-    compounds: SafeCompound[];
-    listings: SafeProperty[];
 }
 
-const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
+const AreaClient: React.FC<Props> = ({ areas }) => {
     const [title, setTitle] = useState("");
     const [filteredData, setFilteredData] = useState(areas);
     const [areaId, setAreaId] = useState("");
@@ -189,25 +179,9 @@ const AreaClient: React.FC<Props> = ({ areas, compounds, listings }) => {
                                                 {item.title}
                                             </Table.Cell>
                                             <Table.Cell>{item.slug}</Table.Cell>
-                                            <Table.Cell>
-                                                {
-                                                    compounds.filter(
-                                                        (compound) =>
-                                                            compound.areaId ===
-                                                            item.id
-                                                    ).length
-                                                }
-                                            </Table.Cell>
+                                            <Table.Cell>{0}</Table.Cell>
 
-                                            <Table.Cell>
-                                                {
-                                                    listings.filter(
-                                                        (listing) =>
-                                                            listing.areaId ===
-                                                            item.id
-                                                    ).length
-                                                }
-                                            </Table.Cell>
+                                            <Table.Cell>{0}</Table.Cell>
                                             <Table.Cell>
                                                 {item?.user?.name}
                                             </Table.Cell>

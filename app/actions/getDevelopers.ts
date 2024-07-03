@@ -23,7 +23,7 @@ export default async function getDevelopers(params: IParams) {
         const developers = await prisma.developer.findMany({
             where: query,
             orderBy: {
-                createdAt: "desc",
+                createdAt: "asc",
             },
             select: {
                 id: true,
@@ -34,6 +34,7 @@ export default async function getDevelopers(params: IParams) {
                 status: true,
                 user: {
                     select: {
+                        id: true,
                         name: true,
                     },
                 },

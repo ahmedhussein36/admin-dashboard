@@ -2,22 +2,16 @@ import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
 import DeveloperClient from "./DeveloperClient";
-import getDevelopers from "@/app/actions/getDevelopers";
-import getCompounds from "@/app/actions/getCompounds";
-import getProperties, { IParams } from "@/app/actions/getProperties";
+import getDevelopers , { IParams }from "@/app/actions/getDevelopers";
 import Sorting from "@/app/components/Sorting";
-import prisma from "@/app/libs/prismadb";
+import { getUniqueCompounds } from "@/app/utils/getUniqueCompounds";
 
 interface DevelopersPageProps {
     searchParams: IParams;
 }
 
-let query = {};
-
 const DevelopersPage = async ({ searchParams }: DevelopersPageProps) => {
     const developers = await getDevelopers(searchParams);
-    const compounds = await getCompounds(searchParams);
-    const listings = await getProperties(searchParams);
     return (
         <div>
             <Container>
@@ -35,8 +29,6 @@ const DevelopersPage = async ({ searchParams }: DevelopersPageProps) => {
                 <ClientOnly>
                     <DeveloperClient
                         developers={developers as any}
-                        listings={listings as any}
-                        compounds={compounds as any}
                     />
                 </ClientOnly>
             </Container>

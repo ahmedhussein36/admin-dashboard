@@ -10,16 +10,19 @@ import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
-import { SafeArea, SafeCompound, SafeDeveloper } from "@/app/types";
+import {
+    lightArea,
+    lightDeveloper,
+    SafeArea,
+    SafeCompound,
+    SafeDeveloper,
+} from "@/app/types";
 import Select from "react-select";
 
 interface Props {
-    compound: SafeCompound & {
-        area: SafeArea;
-        developer: SafeDeveloper;
-    };
-    developers: SafeDeveloper[];
-    areas: SafeArea[];
+    compound: SafeCompound;
+    developers: lightDeveloper[];
+    areas: lightArea[];
 }
 
 const Client: FC<Props> = ({ compound, developers, areas }) => {
@@ -40,6 +43,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: compound?.title,
+            name: compound?.name || "",
             description: compound?.description,
             content: compound?.content,
             slug: compound?.slug,
@@ -146,7 +150,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
-<<<<<<< HEAD
 
                             <Input
                                 id="name"
@@ -155,8 +158,6 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
-=======
->>>>>>> parent of bc11369 (commit name field)
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
                                     <Select
@@ -169,7 +170,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                         options={areas}
                                         placeholder="Select area"
                                         formatOptionLabel={(
-                                            areas: SafeArea
+                                            areas
                                         ) => <div>{areas.title}</div>}
                                         classNames={{
                                             control: () =>
@@ -200,7 +201,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                         options={developers}
                                         placeholder="Select developer"
                                         formatOptionLabel={(
-                                            developers: SafeDeveloper
+                                            developers
                                         ) => <div>{developers.title}</div>}
                                         classNames={{
                                             control: () =>

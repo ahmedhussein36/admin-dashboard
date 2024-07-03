@@ -15,6 +15,10 @@ type Meta {
   metaDescription String
 }
 
+type images {
+  url String?
+}
+
 model User {
   id             String         @id @default(auto()) @map("_id") @db.ObjectId
   name           String
@@ -68,15 +72,15 @@ model Account {
 model Listing {
   id            String        @id @default(auto()) @map("_id") @db.ObjectId
   title         String
-  description   String
-  imageSrc      String
+  description   String?
+  imageSrc      String?
   createdAt     DateTime      @default(now())
-  category      String
-  roomCount     Int
-  bathroomCount Int
-  guestCount    Int
-  locationValue String
-  price         Int
+  category      String?
+  roomCount     Int?
+  bathroomCount Int?
+  guestCount    Int?
+  locationValue String?
+  price         Int?
   userId        String        @db.ObjectId
   user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations  Reservation[]
@@ -100,18 +104,17 @@ model Property {
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
   ref               String?
-  title             String
-  description       String
-  content           String
+  title             String?
+  description       String?
+  content           String?
   images            String[]
-  mainImage         String
-  category          String
+  mainImage         String?
+  category          String?
   roomCount         Int
   bathroomCount     Int
   propertyType      String
   saleType          String?
   group             String?
-  amenities         String[]
   status            String?
   isFeatured        Boolean?
   isAddHome         Boolean?
@@ -133,8 +136,8 @@ model Property {
   deliveryDate      String?
   country           String
   city              String?
-  phone             String
-  whatsapp          String
+  phone             String?
+  whatsapp          String?
   seoDetails        Meta?
   price             Int
   currency          String
@@ -156,19 +159,21 @@ model Compound {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   title         String
-  content       String
-  description   String
-  mainImage     String
+  name          String?
+  content       String?
+  description   String?
+  mainImage     String?
   images        String[]
   seoDetails    Meta?
-  lat           Float? 
+  lat           Float?
   lng           Float?
-  isLaunch      String
-  status        String
-  isFeatured    Boolean
-  isAddHome     Boolean
-  isFooterMenu  Boolean
-  isRecommended Boolean
+  isLaunch      String?
+  latlong       Float?
+  status        String?
+  isFeatured    Boolean?
+  isAddHome     Boolean?
+  isFooterMenu  Boolean?
+  isRecommended Boolean?
   properties    Property[]
   developer     Developer? @relation(fields: [developerId], references: [id])
   developerId   String?    @db.ObjectId

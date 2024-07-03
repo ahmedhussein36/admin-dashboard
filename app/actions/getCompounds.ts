@@ -39,20 +39,27 @@ export default async function getCompounds(params: IParams) {
                 slug: true,
                 isLaunch: true,
                 status: true,
-                title: true,
-                createdAt: true,
+                name: true,
+                properties: {
+                    select: {
+                        id: true,
+                    },
+                },
                 developer: {
                     select: {
+                        id: true,
                         title: true,
                     },
                 },
                 area: {
                     select: {
+                        id: true,
                         title: true,
                     },
                 },
                 user: {
                     select: {
+                        id: true,
                         name: true,
                     },
                 },
@@ -64,7 +71,6 @@ export default async function getCompounds(params: IParams) {
 
         return compounds.map((compound) => ({
             ...compound,
-            createdAt: compound.createdAt.toISOString(),
         }));
     } catch (error) {
         console.error("Error fetching compounds:", error);

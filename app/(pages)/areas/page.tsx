@@ -2,12 +2,8 @@ import Container from "@/app/components/Container";
 import Heading from "@/app/components/Heading";
 import getAreas from "@/app/actions/getAreas";
 import AreaClient from "./AreaClient";
-import getCompounds from "@/app/actions/getCompounds";
-import getProperties, { IParams } from "@/app/actions/getProperties";
+import { IParams } from "@/app/actions/getProperties";
 import Sorting from "@/app/components/Sorting";
-import ClientOnly from "@/app/components/ClientOnly";
-import { Suspense } from "react";
-import Loader from "@/app/components/Loader";
 
 interface AreasPageProps {
     searchParams: IParams;
@@ -15,9 +11,6 @@ interface AreasPageProps {
 
 const AreasPage = async ({ searchParams }: AreasPageProps) => {
     const areas = await getAreas(searchParams);
-    const compounds = await getCompounds(searchParams);
-    const listings = await getProperties(searchParams);
-
     return (
         <div>
             <Container>
@@ -33,17 +26,7 @@ const AreasPage = async ({ searchParams }: AreasPageProps) => {
                     <Sorting data={areas} parent="areas" />
                 </div>
 
-                <Suspense fallback={<Loader />}>
-
-                    < >
-                        <AreaClient
-                            areas={areas as any}
-                            compounds={compounds as any}
-                            listings={listings as any}
-                        />
-                    </>
-                </Suspense>
-
+                <AreaClient areas={areas as any} />
             </Container>
         </div>
     );

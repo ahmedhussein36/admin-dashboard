@@ -7,26 +7,17 @@ import { LuSearch } from "react-icons/lu";
 import ClientOnly from "@/app/components/ClientOnly";
 
 interface ListinClientProps {
-    listings: SafeProperty[]
-    //  & {
-    //     user: SafeUser;
-    //     compound: SafeCompound;
-    //     area: SafeArea;
-    // };
-    // currentUser?: SafeUser | null;
+    listings: SafeProperty[];
 }
 
-const ListinClient: React.FC<ListinClientProps> = ({
-    listings,
-    // currentUser,
-}) => {
+const ListinClient: React.FC<ListinClientProps> = ({ listings }) => {
     const [title, setTitle] = useState<string>("");
     const [filteredData, setFilteredData] = useState<SafeProperty[]>(listings);
 
     useEffect(() => {
         if (title !== "") {
             const data = listings.filter((item) => {
-                return item.title.toLocaleLowerCase().includes(title)
+                return item?.title.toLocaleLowerCase().includes(title);
             });
             setFilteredData(data);
         } else {
@@ -49,8 +40,7 @@ const ListinClient: React.FC<ListinClientProps> = ({
                     </div>
                 </div>
                 <ClientOnly>
-                    <ListingsTable 
-                    listings={filteredData as any} />
+                    <ListingsTable listings={filteredData as any} />
                 </ClientOnly>
             </div>
         </>

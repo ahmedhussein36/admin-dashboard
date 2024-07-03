@@ -1,17 +1,15 @@
 import Container from "@/app/components/Container";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import Heading from "@/app/components/Heading";
-import getCompounds from "@/app/actions/getCompounds";
+import getCompounds, { IParams } from "@/app/actions/getCompounds";
 import CompoundClient from "./CompoundClient";
-import getDevelopers from "@/app/actions/getDevelopers";
-import getAreas from "@/app/actions/getAreas";
-import getProperties, { IParams } from "@/app/actions/getProperties";
 import Sorting from "@/app/components/Sorting";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { redirect } from "next/navigation";
-import ClientOnly from "@/app/components/ClientOnly";
 import Filter from "@/app/components/home/Filter";
+import { getUniqueAreas } from "@/app/utils/getUniqueAreas";
+import { getUniqueDevelopers } from "@/app/utils/getUniqueDevelopers";
 
 interface DevelopersPageProps {
     searchParams: IParams;
@@ -19,14 +17,14 @@ interface DevelopersPageProps {
 
 const CompoundsPage = async ({ searchParams }: DevelopersPageProps) => {
     const compounds = await getCompounds(searchParams);
-    const properties = await getProperties(searchParams);
-    const developers = await getDevelopers(searchParams);
-    const areas = await getAreas(searchParams);
     const currentUser = await getCurrentUser();
 
     if (!currentUser) {
         redirect("/login");
     }
+
+    const compoundAreas = getUniqueAreas(compounds);
+    const compoundDevelopers = getUniqueDevelopers(compounds);
 
     return (
         <div className="">
@@ -54,16 +52,13 @@ const CompoundsPage = async ({ searchParams }: DevelopersPageProps) => {
                 <div className="my-2 flex justify-center items-center ">
                     <Filter
                         compounds={compounds}
-                        areas={areas}
-                        developers={developers}
+                        areas={compoundAreas}
+                        developers={compoundDevelopers}
                     />
                 </div>
-                <ClientOnly>
-                    <CompoundClient
-                        listings={properties as any}
-                        compounds={compounds as any}
-                    />
-                </ClientOnly>
+                <>
+                    <CompoundClient compounds={compounds as any} />
+                </>
             </Container>
         </div>
     );

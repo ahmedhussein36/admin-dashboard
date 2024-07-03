@@ -33,7 +33,6 @@ import CitySelect from "@/app/components/customInputs/CitySelect";
 import Counter from "@/app/components/customInputs/Counter";
 import Button from "@/app/components/Button";
 import Heading from "@/app/components/Heading";
-import useRandomNumber from "@/app/hooks/useRandomNumber";
 
 interface PropertyClientProps {
     listing: SafeProperty & {
@@ -59,9 +58,6 @@ const PropertyClient: FC<PropertyClientProps> = ({
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>(
         listing.images
     );
-    const [allAmenities, setAmenities] = useState<string[]>([]);
-
-    const randomNumber = useRandomNumber();
 
     const {
         register,
@@ -86,7 +82,6 @@ const PropertyClient: FC<PropertyClientProps> = ({
             propertyType: listing?.propertyType,
             group: listing?.group,
             saleType: listing?.saleType,
-            amenities: [],
             status: listing.status,
             isFeatured: listing.isFeatured,
             isAddHome: listing.isAddHome,
@@ -143,47 +138,12 @@ const PropertyClient: FC<PropertyClientProps> = ({
             shouldValidate: true,
         });
     };
-
-    const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = event.target;
-        const item = amenitiesItems.find((item) => item.id === id);
-
-        if (item) {
-            if (checked) {
-                setAmenities((prev) => [...prev, item.name]);
-            } else {
-                setAmenities((prev) =>
-                    prev.filter((name) => name !== item.name)
-                );
-            }
-            setCustomValue("amenities", allAmenities);
-        }
-    };
-
-    // const slugGeneration = (title: string) => {
-    //     const formatedSlug = title
-    //         .toLowerCase()
-    //         .replace(/\|+/g, "")
-    //         .replace(/\%+/g, "")
-    //         .replace(/\s+/g, "-")
-    //         .toString();
-
-    //     const slug = `${randomNumber}-${formatedSlug}`;
-
-    //     return slug;
-    // };
-
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-
-        // const generatedSlug = slugGeneration(data.title);
-        // data.slug = generatedSlug;
-
         axios
             .put(`/api/properties/${listing.id}`, data)
             .then(() => {
                 router.refresh();
-
                 toast.success("Done : Item updated successfuly!", {
                     position: "bottom-right",
                 });
@@ -880,26 +840,6 @@ const PropertyClient: FC<PropertyClientProps> = ({
                                 <Label htmlFor="notfurnitured">غير مفروش</Label>
                             </div>
                         </div>
-                    </div>
-
-                    <strong>Amenities: </strong>
-                    <div className="w-full flex gap-5 justify-between items-start flex-wrap bg-white py-8 p-4 rounded-lg">
-                        {amenitiesItems.map((item) => (
-                            <div
-                                key={item.id}
-                                className="w-[30%] flex gap-2 justify-start items-center"
-                            >
-                                <input
-                                    value={item.name}
-                                    id={item.id}
-                                    // {...register("amenities")}
-                                    type="checkbox"
-                                    className=" focus:ring-0 transition-all rounded"
-                                    onChange={handleCheck}
-                                />
-                                <label htmlFor={item.id}>{item.name}</label>
-                            </div>
-                        ))}
                     </div>
 
                     <div className="z-0">

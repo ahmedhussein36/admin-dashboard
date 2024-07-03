@@ -7,8 +7,8 @@ import Navbar from "./components/header/Navbar";
 import Login from "./components/add-new-property/Login";
 
 export const metadata = {
-    title: "Remax royal",
-    description: "Remax Royal all homes you search for",
+    title: "Remaxroyal : Dashboard",
+    description: "RemaxRoyal admin dashboard",
 };
 
 export default async function RootLayout({
@@ -22,7 +22,7 @@ export default async function RootLayout({
 
     return (
         <html lang="en">
-            <body className={`relative`}>
+            <body className="">
                 <TopLoader />
                 <div className=" flex flex-col">
                     <div className=" z-10">

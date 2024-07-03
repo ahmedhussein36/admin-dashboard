@@ -16,15 +16,10 @@ import {
     groups,
     residentalTypes,
     saleTypes,
-    amenitiesItems,
     rentTypes,
 } from "../data/data";
-// import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
 import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
     lightArea,
     lightCompond,
     lightDeveloper,
@@ -36,9 +31,9 @@ import ImageUpload from "../customInputs/ImageUpload";
 import Heading from "../Heading";
 import Button from "../Button";
 import CitySelect from "../customInputs/CitySelect";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
-import useRandomNumber from "@/app/hooks/useRandomNumber";
+import { getAreasCounts, getListingsCounts } from "@/app/actions/getCounts";
 
 enum STEPS {
     CATEGORY = 0,
@@ -51,15 +46,9 @@ interface PageProps {
     compounds: lightCompond[];
     areas: lightArea[];
     developers: lightDeveloper[];
-    listings: lightProperty[];
 }
 
-const AddNewProperty: FC<PageProps> = ({
-    compounds,
-    areas,
-    developers,
-    listings,
-}) => {
+const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const router = useRouter();
     const [isSelected, setIsSelected] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -69,7 +58,8 @@ const AddNewProperty: FC<PageProps> = ({
     const [isInstallment, setIsInstallment] = useState(false);
     const [isDeveloper, setIsDeveloper] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
-    const [allAmenities, setAmenities] = useState<string[]>([]);
+
+    const listingsCount = getAreasCounts();
 
     const {
         register,
@@ -86,7 +76,7 @@ const AddNewProperty: FC<PageProps> = ({
             description: "",
             content: "",
             slug: "",
-            images: [],
+            images: allPropertyImages,
             mainImage: "",
             category: "",
             roomCount: 0,
@@ -98,7 +88,7 @@ const AddNewProperty: FC<PageProps> = ({
             status: "",
             isFeatured: false,
             isAddHome: false,
-            ref: `RR-${listings.length + 1}`,
+            ref: `RR-${+listingsCount + 1}`,
             isRecommended: false,
             isFooterMenu: false,
             finishing: "",
@@ -163,25 +153,8 @@ const AddNewProperty: FC<PageProps> = ({
         setStep((value) => value + 1);
     };
 
-    const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { id, checked } = event.target;
-        const item = amenitiesItems.find((item) => item.id === id);
-
-        if (item) {
-            if (checked) {
-                setAmenities((prev) => [...prev, item.name]);
-            } else {
-                setAmenities((prev) =>
-                    prev.filter((name) => name !== item.name)
-                );
-            }
-            setCustomValue("amenities", allAmenities);
-            console.log(allAmenities);
-        }
-    };
-
     const slugGeneration = (title: string) => {
-        const count = listings.length;
+        const count = +listingsCount;
         const formatedSlug = title
             .toLowerCase()
             .replace(/[|%\)\(\#\*\@\$\~\!]+/g, "")
@@ -1040,25 +1013,6 @@ const AddNewProperty: FC<PageProps> = ({
                             />
                         </div>
                     </div>
-                    <strong>Amenities: </strong>
-                    <div className="w-full flex gap-5 justify-between items-start border flex-wrap bg-white py-8 px-6 rounded-lg">
-                        {amenitiesItems.map((item) => (
-                            <div
-                                key={item.id}
-                                className="w-[30%] flex gap-2 justify-start items-center"
-                            >
-                                <input
-                                    id={item.id}
-                                    // {...register("amenities")}
-                                    type="checkbox"
-                                    className=" focus:ring-0 transition-all rounded"
-                                    onChange={handleCheck}
-                                />
-                                <label htmlFor={item.id}>{item.name}</label>
-                            </div>
-                        ))}
-                    </div>
-
                     <div className="z-0">
                         <RTE
                             label="Content: "
@@ -1067,7 +1021,6 @@ const AddNewProperty: FC<PageProps> = ({
                             defaultValue={getValues("content")}
                         />
                     </div>
-
                     <hr />
                     <div
                         className="w-full md:w-full lg:w-full xl:max-w-[1050px]

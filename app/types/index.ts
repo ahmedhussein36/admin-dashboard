@@ -10,12 +10,22 @@ import {
     User,
 } from "@prisma/client";
 
-export type SafeProperty = Omit<Property, "createdAt"> & {
-    createdAt: string;
-};
 
 export type SafeCompound = Omit<Compound, "createdAt"> & {
     createdAt: string;
+    area: {
+        id: string;
+        title: string;
+    };
+    developer: {
+        id: string;
+        title: string;
+    };
+    user: {
+        id: string;
+        name: string;
+    };
+    properties: lightProperty[];
 };
 export type SafeArea = Omit<Area, "createdAt"> & {
     createdAt: string;
@@ -26,6 +36,10 @@ export type SafeListing = Omit<Listing, "createdAt"> & {
 };
 export type SafeDeveloper = Omit<Developer, "createdAt"> & {
     createdAt: string;
+    user: {
+        id: string;
+        name: string;
+    };
 };
 
 export type SafeReservation = Omit<

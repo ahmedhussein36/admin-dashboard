@@ -19,6 +19,7 @@ import {
 } from "react-icons/io";
 import { FaBullhorn, FaComment } from "react-icons/fa";
 import { SafeUser } from "@/app/types";
+import { PiSidebarBold, PiSidebarThin } from "react-icons/pi";
 
 interface SidebarItemProps {
     href: string;
@@ -52,11 +53,11 @@ export const SidebarItem: FC<
                 }
                  w-full px-4 duration-300
                 gap-3 flex-row
-                hover:bg-slate-800 py-2
+                hover:bg-rose-100 py-2
                 ${
                     isActive
-                        ? " text-rose-500 font-bold bg-slate-800"
-                        : "text-slate-500"
+                        ? " text-rose-600 font-bold bg-rose-100"
+                        : "text-zinc-500"
                 }`}
             >
                 <div className=" w-fit">{icon}</div>
@@ -82,7 +83,7 @@ export const SidebarGroup = ({
     title?: string;
 }) => {
     return (
-        <div className=" flex flex-col gap-3 w-full py-1 border-t-2 border-slate-700 justify-center items-start fixed:top-0">
+        <div className=" flex flex-col gap-3 w-full py-1 border-t border-slate-300 justify-center items-start fixed:top-0">
             <div className=" px-8 font-semibold text-slate-400 ">{title}</div>
             <div className=" w-full flex flex-col justify-between items-start gap-2">
                 {children}
@@ -139,11 +140,11 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
     const [isOpen, setIsOpen] = useState(true);
     const iconActive = useCallback(
         (item: string) => {
-            let activColor = "#f43f5e" || "#38bdf8";
+            let activColor = "red";
             if (activeLabel === item) {
                 return activColor;
             } else {
-                return "#64748b";
+                return "#cbd5e1";
             }
         },
         [activeLabel]
@@ -168,15 +169,15 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 justify-start 
                 items-start py-4
                 gap-2               
-                bg-slate-900 shadow-slate-200
+                bg-white shadow-slate-300 shadow-md
             `}
         >
             <div className=" flex justify-start px-4 items-center w-full mt-1 mb-2">
                 <button onClick={toggleOpen}>
                     {isOpen ? (
-                        <IoIosArrowDropleftCircle color="gray" size={24} />
+                        <PiSidebarBold color="gray" size={24} />
                     ) : (
-                        <IoIosArrowDroprightCircle color="orange" size={24} />
+                        <PiSidebarBold color="orange" size={24} />
                     )}
                 </button>
             </div>
@@ -186,7 +187,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 href="/"
                 icon={
                     <MdSpaceDashboard
-                        className=" transition-all duration-300"
+                        className=" transition-all duration-300 "
                         size={isOpen ? L_iconSize : S_iconSize}
                         color={iconActive("Dashboard")}
                     />

@@ -1,30 +1,20 @@
 import Container from "@/app/components/Container";
 import getProperties, { IParams } from "@/app/actions/getProperties";
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import Heading from "@/app/components/Heading";
 import ListinClient from "./ListinClient";
 import EmptyState from "@/app/components/EmptyState";
 import Sorting from "@/app/components/Sorting";
-import getCompounds from "@/app/actions/getCompounds";
-import getDevelopers from "@/app/actions/getDevelopers";
-import getAreas from "@/app/actions/getAreas";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
-import ListingFilter from "@/app/components/home/ListingFilter";
-import ClientOnly from "@/app/components/ClientOnly";
-import { redirect } from "next/navigation";
-import TableSkelton from "@/app/components/TableSkelton";
 
-interface ListingsProps {
+interface ListingParams {
     searchParams: IParams;
 }
 
-const ListingsPage = async ({ searchParams }: ListingsProps) => {
-    const compounds = await getCompounds(searchParams);
-    const developers = await getDevelopers(searchParams);
-    const areas = await getAreas(searchParams);
-    const currentUser = await getCurrentUser();
-    const listings = await getProperties(searchParams);
+const ListingsPage = async ({ searchParams }: ListingParams) => {
+    // const listings = await getProperties(searchParams);
+
+    const listings: [] = [];
 
     return (
         <>
@@ -32,7 +22,9 @@ const ListingsPage = async ({ searchParams }: ListingsProps) => {
                 <div className="flex gap-4 justify-between items-end mb-8 w-full">
                     <Heading
                         title={"Listings"}
-                        subtitle={`Listings available: ${listings.length}`}
+                        subtitle={`Listings available: ${
+                            listings?.length || 0
+                        }`}
                     />
 
                     <div className="my-4">
@@ -45,26 +37,21 @@ const ListingsPage = async ({ searchParams }: ListingsProps) => {
                         </Link>
                     </div>
                 </div>
-                <Sorting parent="listings" data={listings} />
+                <Sorting parent="listings" data={listings || []} />
 
-                <div className=" w-full mt-4">
+                {/* {<div className=" w-full mt-4">
                     <ListingFilter
                         areas={areas}
                         compounds={compounds}
                         developers={developers}
                     />
-                </div>
+                </div>} */}
 
-                <ClientOnly>
-                    {listings.length ? (
-                        <ListinClient
-                            listings={listings as any}
-                            // currentUser={currentUser}
-                        />
-                    ) : (
-                        <EmptyState />
-                    )}
-                </ClientOnly>
+                {listings.length ? (
+                    <ListinClient listings={listings as any} />
+                ) : (
+                    <EmptyState />
+                )}
             </Container>
         </>
     );

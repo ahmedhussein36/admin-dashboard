@@ -17,10 +17,8 @@ export async function POST(request: Request) {
         slug,
         mainImage,
         images,
-        seoDetails,
         metaTitle,
         metaDescription,
-      
         isLaunch,
         status,
         isFeatured,
@@ -49,7 +47,6 @@ export async function POST(request: Request) {
                 metaDescription,
                 metaTitle,
             },
-         
             isLaunch,
             status,
             isFeatured,

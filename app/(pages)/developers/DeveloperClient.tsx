@@ -1,10 +1,5 @@
 "use client";
-import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
-    SafeProperty,
-} from "@/app/types";
+import { SafeDeveloper } from "@/app/types";
 import ClientOnly from "@/app/components/ClientOnly";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
@@ -28,15 +23,9 @@ const BASE_URL = "https://remaxroyal.vercel.app";
 
 interface Props {
     developers: SafeDeveloper[];
-    compounds: SafeCompound[];
-    listings: SafeProperty[];
 }
 
-const DeveloperClient: React.FC<Props> = ({
-    developers,
-    compounds,
-    listings,
-}) => {
+const DeveloperClient: React.FC<Props> = ({ developers }) => {
     const [title, setTitle] = useState("");
     const [filteredData, setFilteredData] = useState(developers);
     const [developerId, setDeveloperId] = useState("");
@@ -174,7 +163,7 @@ const DeveloperClient: React.FC<Props> = ({
                                 <Table.HeadCell>Action</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y font-medium ">
-                                {currentItems.map((item: any) => (
+                                {currentItems.map((item) => (
                                     <Table.Row
                                         key={item.id}
                                         className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -201,13 +190,7 @@ const DeveloperClient: React.FC<Props> = ({
                                                 href={`/compounds?developerId=${item.id}`}
                                                 className=" hover:text-blue-500 hover:underline"
                                             >
-                                                {
-                                                    compounds.filter(
-                                                        (compound) =>
-                                                            compound.developerId ===
-                                                            item.id
-                                                    ).length
-                                                }
+                                                {0}
                                             </Link>
                                         </Table.Cell>
                                         <Table.Cell>
@@ -215,13 +198,7 @@ const DeveloperClient: React.FC<Props> = ({
                                                 href={`/listings?developerId=${item.id}`}
                                                 className=" hover:text-blue-500 hover:underline"
                                             >
-                                                {
-                                                    listings.filter(
-                                                        (listing) =>
-                                                            listing.developerId ===
-                                                            item.id
-                                                    ).length
-                                                }
+                                                {0}
                                             </Link>
                                         </Table.Cell>
                                         <Table.Cell>

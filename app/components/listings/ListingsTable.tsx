@@ -1,12 +1,7 @@
 "use client";
 
 import useConfirm from "@/app/hooks/useConfirm";
-import {
-    SafeProperty,
-    lightArea,
-    lightCompond,
-    lightDeveloper,
-} from "@/app/types";
+import { SafeProperty } from "@/app/types";
 import axios from "axios";
 import { Checkbox, Table } from "flowbite-react";
 import { useRouter } from "next/navigation";
@@ -18,11 +13,7 @@ import { FiTrash2 } from "react-icons/fi";
 import Link from "next/link";
 
 interface TableProps {
-    listings: SafeProperty[] & {
-        compound: lightCompond;
-        area: lightArea;
-        developer: lightDeveloper;
-    };
+    listings: SafeProperty[];
 }
 
 const ListingsTable: FC<TableProps> = ({ listings }) => {

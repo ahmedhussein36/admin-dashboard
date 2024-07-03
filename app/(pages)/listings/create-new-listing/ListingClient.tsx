@@ -19,7 +19,6 @@ const Client: FC<Props> = ({ developers, areas, compounds, listings }) => {
         <>
             <AddNewProperty
                 areas={areas}
-                listings={listings}
                 developers={developers}
                 compounds={compounds}
             />

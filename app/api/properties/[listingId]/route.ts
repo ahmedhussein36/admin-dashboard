@@ -54,7 +54,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         bathroomCount,
         propertyType,
         saleType,
-        amenities,
         group,
         status,
         isFeatured,
@@ -128,7 +127,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
             isRecommended,
             isFooterMenu,
             saleType,
-            amenities,
             seoDetails: {
                 metaDescription,
                 metaTitle,
