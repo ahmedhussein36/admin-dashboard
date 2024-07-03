@@ -10,6 +10,16 @@ import {
     User,
 } from "@prisma/client";
 
+export type SafeProperty = Omit<Property, "createdAt"> & {
+    createdAt: string;
+    compound: lightCompond;
+    developer: lightDeveloper;
+    area: lightArea;
+    user: {
+        id: string;
+        name: string;
+    };
+};
 
 export type SafeCompound = Omit<Compound, "createdAt"> & {
     createdAt: string;
