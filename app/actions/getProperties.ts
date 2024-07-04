@@ -56,6 +56,21 @@ export default async function getProperties(params: IParams) {
 
         const properties = await prisma.property.findMany({
             where: query,
+            select: {
+                id: true,
+                title: true,
+                slug: true,
+                roomCount: true,
+                developerId: true,
+                areaId: true,
+                compoundId: true,
+                status: true,
+                user: true,
+                category: true,
+                bathroomCount: true,
+                propertyType: true,
+                content: false,
+            },
             orderBy: {
                 createdAt: "desc",
             },
@@ -63,7 +78,6 @@ export default async function getProperties(params: IParams) {
 
         const safeProperties = properties.map((listing) => ({
             ...listing,
-            createdAt: listing.createdAt.toISOString(),
         }));
 
         return safeProperties;
