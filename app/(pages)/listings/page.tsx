@@ -15,7 +15,10 @@ const ListingsPage = async ({ searchParams }: ListingParams) => {
     // const listings = await getProperties(searchParams);
 
     return (
-        <EmptyState />
+        <EmptyState 
+        title="This page is under maintenance !"
+        subtitle="it Will be ready as soon posible."
+        />
         // <div>
         //     <Container>
         //         <div className="flex gap-4 justify-between items-end mb-8 w-full">
