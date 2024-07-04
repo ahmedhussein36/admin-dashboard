@@ -6,6 +6,7 @@ import EmptyState from "@/app/components/EmptyState";
 import Sorting from "@/app/components/Sorting";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
+import Maitenance from "@/app/components/Maitenance";
 
 interface ListingParams {
     searchParams: IParams;
@@ -15,10 +16,7 @@ const ListingsPage = async ({ searchParams }: ListingParams) => {
     // const listings = await getProperties(searchParams);
 
     return (
-        <EmptyState 
-        title="This page is under maintenance !"
-        subtitle="it Will be ready as soon posible."
-        />
+        <Maitenance />
         // <div>
         //     <Container>
         //         <div className="flex gap-4 justify-between items-end mb-8 w-full">
