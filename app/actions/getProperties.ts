@@ -60,6 +60,7 @@ export default async function getProperties(params: IParams) {
                 id: true,
                 title: true,
                 slug: true,
+                ref: true,
                 roomCount: true,
                 developerId: true,
                 areaId: true,

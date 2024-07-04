@@ -13,47 +13,47 @@ interface ListingParams {
 }
 
 const ListingsPage = async ({ searchParams }: ListingParams) => {
-    // const listings = await getProperties(searchParams);
+    const listings = await getProperties(searchParams);
 
     return (
-        <Maitenance />
-        // <div>
-        //     <Container>
-        //         <div className="flex gap-4 justify-between items-end mb-8 w-full">
-        //             <Heading
-        //                 title={"Listings"}
-        //                 subtitle={`Listings available: ${
-        //                     listings?.length || 0
-        //                 }`}
-        //             />
+        // <Maitenance />
+        <div>
+            <Container>
+                <div className="flex gap-4 justify-between items-end mb-8 w-full">
+                    <Heading
+                        title={"Listings"}
+                        subtitle={`Listings available: ${
+                            listings?.length || 0
+                        }`}
+                    />
 
-        //             <div className="my-4">
-        //                 <Link
-        //                     href="/listings/create-new-listing"
-        //                     className=" flex gap-2 justify-center items-center py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
-        //                 >
-        //                     <FaPlus size={"14"} color="blue" />
-        //                     <p>Add new listings</p>
-        //                 </Link>
-        //             </div>
-        //         </div>
-        //         <Sorting parent="listings" data={listings || []} />
+                    <div className="my-4">
+                        <Link
+                            href="/listings/create-new-listing"
+                            className=" flex gap-2 justify-center items-center py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
+                        >
+                            <FaPlus size={"14"} color="blue" />
+                            <p>Add new listings</p>
+                        </Link>
+                    </div>
+                </div>
+                <Sorting parent="listings" data={listings || []} />
 
-        //         {/* {<div className=" w-full mt-4">
-        //             <ListingFilter
-        //                 areas={areas}
-        //                 compounds={compounds}
-        //                 developers={developers}
-        //             />
-        //         </div>} */}
+                {/* {<div className=" w-full mt-4">
+                    <ListingFilter
+                        areas={areas}
+                        compounds={compounds}
+                        developers={developers}
+                    />
+                </div>} */}
 
-        //         {listings.length ? (
-        //             <ListinClient listings={listings as any} />
-        //         ) : (
-        //             <EmptyState />
-        //         )}
-        //     </Container>
-        // </div>
+                {listings.length ? (
+                    <ListinClient listings={listings as any} />
+                ) : (
+                    <EmptyState />
+                )}
+            </Container>
+        </div>
     );
 };
 
