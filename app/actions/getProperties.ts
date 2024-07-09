@@ -9,6 +9,8 @@ export interface IParams {
     category?: string;
     propertyType?: string;
     status: string;
+    page: number;
+    perPage: number;
 }
 
 export default async function getProperties(params: IParams) {
@@ -22,9 +24,19 @@ export default async function getProperties(params: IParams) {
             developerId,
             compoundId,
             title,
+            page,
+            perPage,
         } = params;
 
         let query: any = {};
+
+        if (page) {
+            query.page = page;
+        }
+
+        if (perPage) {
+            query.perPage = perPage;
+        }
 
         if (title) {
             query.title = { contains: title };

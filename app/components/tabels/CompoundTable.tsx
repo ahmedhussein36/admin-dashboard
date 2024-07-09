@@ -16,14 +16,10 @@ import { FaEdit } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 
 interface TableProps {
-    compounds: SafeCompound[] & {
-        area: SafeArea;
-        developer: SafeDeveloper;
-    };
-    properties: SafeProperty[];
+    compounds: SafeCompound[]
 }
 
-const CompoundTable: FC<TableProps> = ({ compounds, properties }) => {
+const CompoundTable: FC<TableProps> = ({ compounds }) => {
     const [title, setTitle] = useState("");
     const [filteredData, setFilteredData] = useState<SafeCompound[]>(compounds);
     const [compoundId, setCompoundsId] = useState("");
@@ -46,7 +42,7 @@ const CompoundTable: FC<TableProps> = ({ compounds, properties }) => {
             .catch((error) => {
                 toast.error(
                     error?.response?.data?.error ||
-                        "Error : Can't delete this item"
+                    "Error : Can't delete this item"
                 );
             })
             .finally(() => {
@@ -92,40 +88,37 @@ const CompoundTable: FC<TableProps> = ({ compounds, properties }) => {
             );
     }, []);
 
-    const listings = useCallback(
-        (compoundId: string) => {
-            let data = properties.filter(
-                (Property) => Property.compoundId === compoundId
-            );
-            return data;
-        },
-        [properties]
+    const actions = (
+        <div className="flex flex-row justify-end items-center gap-2">
+            <div
+                className=" hover:bg-blue-100 hover:rounded-full
+                    cursor-pointer  p-2 rounded-md text-white 
+                    flex gap-1 justify-center items-center"
+            >
+                {/* Edit  */}
+                <FaEdit color="#3b82f6" size={16} />
+            </div>
+            <div
+                className=" hover:bg-red-100 hover:rounded-full
+                    cursor-pointer p-2 rounded-md flex gap-1 
+                    justify-center items-center"
+            >
+                {/* Remove{" "} */}
+                <FiTrash2 color="#ef4444" size={16} />
+            </div>
+        </div>
     );
 
     return (
         <div className="overflow-x-auto w-full">
             <Table hoverable>
                 <Table.Head>
-                    <Table.HeadCell className="p-4">
-                        <Checkbox />
-                    </Table.HeadCell>
                     <Table.HeadCell>Title</Table.HeadCell>
                     <Table.HeadCell>Slug</Table.HeadCell>
                     <Table.HeadCell>Area</Table.HeadCell>
                     <Table.HeadCell>Developer</Table.HeadCell>
                     <Table.HeadCell>Properties</Table.HeadCell>
-                    {/* <Table.HeadCell>Delivery Date</Table.HeadCell>
-                    <Table.HeadCell>property Types</Table.HeadCell>
-                    <Table.HeadCell>properties</Table.HeadCell>
-                    <Table.HeadCell>Min Price</Table.HeadCell>
-                    <Table.HeadCell>Max price</Table.HeadCell>
-                    <Table.HeadCell>Min. Downpayment</Table.HeadCell>
-                    <Table.HeadCell>Max. Downpayment</Table.HeadCell>
-                    <Table.HeadCell>Min. installment Period</Table.HeadCell>
-                    <Table.HeadCell>Max. installment Period</Table.HeadCell> */}
-                    <Table.HeadCell>
-                        <span className="">Action</span>
-                    </Table.HeadCell>
+                    <Table.HeadCell>Actions</Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y text-lg font-medium">
                     {filteredData.map((compound: any) => (
@@ -133,39 +126,12 @@ const CompoundTable: FC<TableProps> = ({ compounds, properties }) => {
                             key={compound.id}
                             className="bg-white dark:border-gray-700 dark:bg-gray-800"
                         >
-                            <Table.Cell className="">
-                                <Checkbox />
-                            </Table.Cell>
                             <Table.Cell>{compound.title}</Table.Cell>
                             <Table.Cell>{compound?.slug}</Table.Cell>
                             <Table.Cell>{compound?.area?.title}</Table.Cell>
-
-                            <Table.Cell>
-                                {compound?.developer?.title}
-                            </Table.Cell>
-
-                            <Table.Cell>
-                                {listings(compound.id).length}
-                            </Table.Cell>
-
-                            <Table.Cell>
-                                <Table.Cell className=" flex justify-start items-center gap-3">
-                                    <div
-                                        className=" hover:bg-blue-100 hover:rounded-full
-                            cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
-                                    >
-                                        {/* Edit  */}
-                                        <FaEdit color="#3b82f6" size={16} />
-                                    </div>
-                                    <div
-                                        className=" hover:bg-red-100 hover:rounded-full
-                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
-                                    >
-                                        {/* Remove{" "} */}
-                                        <FiTrash2 color="#ef4444" size={16} />
-                                    </div>
-                                </Table.Cell>
-                            </Table.Cell>
+                            <Table.Cell>{compound?.developer?.title}</Table.Cell>
+                            <Table.Cell>{compound.properties.length}</Table.Cell>
+                            <Table.Cell>{actions}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

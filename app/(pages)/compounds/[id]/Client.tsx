@@ -46,11 +46,12 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
             name: compound?.name || "",
             description: compound?.description,
             content: compound?.content,
-            slug: compound?.slug,
             mainImage: compound?.mainImage,
             metaTitle: compound?.seoDetails?.metaTitle,
             metaDescription: compound?.seoDetails?.metaDescription,
             isLaunch: compound.isLaunch,
+            lat: compound.lat,
+            lng: compound.lng,
             area: compound?.area,
             developer: compound?.developer,
             images: compound.images,
@@ -144,17 +145,21 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                             />
 
                             <Input
-                                id="slug"
-                                label="Slug"
-                                disabled
-                                register={register}
-                                errors={errors}
-                            />
-
-                            <Input
                                 id="name"
                                 label="name"
                                 disabled={isLoading}
+                                register={register}
+                                errors={errors}
+                            />
+                            <Input
+                                id="lat"
+                                label="lat"
+                                register={register}
+                                errors={errors}
+                            />
+                            <Input
+                                id="lng"
+                                label="lng"
                                 register={register}
                                 errors={errors}
                             />

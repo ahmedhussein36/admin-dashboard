@@ -8,6 +8,7 @@ import {
     MdMapsHomeWork,
     MdPieChart,
     MdMoreHoriz,
+    MdPermMedia,
 } from "react-icons/md";
 import { TbArticleFilledFilled, TbCategoryFilled } from "react-icons/tb";
 import { RiSettings5Fill } from "react-icons/ri";
@@ -46,27 +47,24 @@ export const SidebarItem: FC<
                 href={href}
                 className={`
                 flex transition-all  
-                ${
-                    isOpen
+                ${isOpen
                         ? "justify-start items-center"
                         : "justify-start items-center"
-                }
+                    }
                  w-full px-4 duration-300
                 gap-3 flex-row
                 hover:bg-rose-100 py-2
-                ${
-                    isActive
+                ${isActive
                         ? " text-rose-600 font-bold bg-rose-100"
                         : "text-zinc-500"
-                }`}
+                    }`}
             >
                 <div className=" w-fit">{icon}</div>
                 <div
                     className={` 
                      overflow-hidden
-                    ${
-                        isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
-                    } "hidden font-medium duration-300 transition-all"`}
+                    ${isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
+                        } "hidden font-medium duration-300 transition-all"`}
                 >
                     {label}
                 </div>
@@ -144,7 +142,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
             if (activeLabel === item) {
                 return activColor;
             } else {
-                return "#cbd5e1";
+                return "#a1a1aa";
             }
         },
         [activeLabel]
@@ -269,6 +267,22 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 setActiveLabel={setActiveLabel}
                 activeLabel={activeLabel}
             />
+            <SidebarGroup>
+                <SidebarItem
+                    isOpen={isOpen}
+                    href="/library"
+                    icon={
+                        <MdPermMedia
+                            className=" transition-all duration-300"
+                            size={isOpen ? L_iconSize : S_iconSize}
+                            color={iconActive("Library")}
+                        />
+                    }
+                    label="Library"
+                    setActiveLabel={setActiveLabel}
+                    activeLabel={activeLabel}
+                />
+            </SidebarGroup>
             <SidebarGroup>
                 <SidebarItem
                     isOpen={isOpen}

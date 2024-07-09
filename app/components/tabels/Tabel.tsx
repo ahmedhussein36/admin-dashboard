@@ -1,9 +1,6 @@
 "use client";
 
 import {
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
     SafeProperty,
 } from "@/app/types";
 import { Checkbox, Table } from "flowbite-react";
@@ -14,11 +11,7 @@ import { FiTrash2 } from "react-icons/fi";
 
 
 interface TableProps {
-    listings: SafeProperty[] & {
-        compound: SafeCompound;
-        area: SafeArea;
-        developer: SafeDeveloper;
-    };
+    listings: SafeProperty[]
 }
 
 const ListingsTable: FC<TableProps> = ({ listings }) => {

@@ -137,60 +137,72 @@ const AreaClient: React.FC<Props> = ({ areas }) => {
                         <EmptyState />
                     ) : (
                         <div className="overflow-x-auto w-full">
-                            <Table hoverable>
-                                <Table.Head>
-                                    <Table.HeadCell className="p-4">
-                                        <Checkbox />
-                                    </Table.HeadCell>
-                                    <Table.HeadCell>Image</Table.HeadCell>
-                                    <Table.HeadCell>Title</Table.HeadCell>
-                                    <Table.HeadCell>slug</Table.HeadCell>
-                                    <Table.HeadCell>Compounds</Table.HeadCell>
-                                    <Table.HeadCell>Properties</Table.HeadCell>
-                                    <Table.HeadCell>Author</Table.HeadCell>
-                                    <Table.HeadCell>Status</Table.HeadCell>
-                                    <Table.HeadCell>Action</Table.HeadCell>
-                                </Table.Head>
-                                <Table.Body className="divide-y font-medium ">
+                            <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
+                                <thead>
+                                    <tr className=" border p-2">
+                                        <th className=" px-4 text-left p-2">
+                                            Image
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Title
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            slug
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Compounds
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Properties
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Author
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Status
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {filteredData.map((item: any) => (
-                                        <Table.Row
+                                        <tr
                                             key={item.id}
-                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                            className="bg-white border border-spacing-1"
                                         >
-                                            <Table.Cell className="p-4">
-                                                <Checkbox />
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                <div className="relative w-10 h-10">
-                                                    {item?.image?.length !==
-                                                        0 && (
-                                                        <Image
-                                                            width={100}
-                                                            height={100}
-                                                            src={
-                                                                item.image || ""
-                                                            }
-                                                            alt={item.title}
-                                                        />
-                                                    )}
-                                                </div>
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                            <td className=" px-4 text-left p-2">
+                                                    <Image
+                                                        width={30}
+                                                        height={30}
+                                                        src={item.image || ""}
+                                                        alt={item.title}
+                                                        className=" rounded-md"
+                                                    />
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
                                                 {item.title}
-                                            </Table.Cell>
-                                            <Table.Cell>{item.slug}</Table.Cell>
-                                            <Table.Cell>{0}</Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+                                                {item.slug}
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+                                                {0}
+                                            </td>
 
-                                            <Table.Cell>{0}</Table.Cell>
-                                            <Table.Cell>
+                                            <td className=" px-4 text-left p-2">
+                                                {0}
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
                                                 {item?.user?.name}
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
                                                 {StutusColor(
                                                     item?.status || ""
                                                 )}
-                                            </Table.Cell>
-                                            <Table.Cell className=" flex justify-start items-center gap-3">
+                                            </td>
+                                            <td className=" flex justify-start items-center gap-3">
                                                 <Link
                                                     href={`/areas/${item.slug}`}
                                                     title="Edit"
@@ -217,11 +229,11 @@ const AreaClient: React.FC<Props> = ({ areas }) => {
                                                         size={16}
                                                     />
                                                 </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                            </td>
+                                        </tr>
                                     ))}
-                                </Table.Body>
-                            </Table>
+                                </tbody>
+                            </table>
                         </div>
                     )}
                 </ClientOnly>

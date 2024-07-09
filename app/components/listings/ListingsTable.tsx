@@ -37,7 +37,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
             .catch((error: any) => {
                 toast.error(
                     error?.response?.data?.error ||
-                        "Error : Can't delete this item",
+                    "Error : Can't delete this item",
                     {
                         position: "bottom-right",
                     }
@@ -77,7 +77,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
 
     const actions = (listing: any) => {
         return (
-            <>
+            <div className=" flex justify-center items-center gap-2">
                 <Link
                     href={`/listings/${listing.id}`}
                     title="Edit"
@@ -99,7 +99,7 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
                     {/* Remove{" "} */}
                     <FiTrash2 color="#ef4444" size={16} />
                 </div>
-            </>
+            </div>
         );
     };
 
@@ -111,49 +111,40 @@ const ListingsTable: FC<TableProps> = ({ listings }) => {
                     onDelete={() => onDelete(listingId)}
                 />
 
-                <Table hoverable>
-                    <Table.Head>
-                        <Table.HeadCell className="">
-                            <Checkbox />
-                        </Table.HeadCell>
-                        <Table.HeadCell>Title</Table.HeadCell>
-                        <Table.HeadCell>Ref.</Table.HeadCell>
-                        <Table.HeadCell>Category</Table.HeadCell>
-                        <Table.HeadCell>Type</Table.HeadCell>
-                        <Table.HeadCell>Rooms</Table.HeadCell>
-                        <Table.HeadCell>Bathrooms</Table.HeadCell>
-                        <Table.HeadCell>Price</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>Action</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y font-medium">
+                <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
+                    <thead>
+                        <tr className=" border p-2">
+                            <th className=" px-4 text-left p-2">Title</th>
+                            <th className=" px-4 text-left p-2">Ref.</th>
+                            <th className=" px-4 text-left p-2">Category</th>
+                            <th className=" px-4 text-left p-2">Type</th>
+                            <th className=" px-4 text-left p-2">Rooms</th>
+                            <th className=" px-4 text-left p-2">Bathrooms</th>
+                            <th className=" px-4 text-left p-2">Price</th>
+                            <th className=" px-4 text-left p-2">Status</th>
+                            <th className=" px-4 text-left p-2">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
                         {listings.map((listing: any) => (
-                            <Table.Row
+                            <tr
                                 key={listing.id}
-                                className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                className="bg-white border p-2"
                             >
-                                <Table.Cell className="">
-                                    <Checkbox />
-                                </Table.Cell>
-                                <Table.Cell>{listing.title}</Table.Cell>
-                                <Table.Cell>{listing?.ref || ""}</Table.Cell>
-                                <Table.Cell>{listing.category}</Table.Cell>
-                                <Table.Cell>{listing.propertyType}</Table.Cell>
-                                <Table.Cell>{listing.roomCount}</Table.Cell>
-                                <Table.Cell>{listing.bathroomCount}</Table.Cell>
-                                <Table.Cell>{listing.price}</Table.Cell>
-                                <Table.Cell>
-                                    {StutusColor(listing.status)}
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <Table.Cell className=" flex justify-start items-center gap-3">
-                                        {actions(listing)}
-                                    </Table.Cell>
-                                </Table.Cell>
-                            </Table.Row>
+                                <td className=" px-4 text-left p-2">{listing.title}</td>
+                                <td className=" px-4 text-left p-2">{listing?.ref || ""}</td>
+                                <td className=" px-4 text-left p-2">{listing.category}</td>
+                                <td className=" px-4 text-left p-2">{listing.propertyType}</td>
+                                <td className=" px-4 text-left p-2">{listing.roomCount}</td>
+                                <td className=" px-4 text-left p-2">{listing.bathroomCount}</td>
+                                <td className=" px-4 text-left p-2">{listing.price}</td>
+                                <td className=" px-4 text-left p-2">{StutusColor(listing.status)} </td>
+                                <td className=" px-4 text-left p-2">{actions(listing)}</td>
+                            </tr>
                         ))}
-                    </Table.Body>
-                </Table>
+                    </tbody>
+                </table>
             </div>
         </>
     );

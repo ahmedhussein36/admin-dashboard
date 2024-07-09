@@ -36,6 +36,7 @@ export default async function getCompounds(params: IParams) {
             where: query,
             select: {
                 id: true,
+                title: true,
                 slug: true,
                 isLaunch: true,
                 status: true,

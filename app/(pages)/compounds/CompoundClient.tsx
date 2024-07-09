@@ -47,7 +47,7 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
             .catch((error) => {
                 toast.error(
                     error?.response?.data?.error ||
-                        "Error : Can't delete this item"
+                    "Error : Can't delete this item"
                 );
             })
             .finally(() => {
@@ -93,6 +93,36 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
             );
     }, []);
 
+    const actions = (id: string) => {
+        return (
+            <div className="flex flex-row justify-end items-center gap-2">
+                <Link
+                    href={`/compounds/${id}`}
+                    title="Edit"
+                    className=" hover:bg-blue-100 hover:rounded-full
+                    cursor-pointer  p-2 rounded-md text-white 
+                    flex gap-1 justify-center items-center"
+                >
+                    {/* Edit  */}
+                    <FaEdit color="#3b82f6" size={16} />
+                </Link>
+                <div
+                    onClick={() => {
+                        setCompoundId(id);
+                        confirm.onOpen();
+                    }}
+                    title="Delete"
+                    className=" hover:bg-red-100 hover:rounded-full
+                    cursor-pointer p-2 rounded-md flex gap-1 
+                    justify-center items-center"
+                >
+                    {/* Remove{" "} */}
+                    <FiTrash2 color="#ef4444" size={16} />
+                </div>{" "}
+            </div>
+        );
+    };
+
     return (
         <>
             <Confirm
@@ -129,87 +159,94 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                         <EmptyState />
                     ) : (
                         <div className="overflow-x-auto w-full">
-                            <Table hoverable>
-                                <Table.Head>
-                                    <Table.HeadCell className="p-4">
-                                        <Checkbox />
-                                    </Table.HeadCell>
-                                    <Table.HeadCell>Title</Table.HeadCell>
-                                    <Table.HeadCell>Developer</Table.HeadCell>
-                                    <Table.HeadCell>Area</Table.HeadCell>
-                                    <Table.HeadCell>Launch</Table.HeadCell>
-                                    <Table.HeadCell>Properties</Table.HeadCell>
-                                    <Table.HeadCell>Author</Table.HeadCell>
-                                    <Table.HeadCell>Status</Table.HeadCell>
-                                    <Table.HeadCell>Action</Table.HeadCell>
-                                </Table.Head>
-                                <Table.Body className="divide-y font-medium">
-                                    {filteredData.map((item) => (
-                                        <Table.Row
-                                            key={item.id}
-                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
-                                        >
-                                            <Table.Cell className="p-4">
-                                                <Checkbox />
-                                            </Table.Cell>
+                            <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
+                                <thead>
+                                <tr className=" border p-2">
+                                        <th className=" px-4 text-left p-2">
+                                            Title
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Developer
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Area
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Launch
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Properties
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Author
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Status
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                                            <Table.Cell>
-                                                {item.name}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.developer?.title || ""}
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                <tbody className="">
+                                    {filteredData.map((item) => (
+                                        <tr
+                                            key={item.id}
+                                            className="bg-white border border-spacing-1"
+                                        >
+                                            <td
+                                                className=" px-4 text-left p-2"
+                                                title={item.title}
+                                            >
+
+                                                ... {item.title.slice(0, 40)}
+                                            </td>
+                                            <td
+                                                className=" px-4 text-left p-2"
+                                                title={item?.developer?.title}
+                                            >
+
+                                                ...
+                                                {item?.developer?.title.slice(
+                                                    0,
+                                                    30
+                                                ) || ""}
+                                            </td>
+                                            <td
+                                                className=" px-4 text-left p-2"
+                                                title={item?.area.title}
+                                            >
+
                                                 {item?.area.title || ""}
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+
                                                 {item.isLaunch}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.properties?.length || 0}
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+
+                                                {item?.properties?.length ||
+                                                    0}
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+
                                                 {item?.user?.name || ""}
-                                            </Table.Cell>
-                                            <Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+
                                                 {StutusColor(
                                                     item?.status || ""
                                                 )}
-                                            </Table.Cell>
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
 
-                                            <Table.Cell className=" flex justify-start items-center gap-3">
-                                                <Link
-                                                    href={`/compounds/${item.id}`}
-                                                    title="Edit"
-                                                    className=" hover:bg-blue-100 hover:rounded-full
-                            cursor-pointer  p-2 rounded-md text-white flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Edit  */}
-                                                    <FaEdit
-                                                        color="#3b82f6"
-                                                        size={16}
-                                                    />
-                                                </Link>
-                                                <span
-                                                    onClick={() => {
-                                                        setCompoundId(item.id);
-                                                        confirm.onOpen();
-                                                    }}
-                                                    title="Delete"
-                                                    className=" hover:bg-red-100 hover:rounded-full
-                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Remove{" "} */}
-                                                    <FiTrash2
-                                                        color="#ef4444"
-                                                        size={16}
-                                                    />
-                                                </span>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                                {actions(item.id)}
+                                            </td>
+                                        </tr>
                                     ))}
-                                </Table.Body>
-                            </Table>
+                                </tbody>
+                            </table>
                         </div>
                     )}
                 </ClientOnly>

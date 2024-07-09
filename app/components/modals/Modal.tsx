@@ -118,7 +118,6 @@ const Modal: React.FC<ModalProps> = ({
                     >
                         <div
                             className={`
-                            translate
                             h-full max-h-[95vh] overflow-auto
                             lg:h-auto
                             md:h-auto

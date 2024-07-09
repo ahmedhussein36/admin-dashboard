@@ -47,6 +47,8 @@ const Client: FC<Props> = ({ developers, areas }) => {
             developer: null,
             images: [],
             latLong: 0,
+            lat: 0,
+            lng: 0,
             status: "pending",
             isFeatured: false,
             isAddHome: false,
@@ -159,6 +161,21 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
+                            <div className="flex justify-start items-center gap-2">
+                                <Input
+                                    id="lat"
+                                    label="lat"
+                                    register={register}
+                                    errors={errors}
+                                />
+                                <Input
+                                    id="lng"
+                                    label="lng"
+                                    register={register}
+                                    errors={errors}
+                                />
+                            </div>
+
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
                                     <Select

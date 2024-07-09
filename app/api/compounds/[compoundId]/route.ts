@@ -54,6 +54,8 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         metaDescription,
         isLaunch,
         status,
+        lat,
+        lng,
         isFeatured,
         isAddHome,
         isFooterMenu,
@@ -88,7 +90,8 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
                 metaDescription,
                 metaTitle,
             },
-
+            lat : parseFloat(lat),
+            lng: parseFloat(lng),
             isLaunch,
             status,
             isFeatured,

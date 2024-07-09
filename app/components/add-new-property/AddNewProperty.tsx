@@ -623,7 +623,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
                                     options={compounds}
                                     placeholder="Select compound"
                                     formatOptionLabel={(compound) => (
-                                        <div>{compound.title}</div>
+                                        <div>{compound.name}</div>
                                     )}
                                     classNames={{
                                         control: () =>

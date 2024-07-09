@@ -19,7 +19,7 @@ import DeveloperModal from "@/app/components/modals/DeveloperModal";
 import Link from "next/link";
 import Pagination from "@/app/components/Pagination";
 
-const BASE_URL = "https://remaxroyal.vercel.app";
+const BASE_URL = "https://remaxroyal.net";
 
 interface Props {
     developers: SafeDeveloper[];
@@ -31,10 +31,10 @@ const DeveloperClient: React.FC<Props> = ({ developers }) => {
     const [developerId, setDeveloperId] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(20);
+    const [perPage, setperPage] = useState(20);
 
-    const lastIndex = currentPage * itemsPerPage;
-    const firstIndex = lastIndex - itemsPerPage;
+    const lastIndex = currentPage * perPage;
+    const firstIndex = lastIndex - perPage;
     const currentItems = filteredData.slice(firstIndex, lastIndex);
 
     const router = useRouter();
@@ -149,62 +149,73 @@ const DeveloperClient: React.FC<Props> = ({ developers }) => {
             >
                 <ClientOnly>
                     <div className="overflow-x-auto w-full">
-                        <Table hoverable>
-                            <Table.Head>
-                                <Table.HeadCell className="py-2">
-                                    <Checkbox />
-                                </Table.HeadCell>
-                                <Table.HeadCell>Image</Table.HeadCell>
-                                <Table.HeadCell>Title</Table.HeadCell>
-                                <Table.HeadCell>Author</Table.HeadCell>
-                                <Table.HeadCell>Compounds</Table.HeadCell>
-                                <Table.HeadCell>Properties</Table.HeadCell>
-                                <Table.HeadCell>Status</Table.HeadCell>
-                                <Table.HeadCell>Action</Table.HeadCell>
-                            </Table.Head>
-                            <Table.Body className="divide-y font-medium ">
+                        <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
+                            <thead>
+                                <tr className=" border p-2">
+                                    <th className=" px-4 text-left p-2">
+                                        Image
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Title
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Author
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Compounds
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Properties
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Status
+                                    </th>
+                                    <th className=" px-4 text-left p-2">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {currentItems.map((item) => (
-                                    <Table.Row
+                                    <tr
                                         key={item.id}
-                                        className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                         className="bg-white border border-spacing-1"
                                     >
-                                        <Table.Cell className="p-4">
-                                            <Checkbox />
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <div className="relative w-10 h-10">
-                                                <Image
-                                                    width={100}
-                                                    height={100}
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                />
-                                            </div>
-                                        </Table.Cell>
-                                        <Table.Cell>{item.title}</Table.Cell>
-                                        <Table.Cell>
+                                        <td className=" px-4 text-left p-2">
+                                            <Image
+                                                width={35}
+                                                height={35}
+                                                src={item.image}
+                                                alt={item.title}
+                                                className="rounded-full"
+                                            />
+                                        </td>
+                                        <td className=" px-4 text-left p-2">
+                                            {item.title}
+                                        </td>
+                                        <td className=" px-4 text-left p-2">
                                             {item?.user?.name}
-                                        </Table.Cell>
-                                        <Table.Cell>
+                                        </td>
+                                        <td className=" px-4 text-left p-2">
                                             <Link
                                                 href={`/compounds?developerId=${item.id}`}
                                                 className=" hover:text-blue-500 hover:underline"
                                             >
                                                 {0}
                                             </Link>
-                                        </Table.Cell>
-                                        <Table.Cell>
+                                        </td>
+                                        <td className=" px-4 text-left p-2">
                                             <Link
                                                 href={`/listings?developerId=${item.id}`}
                                                 className=" hover:text-blue-500 hover:underline"
                                             >
                                                 {0}
                                             </Link>
-                                        </Table.Cell>
-                                        <Table.Cell>
+                                        </td>
+                                        <td className=" px-4 text-left p-2">
                                             {StutusColor(item.status)}
-                                        </Table.Cell>
-                                        <Table.Cell className=" flex justify-start items-center gap-3">
+                                        </td>
+                                        <td className=" flex justify-start items-center gap-3">
                                             <Link
                                                 href={`/developers/${item.id}`}
                                                 title="Edit"
@@ -244,18 +255,18 @@ const DeveloperClient: React.FC<Props> = ({ developers }) => {
                                                     size={16}
                                                 />
                                             </div>
-                                        </Table.Cell>
-                                    </Table.Row>
+                                        </td>
+                                    </tr>
                                 ))}
-                            </Table.Body>
-                        </Table>{" "}
+                            </tbody>
+                        </table>
                     </div>
                     <Pagination
                         totalItems={filteredData.length}
-                        defaultPageSize={itemsPerPage}
+                        defaultPageSize={perPage}
                         onChangePage={(page) => setCurrentPage(page)}
                         onChangeRowsPerPage={(num) => {
-                            setItemsPerPage(num);
+                            setperPage(num);
                             setCurrentPage(1); // Reset to first page with new number of items per page
                         }}
                     />

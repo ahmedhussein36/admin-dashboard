@@ -3,11 +3,13 @@ import prisma from "@/app/libs/prismadb";
 export interface IParams {
     title?: string;
     status?: string;
+    page: number
+    perPage: number
 }
 
 export default async function getDevelopers(params: IParams) {
     try {
-        const { title, status } = params;
+        const { title, status, page, perPage } = params;
 
         let query: any = {};
 
@@ -19,6 +21,11 @@ export default async function getDevelopers(params: IParams) {
         if (status) {
             query.status = status;
         }
+
+        if (page) {
+            query.page = page;
+        }
+        
 
         const developers = await prisma.developer.findMany({
             where: query,
