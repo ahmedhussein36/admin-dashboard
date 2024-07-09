@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import Heading from '@/app/components/Heading';
@@ -7,13 +7,8 @@ import UploadBtn from './UploadBtn';
 import Container from '@/app/components/Container';
 import ImageGrid from '@/app/components/sekeletons/ImageGrid';
 import { Dialog } from '@headlessui/react';
-import { FaEllipsisV, FaRegCopy } from 'react-icons/fa';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import DownMenu from './Menu';
+import { FaRegCopy } from 'react-icons/fa';
 import toast from 'react-hot-toast';
-import MyTable from './MyTable';
-
-
 
 type ImageType = {
     public_id: string;
