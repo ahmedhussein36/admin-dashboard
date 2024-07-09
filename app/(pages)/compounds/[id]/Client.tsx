@@ -151,18 +151,23 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
-                            <Input
-                                id="lat"
-                                label="lat"
-                                register={register}
-                                errors={errors}
-                            />
-                            <Input
-                                id="lng"
-                                label="lng"
-                                register={register}
-                                errors={errors}
-                            />
+
+                            <h3 className=" text-lg font-semibold mt-3">Add Location</h3>
+                            <div className=" flex justify-start items-start gap-3">
+                                <Input
+                                    id="lat"
+                                    label="lat"
+                                    register={register}
+                                    errors={errors}
+                                />
+                                <Input
+                                    id="lng"
+                                    label="lng"
+                                    register={register}
+                                    errors={errors}
+                                />
+                            </div>
+
                             <div className="flex gap-2 w-full z-10 my-6">
                                 <div className=" w-1/2">
                                     <Select
@@ -174,9 +179,9 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                         isSearchable={false}
                                         options={areas}
                                         placeholder="Select area"
-                                        formatOptionLabel={(
-                                            areas
-                                        ) => <div>{areas.title}</div>}
+                                        formatOptionLabel={(areas) => (
+                                            <div>{areas.title}</div>
+                                        )}
                                         classNames={{
                                             control: () =>
                                                 "p-1 border placeholder:text-slate-400 focus:border-primary-500",
@@ -205,9 +210,9 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                         isSearchable={false}
                                         options={developers}
                                         placeholder="Select developer"
-                                        formatOptionLabel={(
-                                            developers
-                                        ) => <div>{developers.title}</div>}
+                                        formatOptionLabel={(developers) => (
+                                            <div>{developers.title}</div>
+                                        )}
                                         classNames={{
                                             control: () =>
                                                 "p-1 border placeholder:text-slate-400 focus:border-primary-500",
