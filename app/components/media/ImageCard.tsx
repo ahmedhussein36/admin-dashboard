@@ -1,9 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { FaRegCopy } from "react-icons/fa";
-import { Menu } from "@headlessui/react";
 import ActionMenu from "./ActionMenu";
-import { MdOutlineFileCopy } from "react-icons/md";
 
 type ImageCardProps = {
     image: {
