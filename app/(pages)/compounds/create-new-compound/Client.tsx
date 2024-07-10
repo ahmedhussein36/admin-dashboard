@@ -11,8 +11,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
 import { SafeArea, SafeDeveloper } from "@/app/types";
-import { SelectInput } from "@/app/components/home/SelectInput";
 import Select from "react-select";
+import { ImMap2 } from "react-icons/im";
 
 interface Props {
     developers: SafeDeveloper[];
@@ -385,7 +385,7 @@ const Client: FC<Props> = ({ developers, areas }) => {
                 </div>
                 <div className=" w-1/3 mt-4 mx-4 flex flex-col justify-start items-center gap-3">
                     <div className=" w-full">
-                        <h3 className="my-2">Main Image:</h3>
+                        <h3 className="my-2 font-medium">Main Image:</h3>
                         <ImageUpload
                             label="Upload thumbnail Image"
                             thumbnail={true}
@@ -400,7 +400,7 @@ const Client: FC<Props> = ({ developers, areas }) => {
                         />
                     </div>
                     <div className=" w-full">
-                        <h3 className="my-2">Other Images:</h3>
+                        <h3 className="my-2 font-medium">Other Images:</h3>
                         <ImageUpload
                             label="Upload compound Images"
                             thumbnail={false}
@@ -423,6 +423,22 @@ const Client: FC<Props> = ({ developers, areas }) => {
                             allImages={allPropertyImages}
                         />
                     </div>
+                    {/* <div className=" w-full">
+                        <h3 className="my-2 font-medium">Master plan:</h3>
+                        <ImageUpload
+                            icon={<ImMap2 />}
+                            label="Upload thumbnail Image"
+                            thumbnail={true}
+                            onAction={() => {
+                                setCustomValue("mainImage", "");
+                            }}
+                            onChange={(value) => {
+                                setCustomValue("mainImage", value);
+                            }}
+                            value={mainImage}
+                            image={mainImage}
+                        />
+                    </div> */}
                 </div>
             </div>
         </>

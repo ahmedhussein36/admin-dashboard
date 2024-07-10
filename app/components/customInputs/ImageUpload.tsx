@@ -2,7 +2,7 @@
 
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import { FiTrash2 } from "react-icons/fi";
 
 declare global {
@@ -18,6 +18,7 @@ interface ImageUploadProps {
     image?: string;
     label?: string;
     thumbnail?: boolean;
+    icon?: ReactNode;
     onAction: (value?: string) => void;
 }
 
@@ -28,6 +29,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     thumbnail,
     image,
     onAction,
+    icon,
 }) => {
     const handleUpload = useCallback(
         (result: any) => {
@@ -79,7 +81,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                                             <div className="w-full absolute top-[0] left-[0]">
                                                 <button
                                                     className=" rounded-full p-1 bg-red-600 hover:bg-red-500 transition-all"
-                                                    onClick={() => onAction(imagesrc)}
+                                                    onClick={() =>
+                                                        onAction(imagesrc)
+                                                    }
                                                 >
                                                     <FiTrash2
                                                         color="#ffff"
@@ -111,13 +115,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
                                     gap-3
                                     text-neutral-600`}
                         >
-                            {/* <TbPhotoPlus size={40} color= "red"/> */}
-                            <Image
-                                src={"/assets/icons/gallery.webp"}
-                                width={26}
-                                height={26}
-                                alt="upload"
-                            />
+                            {icon || (
+                                <Image
+                                    src={"/assets/icons/gallery.webp"}
+                                    width={26}
+                                    height={26}
+                                    alt="upload"
+                                />
+                            )}
                             <div className="font-semibold text-sm">{label}</div>
                         </div>
                     </div>

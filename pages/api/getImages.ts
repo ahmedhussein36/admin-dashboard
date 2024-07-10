@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       `https://api.cloudinary.com/v1_1/${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/resources/image`,
       {
         params: {
-          max_results: 20,
+          max_results: 40,
           next_cursor: nextCursor || undefined,
         },
         auth: {
