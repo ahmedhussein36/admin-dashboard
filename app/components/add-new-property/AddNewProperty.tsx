@@ -46,9 +46,15 @@ interface PageProps {
     compounds: lightCompond[];
     areas: lightArea[];
     developers: lightDeveloper[];
+    count: number;
 }
 
-const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
+const AddNewProperty: FC<PageProps> = ({
+    compounds,
+    areas,
+    developers,
+    count,
+}) => {
     const router = useRouter();
     const [isSelected, setIsSelected] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +64,6 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     const [isInstallment, setIsInstallment] = useState(false);
     const [isDeveloper, setIsDeveloper] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
-
-    const listingsCount = getAreasCounts();
 
     const {
         register,
@@ -88,7 +92,7 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
             status: "",
             isFeatured: false,
             isAddHome: false,
-            ref: `RR-${+listingsCount + 1}`,
+            ref: `RR-${count + 1}`,
             isRecommended: false,
             isFooterMenu: false,
             finishing: "",
@@ -154,10 +158,9 @@ const AddNewProperty: FC<PageProps> = ({ compounds, areas, developers }) => {
     };
 
     const slugGeneration = (title: string) => {
-        const count = +listingsCount;
         const formatedSlug = title
             .toLowerCase()
-            .replace(/[|%\)\(\#\*\@\$\~\!]+/g, "")
+            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
             .replace(/\s+/g, "-")
             .toString();
 

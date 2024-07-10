@@ -12,15 +12,17 @@ interface Props {
     listings: lightProperty[];
     developers: lightDeveloper[];
     areas: lightArea[];
+    count: number;
 }
 
-const Client: FC<Props> = ({ developers, areas, compounds, listings }) => {
+const Client: FC<Props> = ({ developers, areas, compounds, count }) => {
     return (
         <>
             <AddNewProperty
                 areas={areas}
                 developers={developers}
                 compounds={compounds}
+                count={count}
             />
         </>
     );

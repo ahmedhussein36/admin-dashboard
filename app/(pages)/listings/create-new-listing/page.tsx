@@ -5,8 +5,8 @@ import getAreas from "@/app/actions/getAreas";
 import getCompounds from "@/app/actions/getCompounds";
 import Heading from "@/app/components/Heading";
 import Container from "@/app/components/Container";
-import ClientOnly from "@/app/components/ClientOnly";
 import getProperties, { IParams } from "@/app/actions/getProperties";
+import { getListingsCounts } from "@/app/actions/getCounts";
 
 interface PageProps {
     searchParams: IParams;
@@ -17,6 +17,7 @@ const page = async ({ searchParams }: PageProps) => {
     const developers = await getDevelopers(searchParams);
     const compounds = await getCompounds(searchParams);
     const areas = await getAreas(searchParams);
+    const listingsCount = await getListingsCounts();
 
     return (
         <Container>
@@ -31,6 +32,7 @@ const page = async ({ searchParams }: PageProps) => {
                     compounds={compounds as any}
                     developers={developers as any}
                     areas={areas as any}
+                    count={listingsCount}
                 />
             </>
         </Container>

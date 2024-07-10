@@ -2,7 +2,10 @@ import prisma from "@/app/libs/prismadb";
 
 export async function getAreasCounts(): Promise<number> {
     try {
-        const areas = await prisma.area.findMany();
+        const areas = await prisma.area.findMany({
+            select: {
+                id: true,}
+        });
         return areas.length;
     } catch (error: any) {
         console.error("Error fetching area count:", error);
@@ -14,7 +17,11 @@ export async function getAreasCounts(): Promise<number> {
 
 export async function getDeveloperCount(): Promise<number> {
     try {
-        const developers = await prisma.developer.findMany();
+        const developers = await prisma.developer.findMany({
+            select: {
+                id: true,
+                },
+        });
         return developers.length;
     } catch (error: any) {
         console.error("Error fetching developer count:", error);
@@ -25,7 +32,11 @@ export async function getDeveloperCount(): Promise<number> {
 }
 export async function getCompoundsCounts(): Promise<number> {
     try {
-        const compounds = await prisma.compound.findMany();
+        const compounds = await prisma.compound.findMany({
+            select:{
+                id:true,
+            }
+        });
         return compounds.length;
     } catch (error: any) {
         console.error("Error fetching compound count:", error);
@@ -37,7 +48,11 @@ export async function getCompoundsCounts(): Promise<number> {
 
 export async function getListingsCounts(): Promise<number> {
     try {
-        const listings = await prisma.property.findMany();
+        const listings = await prisma.property.findMany({
+            select:{
+                id:true
+            }
+        });
         return listings.length;
     } catch (error: any) {
         console.error("Error fetching listing count:", error);
