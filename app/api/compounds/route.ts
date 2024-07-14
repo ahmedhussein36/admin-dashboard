@@ -13,6 +13,7 @@ export async function POST(request: Request) {
     const {
         title,
         name,
+        ref,
         description,
         content,
         slug,
@@ -20,6 +21,8 @@ export async function POST(request: Request) {
         images,
         lat, 
         lng,
+        minPrice,
+        maxPrice,
         metaTitle,
         metaDescription,
         isLaunch,
@@ -42,6 +45,7 @@ export async function POST(request: Request) {
         data: {
             title,
             name,
+            ref,
             description,
             content,
             slug,
@@ -53,6 +57,8 @@ export async function POST(request: Request) {
             },
             lat : parseFloat(lat),
             lng: parseFloat(lng),
+            minPrice : parseInt(minPrice),
+            maxPrice : parseInt(maxPrice),
             isLaunch,
             status,
             isFeatured,

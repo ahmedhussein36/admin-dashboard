@@ -24,7 +24,7 @@ import {
 } from "@/app/types";
 import Select from "react-select";
 
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import Container from "@/app/components/Container";
 import Input from "@/app/components/customInputs/Input";
@@ -33,6 +33,7 @@ import CitySelect from "@/app/components/customInputs/CitySelect";
 import Counter from "@/app/components/customInputs/Counter";
 import Button from "@/app/components/Button";
 import Heading from "@/app/components/Heading";
+import { ImMap2 } from "react-icons/im";
 
 interface PropertyClientProps {
     listing: SafeProperty & {
@@ -55,10 +56,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
     const [isLoading, setIsLoading] = useState(false);
     const [isInstallment, setIsInstallment] = useState(false);
     const [isDeveloper, setIsDeveloper] = useState(true);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>(
-        listing.images
-    );
-
+    const [allImages, setAllImages] = useState<string[]>(listing.images);
     const {
         register,
         handleSubmit,
@@ -75,6 +73,7 @@ const PropertyClient: FC<PropertyClientProps> = ({
             description: listing?.description,
             content: listing?.content,
             images: listing?.images || [],
+            floorPlan: listing?.floorPlan || "",
             mainImage: listing?.mainImage,
             category: listing?.category,
             roomCount: listing?.roomCount,
@@ -129,15 +128,40 @@ const PropertyClient: FC<PropertyClientProps> = ({
     const bathroomCount = watch("bathroomCount");
     const mainImage = watch("mainImage");
     const images = watch("images");
+    const floorPlan = watch("floorPlan");
     const price = watch("price");
 
-    const setCustomValue = (id: string, value: any) => {
-        setValue(id, value, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        });
-    };
+    const setCustomValue = useCallback(
+        (id: string, value: any) => {
+            setValue(id, value, {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true,
+            });
+        },
+        [setValue]
+    );
+
+    const onDelete = useCallback(
+        (value: any) => {
+            const updatedImages = allImages.filter((image) => {
+                return image !== value;
+            });
+
+            setAllImages(updatedImages);
+            setCustomValue("images", updatedImages);
+        },
+        [allImages, setCustomValue]
+    );
+
+    const onChange = useCallback(
+        (value: string) => {
+            setAllImages([...allImages, value]);
+            setCustomValue("images", [...allImages, value]);
+        },
+        [allImages, setCustomValue]
+    );
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
         axios
@@ -261,24 +285,32 @@ const PropertyClient: FC<PropertyClientProps> = ({
                     />
                 </div>
                 <div className=" w-full">
-                    <h3 className="my-2">Other Images:</h3>
+                    <h3 className="my-2 font-medium">More Images:</h3>
                     <ImageUpload
-                        label="Upload compound Images"
+                        label="Upload more images"
                         thumbnail={false}
-                        onAction={(value) => {
-                            setCustomValue("images", value);
-                            setAllPropertyImages(
-                                allPropertyImages.filter(
-                                    (image) => image !== value
-                                )
-                            );
-                        }}
+                        onAction={(value) => onDelete(value)}
                         onChange={(value) => {
-                            setCustomValue("images", value);
-                            setAllPropertyImages([...allPropertyImages, value]);
+                            onChange(value);
                         }}
                         value={images}
-                        allImages={allPropertyImages}
+                        allImages={allImages}
+                    />
+                </div>
+                <div className=" w-full">
+                    <h3 className="my-2 font-medium">Floor plan:</h3>
+                    <ImageUpload
+                        icon={<ImMap2 size={25} />}
+                        label="Upload Floor plan"
+                        thumbnail={true}
+                        onAction={() => {
+                            setCustomValue("floorPlan", "");
+                        }}
+                        onChange={(value) => {
+                            setCustomValue("floorPlan", value);
+                        }}
+                        value={floorPlan}
+                        image={floorPlan}
                     />
                 </div>
             </div>

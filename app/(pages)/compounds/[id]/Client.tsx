@@ -2,7 +2,7 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -10,14 +10,9 @@ import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
-import {
-    lightArea,
-    lightDeveloper,
-    SafeArea,
-    SafeCompound,
-    SafeDeveloper,
-} from "@/app/types";
+import { lightArea, lightDeveloper, SafeCompound } from "@/app/types";
 import Select from "react-select";
+import { ImMap2 } from "react-icons/im";
 
 interface Props {
     compound: SafeCompound;
@@ -28,9 +23,7 @@ interface Props {
 const Client: FC<Props> = ({ compound, developers, areas }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>(
-        compound.images
-    );
+    const [allImages, setAllImages] = useState<string[]>(compound.images);
 
     const {
         register,
@@ -50,8 +43,11 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
             metaTitle: compound?.seoDetails?.metaTitle,
             metaDescription: compound?.seoDetails?.metaDescription,
             isLaunch: compound.isLaunch,
-            lat: compound.lat,
-            lng: compound.lng,
+            lat: compound?.lat || 0,
+            lng: compound?.lng || 0,
+            minPrice: compound?.minPrice || 0,
+            maxPrice: compound?.maxPrice || 0,
+            masterPlan: compound?.masterPlan || "",
             area: compound?.area,
             developer: compound?.developer,
             images: compound.images,
@@ -64,17 +60,41 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
     });
 
     const mainImage = watch("mainImage");
-    const images = watch("images");
+    const images: string[] | any = watch("images");
     const area = watch("area");
     const developer = watch("developer");
+    const masterPlan = watch("masterPlan");
 
-    const setCustomValue = (id: string, value: any) => {
-        setValue(id, value, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        });
-    };
+    const setCustomValue = useCallback(
+        (id: string, value: any) => {
+            setValue(id, value, {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true,
+            });
+        },
+        [setValue]
+    );
+
+    const onDelete = useCallback(
+        (value: any) => {
+            const updatedImages = allImages.filter((image) => {
+                return image !== value;
+            });
+
+            setAllImages(updatedImages);
+            setCustomValue("images", updatedImages);
+        },
+        [allImages, setCustomValue]
+    );
+
+    const onChange = useCallback(
+        (value: string) => {
+            setAllImages([...allImages, value]);
+            setCustomValue("images", [...allImages, value]);
+        },
+        [allImages, setCustomValue]
+    );
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
@@ -152,7 +172,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 errors={errors}
                             />
 
-                            <h3 className=" text-lg font-semibold mt-3">Add Location</h3>
+                            <strong>Add Location</strong>
                             <div className=" flex justify-start items-start gap-3">
                                 <Input
                                     id="lat"
@@ -163,6 +183,24 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                                 <Input
                                     id="lng"
                                     label="lng"
+                                    register={register}
+                                    errors={errors}
+                                />
+                            </div>
+
+                            <strong>Units Price</strong>
+                            <div className="flex justify-start items-center gap-2">
+                                <Input
+                                    id="minPrice"
+                                    label="minPrice"
+                                    type="number"
+                                    register={register}
+                                    errors={errors}
+                                />
+                                <Input
+                                    id="maxPrice"
+                                    label="maxPrice"
+                                    type="number"
                                     register={register}
                                     errors={errors}
                                 />
@@ -234,7 +272,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                             </div>
                         </div>
 
-                        <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-between items-start rounded-md border">
+                        <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-start items-start rounded-md border">
                             <div className=" flex flex-col gap-3 justify-start items-start">
                                 <strong>Options: </strong>
                                 <div className=" flex gap-2 justify-start items-center">
@@ -368,7 +406,7 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                 </div>
                 <div className=" w-1/3 mt-4 mx-4 flex flex-col justify-start items-center gap-3">
                     <div className=" w-full">
-                        <h3 className="my-2">Main Image:</h3>
+                        <h3 className="my-2 font-medium">Main Image:</h3>
                         <ImageUpload
                             label="Upload thumbnail Image"
                             thumbnail={true}
@@ -383,27 +421,32 @@ const Client: FC<Props> = ({ compound, developers, areas }) => {
                         />
                     </div>
                     <div className=" w-full">
-                        <h3 className="my-2">Other Images:</h3>
+                        <h3 className="my-2 font-medium">More Images:</h3>
                         <ImageUpload
-                            label="Upload compound Images"
+                            label="Upload more images"
                             thumbnail={false}
-                            onAction={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages(
-                                    allPropertyImages.filter(
-                                        (image) => image !== value
-                                    )
-                                );
-                            }}
+                            onAction={(value) => onDelete(value)}
                             onChange={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
+                                onChange(value);
                             }}
                             value={images}
-                            allImages={allPropertyImages}
+                            allImages={allImages}
+                        />
+                    </div>
+                    <div className=" w-full">
+                        <h3 className="my-2 font-medium">Master plan:</h3>
+                        <ImageUpload
+                            icon={<ImMap2 size={25} />}
+                            label="Upload master plan"
+                            thumbnail={true}
+                            onAction={() => {
+                                setCustomValue("masterPlan", "");
+                            }}
+                            onChange={(value) => {
+                                setCustomValue("masterPlan", value);
+                            }}
+                            value={masterPlan}
+                            image={masterPlan}
                         />
                     </div>
                 </div>

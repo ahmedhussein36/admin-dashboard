@@ -47,7 +47,7 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
             .catch((error) => {
                 toast.error(
                     error?.response?.data?.error ||
-                    "Error : Can't delete this item"
+                        "Error : Can't delete this item"
                 );
             })
             .finally(() => {
@@ -161,7 +161,7 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                         <div className="overflow-x-auto w-full">
                             <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
                                 <thead>
-                                <tr className=" border p-2">
+                                    <tr className=" border p-2">
                                         <th className=" px-4 text-left p-2">
                                             Title
                                         </th>
@@ -199,14 +199,12 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                                                 className=" px-4 text-left p-2"
                                                 title={item.title}
                                             >
-
                                                 ... {item.title.slice(0, 40)}
                                             </td>
                                             <td
                                                 className=" px-4 text-left p-2"
                                                 title={item?.developer?.title}
                                             >
-
                                                 ...
                                                 {item?.developer?.title.slice(
                                                     0,
@@ -215,32 +213,25 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                                             </td>
                                             <td
                                                 className=" px-4 text-left p-2"
-                                                title={item?.area.title}
+                                                title={item?.area?.title || ""}
                                             >
-
-                                                {item?.area.title || ""}
+                                                {item?.area?.title || ""}
                                             </td>
                                             <td className=" px-4 text-left p-2">
-
                                                 {item.isLaunch}
                                             </td>
                                             <td className=" px-4 text-left p-2">
-
-                                                {item?.properties?.length ||
-                                                    0}
+                                                {item?.properties?.length || 0}
                                             </td>
                                             <td className=" px-4 text-left p-2">
-
                                                 {item?.user?.name || ""}
                                             </td>
                                             <td className=" px-4 text-left p-2">
-
                                                 {StutusColor(
                                                     item?.status || ""
                                                 )}
                                             </td>
                                             <td className=" px-4 text-left p-2">
-
                                                 {actions(item.id)}
                                             </td>
                                         </tr>

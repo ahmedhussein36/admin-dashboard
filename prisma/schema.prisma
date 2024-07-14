@@ -109,6 +109,7 @@ model Property {
   content           String?
   images            String[]
   mainImage         String?
+  floorPlan         String?
   category          String?
   roomCount         Int
   bathroomCount     Int
@@ -160,6 +161,7 @@ model Compound {
   updatedAt     DateTime   @updatedAt
   title         String
   name          String?
+  ref           String?
   content       String?
   description   String?
   mainImage     String?
@@ -167,6 +169,9 @@ model Compound {
   seoDetails    Meta?
   lat           Float?
   lng           Float?
+  minPrice      Int?
+  maxPrice      Int?
+  masterPlan    String?
   isLaunch      String?
   latlong       Float?
   status        String?

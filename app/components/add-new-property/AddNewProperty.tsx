@@ -19,21 +19,16 @@ import {
     rentTypes,
 } from "../data/data";
 import RTE from "@/app/components/postForm/RTE";
-import {
-    lightArea,
-    lightCompond,
-    lightDeveloper,
-    lightProperty,
-} from "@/app/types";
+import { lightArea, lightCompond, lightDeveloper } from "@/app/types";
 import Select from "react-select";
 
 import ImageUpload from "../customInputs/ImageUpload";
 import Heading from "../Heading";
 import Button from "../Button";
 import CitySelect from "../customInputs/CitySelect";
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
-import { getAreasCounts, getListingsCounts } from "@/app/actions/getCounts";
+import { ImMap2 } from "react-icons/im";
 
 enum STEPS {
     CATEGORY = 0,
@@ -63,7 +58,7 @@ const AddNewProperty: FC<PageProps> = ({
     const [isOtherGroup, setIsOtherGroup] = useState(false);
     const [isInstallment, setIsInstallment] = useState(false);
     const [isDeveloper, setIsDeveloper] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
+    const [allImages, setAllImages] = useState<string[]>([]);
 
     const {
         register,
@@ -80,8 +75,9 @@ const AddNewProperty: FC<PageProps> = ({
             description: "",
             content: "",
             slug: "",
-            images: allPropertyImages,
+            images: [],
             mainImage: "",
+            floorPlan: "",
             category: "",
             roomCount: 0,
             bathroomCount: 0,
@@ -139,15 +135,8 @@ const AddNewProperty: FC<PageProps> = ({
     const bathroomCount = watch("bathroomCount");
     const mainImage = watch("mainImage");
     const images = watch("images");
+    const floorPlan = watch("floorPlan");
     const price = watch("price");
-
-    const setCustomValue = (id: string, value: any) => {
-        setValue(id, value, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        });
-    };
 
     const onBack = () => {
         setStep((value) => value - 1);
@@ -168,6 +157,37 @@ const AddNewProperty: FC<PageProps> = ({
 
         return slug;
     };
+
+    const setCustomValue = useCallback(
+        (id: string, value: any) => {
+            setValue(id, value, {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true,
+            });
+        },
+        [setValue]
+    );
+
+    const onDelete = useCallback(
+        (value: any) => {
+            const updatedImages = allImages.filter((image) => {
+                return image !== value;
+            });
+
+            setAllImages(updatedImages);
+            setCustomValue("images", updatedImages);
+        },
+        [allImages, setCustomValue]
+    );
+
+    const onChange = useCallback(
+        (value: string) => {
+            setAllImages([...allImages, value]);
+            setCustomValue("images", [...allImages, value]);
+        },
+        [allImages, setCustomValue]
+    );
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         if (step !== STEPS.INFO) {
@@ -992,27 +1012,32 @@ const AddNewProperty: FC<PageProps> = ({
                             />
                         </div>
                         <div className=" w-full">
-                            <h3 className="my-2">Other Images:</h3>
+                            <h3 className="my-2 font-medium">More Images:</h3>
                             <ImageUpload
-                                label="Upload compound Images"
+                                label="Upload more images"
                                 thumbnail={false}
-                                onAction={(value) => {
-                                    setCustomValue("images", value);
-                                    setAllPropertyImages(
-                                        allPropertyImages.filter(
-                                            (image) => image !== value
-                                        )
-                                    );
-                                }}
+                                onAction={(value) => onDelete(value)}
                                 onChange={(value) => {
-                                    setCustomValue("images", value);
-                                    setAllPropertyImages([
-                                        ...allPropertyImages,
-                                        value,
-                                    ]);
+                                    onChange(value);
                                 }}
                                 value={images}
-                                allImages={allPropertyImages}
+                                allImages={allImages}
+                            />
+                        </div>
+                        <div className=" w-full">
+                            <h3 className="my-2 font-medium">Floor plan:</h3>
+                            <ImageUpload
+                                icon={<ImMap2 size={25} />}
+                                label="Upload Floor Plan"
+                                thumbnail={true}
+                                onAction={() => {
+                                    setCustomValue("floorPlan", "");
+                                }}
+                                onChange={(value) => {
+                                    setCustomValue("floorPlan", value);
+                                }}
+                                value={floorPlan}
+                                image={floorPlan}
                             />
                         </div>
                     </div>

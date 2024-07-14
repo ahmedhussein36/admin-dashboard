@@ -2,7 +2,7 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -17,12 +17,13 @@ import { ImMap2 } from "react-icons/im";
 interface Props {
     developers: SafeDeveloper[];
     areas: SafeArea[];
+    count: number;
 }
 
-const Client: FC<Props> = ({ developers, areas }) => {
+const Client: FC<Props> = ({ developers, areas, count }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
+    const [allImages, setAllImages] = useState<string[]>([]);
 
     const {
         register,
@@ -39,7 +40,11 @@ const Client: FC<Props> = ({ developers, areas }) => {
             description: "",
             content: "",
             slug: "",
+            ref: `CM-${count + 1}`,
             mainImage: "",
+            masterPlan: "",
+            minPrice: 0,
+            maxPrice: 0,
             metaTitle: "",
             metaDescription: "",
             isLaunch: "",
@@ -58,22 +63,53 @@ const Client: FC<Props> = ({ developers, areas }) => {
     });
 
     const mainImage = watch("mainImage");
-    const images = watch("images");
+    const masterPlan = watch("masterPlan");
+    const images: string[] = watch("images");
     const area = watch("area");
     const developer = watch("developer");
 
-    const setCustomValue = (id: string, value: any) => {
-        setValue(id, value, {
-            shouldDirty: true,
-            shouldTouch: true,
-            shouldValidate: true,
-        });
-    };
+    const setCustomValue = useCallback(
+        (id: string, value: any) => {
+            setValue(id, value, {
+                shouldDirty: true,
+                shouldTouch: true,
+                shouldValidate: true,
+            });
+        },
+        [setValue]
+    );
 
     const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
+        const formatedSlug = title
+            .toLowerCase()
+            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
+            .replace(/\s+/g, "-")
+            .toString();
+
+        const slug = `${count + 1}-${formatedSlug}`;
+
         return slug;
     };
+
+    const onDelete = useCallback(
+        (value: any) => {
+            const updatedImages = allImages.filter((image) => {
+                return image !== value;
+            });
+
+            setAllImages(updatedImages);
+            setCustomValue("images", updatedImages);
+        },
+        [allImages, setCustomValue]
+    );
+
+    const onChange = useCallback(
+        (value: string) => {
+            setAllImages([...allImages, value]);
+            setCustomValue("images", [...allImages, value]);
+        },
+        [allImages, setCustomValue]
+    );
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
@@ -161,16 +197,38 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                 register={register}
                                 errors={errors}
                             />
+
+                            <strong>Add Location</strong>
                             <div className="flex justify-start items-center gap-2">
                                 <Input
                                     id="lat"
                                     label="lat"
+                                    type="number"
                                     register={register}
                                     errors={errors}
                                 />
                                 <Input
                                     id="lng"
                                     label="lng"
+                                    type="number"
+                                    register={register}
+                                    errors={errors}
+                                />
+                            </div>
+
+                            <strong>Units Price</strong>
+                            <div className="flex justify-start items-center gap-2">
+                                <Input
+                                    id="minPrice"
+                                    label="minPrice"
+                                    type="number"
+                                    register={register}
+                                    errors={errors}
+                                />
+                                <Input
+                                    id="maxPrice"
+                                    label="maxPrice"
+                                    type="number"
                                     register={register}
                                     errors={errors}
                                 />
@@ -240,18 +298,9 @@ const Client: FC<Props> = ({ developers, areas }) => {
                                     />
                                 </div>
                             </div>
-
-                            <Input
-                                id="latLong"
-                                label="Lat Long"
-                                type="number"
-                                disabled={isLoading}
-                                register={register}
-                                errors={errors}
-                            />
                         </div>
 
-                        <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-between items-start rounded-md border">
+                        <div className=" px-6 bg-white p-3 ml-2 flex flex-col gap-3 justify-start items-start rounded-md border">
                             <div className=" flex flex-col gap-3 justify-start items-start">
                                 <strong>Options: </strong>
                                 <div className=" flex gap-2 justify-start items-center">
@@ -400,45 +449,34 @@ const Client: FC<Props> = ({ developers, areas }) => {
                         />
                     </div>
                     <div className=" w-full">
-                        <h3 className="my-2 font-medium">Other Images:</h3>
+                        <h3 className="my-2 font-medium">More Images:</h3>
                         <ImageUpload
-                            label="Upload compound Images"
+                            label="Upload more images"
                             thumbnail={false}
-                            onAction={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages(
-                                    allPropertyImages.filter(
-                                        (image) => image !== value
-                                    )
-                                );
-                            }}
+                            onAction={(value) => onDelete(value)}
                             onChange={(value) => {
-                                setCustomValue("images", value);
-                                setAllPropertyImages([
-                                    ...allPropertyImages,
-                                    value,
-                                ]);
+                                onChange(value);
                             }}
                             value={images}
-                            allImages={allPropertyImages}
+                            allImages={allImages}
                         />
                     </div>
-                    {/* <div className=" w-full">
+                    <div className=" w-full">
                         <h3 className="my-2 font-medium">Master plan:</h3>
                         <ImageUpload
-                            icon={<ImMap2 />}
-                            label="Upload thumbnail Image"
+                            icon={<ImMap2 size={25} />}
+                            label="Upload master plan"
                             thumbnail={true}
                             onAction={() => {
-                                setCustomValue("mainImage", "");
+                                setCustomValue("masterPlan", "");
                             }}
                             onChange={(value) => {
-                                setCustomValue("mainImage", value);
+                                setCustomValue("masterPlan", value);
                             }}
-                            value={mainImage}
-                            image={mainImage}
+                            value={masterPlan}
+                            image={masterPlan}
                         />
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </>

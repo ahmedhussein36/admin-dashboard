@@ -1,12 +1,20 @@
 import Container from "@/app/components/Container";
 import Heading from "./components/Heading";
 import { Analisys, MyListitngs } from "@/app/components/dashboard/Analisys";
+import {
+    getCompoundsCounts,
+    getDeveloperCount,
+    getListingsCounts,
+} from "./actions/getCounts";
 export const metadata = {
     title: "Dashboard : Remax Royal",
     description: "Remax Royal admin dashboard",
 };
 
 const Home = async () => {
+    const listingsCount = await getListingsCounts();
+    const compoundsCount = await getCompoundsCounts();
+    const developersCount = await getDeveloperCount();
     return (
         <Container>
             <div className="flexgap-4 justify-between items-center my-2 mb-2 w-full">
@@ -17,10 +25,10 @@ const Home = async () => {
             <>
                 <div className=" w-full mt-6">
                     <Analisys
-                        listings={76}
-                        compounds={10}
-                        areas={10}
-                        developers={104}
+                        listings={listingsCount}
+                        compounds={compoundsCount}
+                        areas={compoundsCount}
+                        developers={developersCount}
                     />
                 </div>
             </>

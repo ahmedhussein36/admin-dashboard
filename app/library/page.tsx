@@ -120,29 +120,22 @@ const MediaPage: React.FC = () => {
                     <ImageGrid />
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {images.map(
-                            (image) =>
-                                image.bytes !== 0 && (
-                                    <ImageCard
-                                        key={image.public_id}
-                                        image={image}
-                                        onClick={() => handleImageClick(image)}
-                                        onCopy={() =>
-                                            copyToClipboard(image.secure_url)
-                                        }
-                                        onDownload={() =>
-                                            handleDownload(image.secure_url)
-                                        }
-                                        onDelete={() => {
-                                            setImageId(image.public_id);
-                                            confirm.onOpen();
-                                        }}
-                                        onDetails={() =>
-                                            handleImageClick(image)
-                                        }
-                                    />
-                                )
-                        )}
+                        {images.map((image) => (
+                            <ImageCard
+                                key={image.public_id}
+                                image={image}
+                                onClick={() => handleImageClick(image)}
+                                onCopy={() => copyToClipboard(image.secure_url)}
+                                onDownload={() =>
+                                    handleDownload(image.secure_url)
+                                }
+                                onDelete={() => {
+                                    setImageId(image.public_id);
+                                    confirm.onOpen();
+                                }}
+                                onDetails={() => handleImageClick(image)}
+                            />
+                        ))}
                     </div>
                 )}
                 {nextCursor && (

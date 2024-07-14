@@ -13,7 +13,7 @@ const uploadPreset = "k5acnt7x";
 
 interface ImageUploadProps {
     onChange: (value: string) => void;
-    value: string;
+    value: string | string[] | any;
     allImages?: string[];
     image?: string;
     label?: string;
