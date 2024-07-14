@@ -10,7 +10,6 @@ import {
     paymentPlans,
     groups,
     saleTypes,
-    amenitiesItems,
     rentTypes,
     allTypes,
 } from "@/app/components/data/data";

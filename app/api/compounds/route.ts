@@ -19,6 +19,7 @@ export async function POST(request: Request) {
         slug,
         mainImage,
         images,
+        masterPlan,
         lat, 
         lng,
         minPrice,
@@ -50,6 +51,7 @@ export async function POST(request: Request) {
             content,
             slug,
             mainImage,
+            masterPlan,
             images,
             seoDetails: {
                 metaDescription,

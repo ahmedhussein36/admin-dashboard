@@ -14,6 +14,7 @@ import { SafeArea, SafeDeveloper } from "@/app/types";
 import Select from "react-select";
 import { ImMap2 } from "react-icons/im";
 
+
 interface Props {
     developers: SafeDeveloper[];
     areas: SafeArea[];

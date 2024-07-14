@@ -50,6 +50,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         description,
         content,
         mainImage,
+        masterPlan,
         images,
         metaTitle,
         metaDescription,
@@ -90,6 +91,7 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
             content,
             mainImage,
             images,
+            masterPlan,
             seoDetails: {
                 metaDescription,
                 metaTitle,
