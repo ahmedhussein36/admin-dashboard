@@ -24,8 +24,8 @@ model User {
   name           String
   username       String?
   email          String         @unique
-  role           String?
-  status         String?
+  role           String
+  status         String
   emailVerified  DateTime?
   image          String?
   hashedPassword String
@@ -305,3 +305,5 @@ model PostCategory {
 
   @@index([postId, categoryId])
 }
+
+
