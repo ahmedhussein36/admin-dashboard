@@ -13,7 +13,7 @@ export default async function getCurrentUser() {
         const session = await getSession();
 
         if (!session?.user?.email) {
-            return error("Not Authorized");
+            return null;
         }
 
         const currentUser = await prisma.user.findUnique({
@@ -24,7 +24,7 @@ export default async function getCurrentUser() {
         });
 
         if (!currentUser) {
-            return error("Invalid email or password");
+            return null;
         }
 
         return {
