@@ -111,9 +111,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                     </div>
                 </div>
                 <div className="w-1/3 flex justify-center items-center ">
-                    <UserFilter
-                        userRoles={userRoles as any[]}
-                    />
+                    <UserFilter userRoles={userRoles as any[]} />
                 </div>
             </div>
 
@@ -132,43 +130,34 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                     {!filteredData.length ? (
                         <EmptyState />
                     ) : (
-                        <div className="overflow-x-auto w-full">
-                            <Table hoverable>
-                                <Table.Head>
-                                    <Table.HeadCell className="p-4">
-                                        <Checkbox />
-                                    </Table.HeadCell>
-                                    <Table.HeadCell>Name</Table.HeadCell>
-                                    <Table.HeadCell>Username</Table.HeadCell>
-                                    <Table.HeadCell>Email</Table.HeadCell>
-                                    <Table.HeadCell>Role</Table.HeadCell>
-                                    <Table.HeadCell>Status</Table.HeadCell>
-                                    <Table.HeadCell>Action</Table.HeadCell>
-                                </Table.Head>
+                        <div className="overflow-x-auto w-full bg-white rounded-lg p-6">
+                            <table className=" w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-                                <Table.Body className="divide-y font-medium text-lg">
+                                <tbody className="divide-y font-medium text-lg">
                                     {filteredData.map((item: any) => (
-                                        <Table.Row
+                                        <tr
                                             key={item.id}
-                                            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                                            className="bg-white p-2 py-4"
                                         >
-                                            <Table.Cell>
-                                                <Checkbox />
-                                            </Table.Cell>
-
-                                            <Table.Cell>{item.name}</Table.Cell>
-                                            <Table.Cell>
-                                                {item.username || "- -"}
-                                            </Table.Cell>
-                                            <Table.Cell>
-                                                {item?.email}
-                                            </Table.Cell>
-                                            <Table.Cell>{item.role}</Table.Cell>
-                                            <Table.Cell>
+                                            <td>{item.name}</td>
+                                            <td>{item.username || "- -"}</td>
+                                            <td>{item?.email}</td>
+                                            <td>{item.role}</td>
+                                            <td>
                                                 {StutusColor(item?.status) ||
                                                     "- -"}
-                                            </Table.Cell>
-                                            <Table.Cell className=" flex justify-start items-center gap-3">
+                                            </td>
+                                            <td className=" flex justify-start items-center gap-3">
                                                 <div
                                                     onClick={() => {
                                                         router.push(
@@ -200,11 +189,11 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                                                         size={16}
                                                     />
                                                 </div>
-                                            </Table.Cell>
-                                        </Table.Row>
+                                            </td>
+                                        </tr>
                                     ))}
-                                </Table.Body>
-                            </Table>
+                                </tbody>
+                            </table>
                         </div>
                     )}
                 </ClientOnly>

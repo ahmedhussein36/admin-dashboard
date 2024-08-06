@@ -32,8 +32,8 @@ const RegisterClient = () => {
             name: "",
             email: "",
             password: "",
-            role: null,
-            status: null,
+            role: "User",
+            status: "pending",
             createAt: new Date(),
         },
     });

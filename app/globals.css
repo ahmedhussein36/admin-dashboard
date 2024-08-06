@@ -49,6 +49,11 @@ main {
 }
 
 
+th , td{
+  padding: 0.5rem;
+  text-align: start;
+}
+
 
 body {
   scroll-behavior: smooth;

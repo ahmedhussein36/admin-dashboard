@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth/next";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import prisma from "@/app/libs/prismadb";
-import { error } from "console";
 
 export async function getSession() {
     return await getServerSession(authOptions);
@@ -12,14 +11,25 @@ export default async function getCurrentUser() {
     try {
         const session = await getSession();
 
+        
+
         if (!session?.user?.email) {
             return null;
         }
 
+        if (session?.user?.role === "User" 
+            || session?.user?.role === "" 
+            || session?.user?.role === null 
+            || session?.user?.role === undefined) {
+
+            return null;
+        }
+
+
         const currentUser = await prisma.user.findUnique({
             where: {
                 email: session.user.email as string,
-                role: "Admin" || "Editor" || "Manager"
+                status: "active"
             },
         });
 

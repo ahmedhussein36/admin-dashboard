@@ -69,42 +69,23 @@ const Login = () => {
     const emailLogin = (
         <div className="flex flex-col gap-4 px-5 justify-start items-center">
             <Heading title={"Login To Your Account"} />
-            <Input
-                id="email"
-                label="Email"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                id="password"
-                label="Password"
-                type="password"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-        </div>
-    );
-
-    const footer = (
-        <div className="  text-neutral-500 text-sm text-left mt-4 font-light px-4">
-            <p>
-                <span
-                    onClick={() => router.push("/")}
-                    className="
-              text-zinc-500
-              text-lg font-medium
-              cursor-pointer
-              hover:underline
-            "
-                >
-                    {"Forget Password?"}
-                </span>
-            </p>
-            <button onClick={onToggle}>register</button>
+                <Input
+                    id="email"
+                    label="Email"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
+                <Input
+                    id="password"
+                    label="Password"
+                    type="password"
+                    disabled={isLoading}
+                    register={register}
+                    errors={errors}
+                    required
+                />
         </div>
     );
 
@@ -137,6 +118,7 @@ const Login = () => {
                                 <Image
                                     width={600}
                                     height={600}
+                                    priority
                                     loading="eager"
                                     src={"/images/House searching-bro.png"}
                                     alt="login-images/Build your home"
@@ -150,7 +132,7 @@ const Login = () => {
                                     Welcome to Remax Royal Admin
                                 </h1>
                                 <div className="p-2 md:p-6 relative flex justify-start items-center">
-                                    <div
+                                    <form 
                                         className="realive flex flex-col gap-2 rounded-lg justify-center
                                             items-start w-[450px] p-8 shadow-lg shadow-zinc-200/80  bg-white"
                                     >
@@ -179,8 +161,7 @@ const Login = () => {
                                                 disabled={isLoading}
                                             />
                                         </div>
-                                        <div className="w-full">{footer}</div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
