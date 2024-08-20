@@ -14,6 +14,7 @@ import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
 import Container from "@/app/components/Container";
+import Link from "next/link";
 
 interface Props {
     posts: [];
@@ -108,16 +109,89 @@ const PostClient: React.FC<Props> = ({ posts }) => {
 
             <div
                 className="
-                        pt-2
-                        mt-2
-                        w-full
-                        sm:grid-cols-2 
-                        md:grid-cols-3 
-                        gap-8
-                    "
+                            pt-2
+                            mt-2
+                            w-full
+                            sm:grid-cols-2 
+                            md:grid-cols-3 
+                            gap-8
+                        "
             >
-                
-                    <EmptyState />
+                <ClientOnly>
+                    {!filteredData.length ? (
+                        <EmptyState />
+                    ) : (
+                        <div className="overflow-x-auto w-full">
+                            <table className=" overflow-hidden table w-full border-collapse border bg-white rounded-lg">
+                                <thead>
+                                    <tr className=" border p-2">
+                                        <th className=" px-4 text-left p-2">
+                                            Title
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Author
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Status
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {filteredData.map((item: any) => (
+                                        <tr
+                                            key={item.id}
+                                            className="bg-white border border-spacing-1"
+                                        >
+                                            <td className=" px-4 text-left p-2">
+                                                {item.title}
+                                            </td>
+
+                                            <td className=" px-4 text-left p-2">
+                                                {item?.user?.name}
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+                                                {StutusColor(
+                                                    item?.status || ""
+                                                )}
+                                            </td>
+                                            <td className=" flex justify-start items-center gap-3">
+                                                <Link
+                                                    href={`/blog/posts/${item.id}`}
+                                                    title="Edit"
+                                                    className=" hover:bg-blue-100 hover:rounded-full p-2 rounded-md text-white flex gap-1 justify-center items-center"
+                                                >
+                                                    {/* Edit  */}
+                                                    <FaEdit
+                                                        color="#3b82f6"
+                                                        size={16}
+                                                    />
+                                                </Link>
+                                                <div
+                                                    onClick={() => {
+                                                        setpostId(item.id);
+                                                        confirm.onOpen();
+                                                    }}
+                                                    title="Delete"
+                                                    className=" hover:bg-red-100 hover:rounded-full
+                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
+                                                >
+                                                    {/* Remove{" "} */}
+                                                    <FiTrash2
+                                                        color="#ef4444"
+                                                        size={16}
+                                                    />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </ClientOnly>
             </div>
         </Container>
     );

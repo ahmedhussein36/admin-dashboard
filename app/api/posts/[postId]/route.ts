@@ -42,7 +42,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
     const body = await request.json();
     const {
         title,
-        slug,
         image,
         metaDescription,
         metaTitle,
@@ -72,7 +71,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
         },
         data: {
             title,
-            slug,
             image,
             content,
             metaDescription,
@@ -82,7 +80,6 @@ export async function PUT(request: Request, { params }: { params: IParams }) {
             isAddHome,
             isFooterMenu,
             isRecommended,
-            userId: currentUser.id,
         },
     });
 

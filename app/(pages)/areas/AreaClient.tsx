@@ -4,7 +4,6 @@ import ClientOnly from "@/app/components/ClientOnly";
 import useAreaModal from "@/app/hooks/useAreaModal";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
-import { Checkbox, Table } from "flowbite-react";
 import { FaEdit } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import Image from "next/legacy/image";

@@ -19,6 +19,7 @@ import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
 import EmptyState from "@/app/components/EmptyState";
 import Link from "next/link";
+import Pagination from "@/app/components/Pagination";
 
 interface Props {
     compounds: SafeCompound[] | any[];
@@ -29,6 +30,12 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
     const [filteredData, setFilteredData] = useState<SafeCompound[]>(compounds);
     const [compoundId, setCompoundId] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setperPage] = useState(20);
+
+    const lastIndex = currentPage * perPage;
+    const firstIndex = lastIndex - perPage;
+    const currentItems = filteredData.slice(firstIndex, lastIndex);
 
     const router = useRouter();
     const confirm = useConfirm();
@@ -155,7 +162,7 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                 "
             >
                 <ClientOnly>
-                    {!filteredData.length ? (
+                    {!currentItems.length ? (
                         <EmptyState />
                     ) : (
                         <div className="overflow-x-auto w-full">
@@ -190,7 +197,7 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                                 </thead>
 
                                 <tbody className="">
-                                    {filteredData.map((item) => (
+                                    {currentItems.map((item) => (
                                         <tr
                                             key={item.id}
                                             className="bg-white border border-spacing-1"
@@ -240,6 +247,16 @@ const CompoundClient: React.FC<Props> = ({ compounds }) => {
                             </table>
                         </div>
                     )}
+
+                    <Pagination
+                        totalItems={filteredData.length}
+                        defaultPageSize={perPage}
+                        onChangePage={(page: any) => setCurrentPage(page)}
+                        onChangeRowsPerPage={(num: number) => {
+                            setperPage(num);
+                            setCurrentPage(1); // Reset to first page with new number of items per page
+                        }}
+                    />
                 </ClientOnly>
             </div>
         </>

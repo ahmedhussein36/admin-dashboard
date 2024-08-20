@@ -14,9 +14,10 @@ import RTE from "@/app/components/postForm/RTE";
 interface Props {
     categories: any[];
     tags: any[];
+    count: number;
 }
 
-const Client: FC<Props> = ({ categories, tags }) => {
+const Client: FC<Props> = ({ count, categories, tags }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
@@ -35,12 +36,12 @@ const Client: FC<Props> = ({ categories, tags }) => {
             title: "",
             content: "",
             slug: "",
-            mainImage: "",
+            image: "",
             metaTitle: "",
             metaDescription: "",
             categories: null,
             tags: null,
-            status: "",
+            status: "pending",
             isFeatured: false,
             isAddHome: false,
             isRecommended: false,
@@ -48,8 +49,7 @@ const Client: FC<Props> = ({ categories, tags }) => {
         },
     });
 
-    const mainImage = watch("mainImage");
-    const images = watch("images");
+    const image = watch("image");
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -60,7 +60,14 @@ const Client: FC<Props> = ({ categories, tags }) => {
     };
 
     const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
+        const formatedSlug = title
+            .toLowerCase()
+            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
+            .replace(/\s+/g, "-")
+            .toString();
+
+        const slug = `${+count + 1}-${formatedSlug}`;
+
         return slug;
     };
 
@@ -259,13 +266,13 @@ const Client: FC<Props> = ({ categories, tags }) => {
                             label="Upload thumbnail Image"
                             thumbnail={true}
                             onAction={() => {
-                                setCustomValue("mainImage", "");
+                                setCustomValue("image", "");
                             }}
                             onChange={(value) => {
-                                setCustomValue("mainImage", value);
+                                setCustomValue("image", value);
                             }}
-                            value={mainImage}
-                            image={mainImage}
+                            value={image}
+                            image={image}
                         />
                     </div>
                 </div>

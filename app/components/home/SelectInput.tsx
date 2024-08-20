@@ -9,7 +9,7 @@ interface SelectInputProps {
     onChange: (value: SelectValue) => void;
     options: any[];
     placeholder: string;
-    isSearchable?: boolean
+    isSearchable?: boolean;
 }
 
 export const SelectInput: React.FC<SelectInputProps> = ({
@@ -17,32 +17,34 @@ export const SelectInput: React.FC<SelectInputProps> = ({
     onChange,
     options,
     placeholder,
-    isSearchable
+    isSearchable,
 }) => {
     return (
         <div className=" w-full">
             <Select
                 isClearable
-                isSearchable ={isSearchable}
+                isSearchable={isSearchable}
                 value={value}
                 options={options}
                 onChange={(value) => onChange(value)}
                 placeholder={placeholder}
-                formatOptionLabel={({title , name} : any) => <div>{title? title : name}</div>}
+                formatOptionLabel={({ title, name }: any) => (
+                    <div>{title ? name : title}</div>
+                )}
                 classNames={{
-                    control: () => 'p-1 border-1',
-                    input: () => 'text-base',
-                    option: () => 'text-base'
-                  }}
-                  theme={(theme) => ({
+                    control: () => "p-1 border-1",
+                    input: () => "text-base",
+                    option: () => "text-base",
+                }}
+                theme={(theme) => ({
                     ...theme,
                     borderRadius: 6,
                     colors: {
-                      ...theme.colors,
-                      primary: 'black',
-                      primary25: '#e2e8f0'
-                    }
-                  })}
+                        ...theme.colors,
+                        primary: "black",
+                        primary25: "#e2e8f0",
+                    },
+                })}
             />
         </div>
     );

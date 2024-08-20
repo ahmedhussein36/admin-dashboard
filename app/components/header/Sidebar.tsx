@@ -14,10 +14,6 @@ import { TbArticleFilledFilled, TbCategoryFilled } from "react-icons/tb";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaMapLocationDot, FaTag, FaUsers } from "react-icons/fa6";
 import { LuNetwork } from "react-icons/lu";
-import {
-    IoIosArrowDropleftCircle,
-    IoIosArrowDroprightCircle,
-} from "react-icons/io";
 import { FaBullhorn, FaComment } from "react-icons/fa";
 import { SafeUser } from "@/app/types";
 import { PiSidebarBold, PiSidebarThin } from "react-icons/pi";
@@ -53,10 +49,10 @@ export const SidebarItem: FC<
                     }
                  w-full px-4 duration-300
                 gap-3 flex-row
-                hover:bg-rose-100 py-2
+                hover:bg-white/10 py-2
                 ${isActive
-                        ? " text-rose-600 font-bold bg-rose-100"
-                        : "text-zinc-500"
+                        ? " text-white font-bold bg-white/30"
+                        : "text-purple-100"
                     }`}
             >
                 <div className=" w-fit">{icon}</div>
@@ -81,7 +77,7 @@ export const SidebarGroup = ({
     title?: string;
 }) => {
     return (
-        <div className=" flex flex-col gap-3 w-full py-1 border-t border-slate-300 justify-center items-start fixed:top-0">
+        <div className=" flex flex-col gap-3 w-full py-1 border-t border-slate-300/50 justify-center items-start fixed:top-0">
             <div className=" px-8 font-semibold text-slate-400 ">{title}</div>
             <div className=" w-full flex flex-col justify-between items-start gap-2">
                 {children}
@@ -138,11 +134,11 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
     const [isOpen, setIsOpen] = useState(true);
     const iconActive = useCallback(
         (item: string) => {
-            let activColor = "red";
+            let activColor = "orange";
             if (activeLabel === item) {
                 return activColor;
             } else {
-                return "#a1a1aa";
+                return "#c2bbe6";
             }
         },
         [activeLabel]
@@ -167,13 +163,13 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 justify-start 
                 items-start py-4
                 gap-2               
-                bg-white shadow-slate-300 shadow-md
+                bg-purple-950 shadow-slate-300 shadow-md
             `}
         >
             <div className=" flex justify-start px-4 items-center w-full mt-1 mb-2">
                 <button onClick={toggleOpen}>
                     {isOpen ? (
-                        <PiSidebarBold color="gray" size={24} />
+                        <PiSidebarBold color="#c2bbe6" size={24} />
                     ) : (
                         <PiSidebarBold color="orange" size={24} />
                     )}

@@ -23,6 +23,7 @@ export default async function getPosts(params: IParams) {
             include: {
                 tags: true,
                 categories: true,
+                user: true,
             },
             orderBy: {
                 createdAt: "desc",

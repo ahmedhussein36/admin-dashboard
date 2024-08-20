@@ -61,3 +61,21 @@ export async function getListingsCounts(): Promise<number> {
         await prisma.$disconnect();
     }
 }
+
+
+
+export async function getPostsCount(): Promise<number> {
+    try {
+        const developers = await prisma.post.findMany({
+            select: {
+                id: true,
+                },
+        });
+        return developers.length;
+    } catch (error: any) {
+        console.error("Error fetching developer count:", error);
+        throw new Error("Failed to fetch developer count");
+    } finally {
+        await prisma.$disconnect();
+    }
+}

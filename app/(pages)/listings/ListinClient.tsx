@@ -5,6 +5,7 @@ import SearchInput from "@/app/components/inputs/SearchInput";
 import { useEffect, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import ClientOnly from "@/app/components/ClientOnly";
+import Pagination from "@/app/components/Pagination";
 
 interface ListinClientProps {
     listings: SafeProperty[];
@@ -13,6 +14,12 @@ interface ListinClientProps {
 const ListinClient: React.FC<ListinClientProps> = ({ listings }) => {
     const [title, setTitle] = useState<string>("");
     const [filteredData, setFilteredData] = useState<SafeProperty[]>(listings);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [perPage, setperPage] = useState(20);
+
+    const lastIndex = currentPage * perPage;
+    const firstIndex = lastIndex - perPage;
+    const currentItems = filteredData.slice(firstIndex, lastIndex);
 
     useEffect(() => {
         if (title !== "") {
@@ -40,7 +47,17 @@ const ListinClient: React.FC<ListinClientProps> = ({ listings }) => {
                     </div>
                 </div>
                 <ClientOnly>
-                    <ListingsTable listings={filteredData as any} />
+                    <ListingsTable listings={currentItems as any} />
+
+                    <Pagination
+                        totalItems={filteredData.length}
+                        defaultPageSize={perPage}
+                        onChangePage={(page: any) => setCurrentPage(page)}
+                        onChangeRowsPerPage={(num: number) => {
+                            setperPage(num);
+                            setCurrentPage(1); // Reset to first page with new number of items per page
+                        }}
+                    />
                 </ClientOnly>
             </div>
         </>
