@@ -1,5 +1,4 @@
 "use client";
-import { Safetag } from "@/app/types";
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
@@ -13,7 +12,7 @@ import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
 
 interface Props {
-    tag: SafeTag;
+    tag: any;
 }
 
 const ClientTag: FC<Props> = ({ tag }) => {

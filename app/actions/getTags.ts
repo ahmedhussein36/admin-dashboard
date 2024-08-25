@@ -5,7 +5,7 @@ export interface IParams {
     status?: string;
 }
 
-export default async function getcategories(params: IParams) {
+export default async function getTags(params: IParams) {
     try {
         const { title, status } = params;
 
@@ -20,19 +20,19 @@ export default async function getcategories(params: IParams) {
             query.status = status;
         }
 
-        const category = await prisma.category.findMany({
+        const tag = await prisma.tag.findMany({
             where: query,
             orderBy: {
                 createdAt: "desc",
             },
         });
 
-        const safeCategory = category.map((category) => ({
-            ...category,
-            createdAt: category.createdAt,
+        const safetag = tag.map((tag) => ({
+            ...tag,
+            createdAt: tag.createdAt,
         }));
 
-        return safeCategory;
+        return safetag;
     } catch (error: any) {
         throw new Error(error);
     }
