@@ -1,17 +1,17 @@
 import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
-import CategoryClient from "./CategoryClient";
 import { IParams } from "@/app/actions/getDevelopers";
 import Sorting from "@/app/components/Sorting";
-import getcategories from "@/app/actions/getcategories";
+import TagClient from "./TagClient";
+import getTags from "@/app/actions/getTags";
 
 interface DevelopersPageProps {
     searchParams: IParams;
 }
 
-const CategoriesPage = async ({ searchParams }: DevelopersPageProps) => {
-    const categories = await getcategories(searchParams);
+const TagsPage = async ({ searchParams }: DevelopersPageProps) => {
+    const tags = await getTags(searchParams);
 
     return (
         <div>
@@ -19,20 +19,20 @@ const CategoriesPage = async ({ searchParams }: DevelopersPageProps) => {
                 <div className="flex gap-4 justify-between items-center my-2 mb-2 w-full">
                     <div>
                         <Heading
-                            title={"Categories"}
-                            subtitle={`Categories available: ${categories.length}`}
+                            title={"Tags"}
+                            subtitle={`tags available: ${tags.length}`}
                         />
                     </div>
                 </div>
                 <div className=" flex justify-between items-center ">
-                    <Sorting data={categories} parent="blog/categories" />
+                    <Sorting data={tags} parent="blog/tags" />
                 </div>
                 <ClientOnly>
-                    <CategoryClient categories={categories as any} />
+                    <TagClient tags={tags as any} />
                 </ClientOnly>
             </Container>
         </div>
     );
 };
 
-export default CategoriesPage;
+export default TagsPage;

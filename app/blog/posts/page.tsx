@@ -43,7 +43,7 @@ const PostsPage = async ({ searchParams }: DevelopersPageProps) => {
                     </div>
                 </div>
                 <div className=" my-2 flex justify-between items-center ">
-                    <Sorting data={posts} parent="posts" />
+                    <Sorting data={posts} parent="blog/posts" />
                 </div>
                 <div className="my-2 flex justify-center items-center ">
                     {/* <Filter /> */}

@@ -1,25 +1,22 @@
 "use client";
-import { SafeArea, safeCategory, SafeDeveloper } from "@/app/types";
+import { Safetag } from "@/app/types";
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useCallback, useState } from "react";
-import { Label, Radio, Spinner, TextInput } from "flowbite-react";
-import Textarea from "@/app/components/customInputs/Textarea";
+import React, { FC, useState } from "react";
+import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
-import Image from "next/legacy/image";
-import de from "date-fns/esm/locale/de/index.js";
 import RTE from "@/app/components/postForm/RTE";
 
 interface Props {
-    category: safeCategory;
+    tag: SafeTag;
 }
 
-const CategoryClient: FC<Props> = ({ category }) => {
+const ClientTag: FC<Props> = ({ tag }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -34,17 +31,17 @@ const CategoryClient: FC<Props> = ({ category }) => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
-            title: category.title,
-            description: category.description,
-            slug: category.slug,
-            image: category.image,
-            status: category?.status,
-            isFeatured: category?.isFeatured,
-            isAddHome: category?.isAddHome,
-            isRecommended: category?.isRecommended,
-            isFooterMenu: category?.isFooterMenu,
-            metaTitle: category?.metaTitle,
-            metaDescription: category?.metaDescription,
+            title: tag.title,
+            description: tag.description,
+            slug: tag.slug,
+            image: tag.image,
+            status: tag?.status,
+            isFeatured: tag?.isFeatured,
+            isAddHome: tag?.isAddHome,
+            isRecommended: tag?.isRecommended,
+            isFooterMenu: tag?.isFooterMenu,
+            metaTitle: tag?.metaTitle,
+            metaDescription: tag?.metaDescription,
         },
     });
 
@@ -64,7 +61,7 @@ const CategoryClient: FC<Props> = ({ category }) => {
         console.log({ data });
 
         axios
-            .put(`/api/categories/${category.id}`, data)
+            .put(`/api/categories/${tag.id}`, data)
             .then(() => {
                 toast.success("item Updated successfully!", {
                     position: "bottom-right",
@@ -88,7 +85,7 @@ const CategoryClient: FC<Props> = ({ category }) => {
     return (
         <div className=" p-8 flex flex-col gap-6 px-2 md:px-5 lg:px-5 xl:px-5 ">
             <div className="w-full flex justify-between items-center gap-3 ">
-                <Heading title="Update Category" />
+                <Heading title="Update tag" />
 
                 <div className="w-[310px] flex justify-end items-center gap-3">
                     <Button
@@ -264,4 +261,4 @@ flex flex-col justify-start items-start gap-3"
     );
 };
 
-export default CategoryClient;
+export default ClientTag;

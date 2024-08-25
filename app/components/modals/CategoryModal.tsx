@@ -63,7 +63,7 @@ const CategoryModal = () => {
         data.slug = generatedSlug;
 
         axios
-            .post("/api/category", data)
+            .post("/api/categories", data)
             .then(() => {
                 toast.success("New item added successfully!", {
                     position: "bottom-right",

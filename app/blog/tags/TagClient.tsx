@@ -18,12 +18,12 @@ import Link from "next/link";
 import { FiTrash2 } from "react-icons/fi";
 
 interface Props {
-    categories: safeCategory[];
+    tags: any[];
 }
 
-const CategoryClient: React.FC<Props> = ({ categories }) => {
+const TagClient: React.FC<Props> = ({ tags }) => {
     const [title, setTitle] = useState("");
-    const [filteredData, setFilteredData] = useState(categories);
+    const [filteredData, setFilteredData] = useState(tags);
     const [categoryId, setCategoryId] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
@@ -34,7 +34,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
     function onDelete(id: string) {
         setIsLoading(true);
         axios
-            .delete(`/api/categories/${id}`)
+            .delete(`/api/tags/${id}`)
             .then(() => {
                 confirm.onClose();
                 toast.success("Done : item deleted Successfully", {
@@ -56,14 +56,14 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
 
     useEffect(() => {
         if (title !== "") {
-            const data = categories.filter((item) => {
+            const data = tags.filter((item) => {
                 return item.title.includes(title.toLocaleLowerCase());
             });
             setFilteredData(data);
         } else {
-            setFilteredData(categories);
+            setFilteredData(tags);
         }
-    }, [categories, title]);
+    }, [tags, title]);
 
     const StutusColor = useCallback((status: string | null) => {
         if (status === "active")
@@ -106,7 +106,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                         isFilter={false}
                         value={title}
                         onChange={(e) => setTitle(e.target.value as any)}
-                        Placeholder="Search for categories"
+                        Placeholder="Search for tags"
                     />
                     <div className=" absolute top-3 right-4">
                         <LuSearch size={20} color="#757575" />
@@ -119,7 +119,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                         py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
                     >
                         <FaPlus size={"14"} color="blue" />{" "}
-                        <p>Add new category</p>
+                        <p>Add new Tag</p>
                     </button>
                 </div>
             </div>
@@ -178,7 +178,7 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                                             </td>
                                             <td className=" flex justify-start items-center gap-3">
                                                 <Link
-                                                    href={`/blog/categories/${item.id}`}
+                                                    href={`/blog/tags/${item.id}`}
                                                     title="Edit"
                                                     className=" hover:bg-blue-100 hover:rounded-full p-2 rounded-md text-white flex gap-1 justify-center items-center"
                                                 >
@@ -215,4 +215,4 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
         </>
     );
 };
-export default CategoryClient;
+export default TagClient;

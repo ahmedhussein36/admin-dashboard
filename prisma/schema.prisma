@@ -246,7 +246,7 @@ model Category {
   isAddHome       Boolean?
   isFooterMenu    Boolean?
   isRecommended   Boolean?
-  metaTite        String
+  metaTitle       String
   metaDescription String
   posts           PostCategory[]
   userId          String?        @db.ObjectId
@@ -285,13 +285,15 @@ model PostTags {
 }
 
 model Tag {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String     @unique
-  description String
-  title       String     @unique
-  posts       PostTags[]
-  userId      String?    @db.ObjectId
-  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug            String     @unique
+  description     String
+  title           String     @unique
+  metaTitle       String
+  metaDescription String
+  posts           PostTags[]
+  userId          String?    @db.ObjectId
+  user            User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model PostCategory {
@@ -305,5 +307,3 @@ model PostCategory {
 
   @@index([postId, categoryId])
 }
-
-
