@@ -2,14 +2,23 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "@/app/components/inputs/Input";
+import Input from "@/app/components/customInputs/Input";
+import CategorySelect from "@/app/components/customInputs/CategorySelect";
+import { Search } from "lucide-react";
 import RTE from "@/app/components/postForm/RTE";
+
+
+type Category = {
+    id: string,
+    title: string,
+    slug: string
+}
 
 interface Props {
     categories: any[];
@@ -19,8 +28,12 @@ interface Props {
 
 const Client: FC<Props> = ({ count, categories, tags }) => {
     const router = useRouter();
+    const [title, setTitle] = useState("");
+    const [editor, setEditor] = useState<ReactElement>();
     const [isLoading, setIsLoading] = useState(false);
-    const [allPropertyImages, setAllPropertyImages] = useState<string[]>([]);
+    const [selected, setSelected] = useState(false);
+    const [filteredCata, setFilteredCata] = useState<Category[]>([]);
+    const [categorysIds, setCategorysIds] = useState<Category[]>([]);
 
     const {
         register,
@@ -39,8 +52,8 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
             image: "",
             metaTitle: "",
             metaDescription: "",
-            categories: null,
-            tags: null,
+            categoryIds: [],
+            tagIds: [],
             status: "pending",
             isFeatured: false,
             isAddHome: false,
@@ -50,12 +63,49 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
     });
 
     const image = watch("image");
+    const categoryIds: Category[] = watch("categorIds");
+    const tagIds: Category[] = watch("tagIds");
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
             shouldDirty: true,
             shouldTouch: true,
             shouldValidate: true,
+        });
+    };
+
+    const editorHandle = () => {
+        setEditor(
+            <RTE
+                label="Content: "
+                name="content"
+                control={control}
+                defaultValue={getValues("content")}
+            />
+        );
+    };
+
+    useEffect(() => {
+        if (title !== "") {
+            const data = categories.filter((item) => {
+                return item.title.toLocaleLowerCase().includes(title);
+            });
+            setFilteredCata(data);
+        } else {
+            setFilteredCata(categories);
+        }
+    }, [categories, title]);
+
+    const handleCategoryClick = (categoryId: string) => {
+        setCategorysIds((prev: any) => {
+            const updatedCategoryIds = prev.includes(categoryId)
+                ? prev.filter((id: string) => id !== categoryId)
+                : [...prev, categoryId];
+
+            // Update the custom value using the updated array
+            setCustomValue("categoryIds", updatedCategoryIds);
+
+            return updatedCategoryIds;
         });
     };
 
@@ -156,12 +206,13 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
                     </div>
 
                     <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
-                        <RTE
-                            label="Content: "
-                            name="content"
-                            control={control}
-                            defaultValue={getValues("content")}
+                        <Button
+                            label={"Edit Post Content"}
+                            outline
+                            onClick={editorHandle}
                         />
+
+                        {editor}
                     </div>
 
                     <hr className=" bg-slate-300" />
@@ -187,7 +238,7 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
                         />
                     </div>
                 </div>
-                <div className=" flex-grow mt-4 mx-4 flex flex-col justify-start items-start gap-3">
+                <div className="w-1/4 mt-4 mx-4 flex flex-col justify-start items-start gap-3">
                     <div className=" w-full bg-white p-6 flex flex-col gap-3 justify-between items-start rounded-md border">
                         <div className=" flex flex-col gap-3 justify-start items-start">
                             <strong>Options: </strong>
@@ -274,6 +325,36 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
                             value={image}
                             image={image}
                         />
+                    </div>
+
+                    <div className="w-full flex flex-col gap-2 justify-start items-start h-[400px]  rounded-lg bg-white p-4">
+                        <div className=" font-bold my-2">Select Categories</div>
+                        <div className=" relative w-full flex justify-between items-center ">
+                            <input
+                                value={title}
+                                onChange={(e) =>
+                                    setTitle(e.target.value as any)
+                                }
+                                type="search"
+                                placeholder={"Find category"}
+                                className="w-full h-full p-2 border-2 rounded-md  focus:border-gray-400 focus:outline-0"
+                            />
+                            <div className=" absolute right-4">
+                                <Search size={15} color="#ddd" />
+                            </div>
+                        </div>
+                        <div className="w-full overflow-y-scroll justify-start items-start gap-1 flex flex-col border p-4">
+                            {categories &&
+                                filteredCata.map((c: any) => (
+                                    <CategorySelect
+                                        key={c.id}
+                                        label={c.title}
+                                        value={c}
+                                        selected={categorysIds.includes(c.id)}
+                                        onClick={handleCategoryClick}
+                                    />
+                                ))}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 "use client";
-import { safeCategory } from "@/app/types";
 import ClientOnly from "@/app/components/ClientOnly";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
@@ -10,12 +9,12 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Confirm from "@/app/components/Confirm";
 import useConfirm from "@/app/hooks/useConfirm";
-import useCategoryModal from "@/app/hooks/useCategoryModal";
 import EmptyState from "@/app/components/EmptyState";
-import CategoryModal from "@/app/components/modals/CategoryModal";
+import TagModal from "@/app/components/modals/TagModal";
 import { FaEdit } from "react-icons/fa";
 import Link from "next/link";
 import { FiTrash2 } from "react-icons/fi";
+import useTagModal from "@/app/hooks/useTagModal";
 
 interface Props {
     tags: any[];
@@ -28,7 +27,7 @@ const TagClient: React.FC<Props> = ({ tags }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
-    const categoryModal = useCategoryModal();
+    const tagModal = useTagModal();
     const confirm = useConfirm();
 
     function onDelete(id: string) {
@@ -65,36 +64,9 @@ const TagClient: React.FC<Props> = ({ tags }) => {
         }
     }, [tags, title]);
 
-    const StutusColor = useCallback((status: string | null) => {
-        if (status === "active")
-            return (
-                <>
-                    <div className="bg-lime-50 text-lime-500 text-center font-normal text-base rounded-full py-1 px-3 w-20">
-                        Active
-                    </div>
-                </>
-            );
-        if (status === "pending")
-            return (
-                <>
-                    <div className="bg-orange-50 text-orange-400 text-center font-normal text-base rounded-full py-1 px-3 w-20">
-                        Pending
-                    </div>
-                </>
-            );
-        if (status === "inactive")
-            return (
-                <>
-                    <div className="bg-red-50 text-red-400 text-center text-base font-normal rounded-full py-1 px-3 w-fit">
-                        Inactive
-                    </div>
-                </>
-            );
-    }, []);
-
     return (
         <>
-            <CategoryModal />
+            <TagModal />
             <Confirm
                 isLoading={isLoading}
                 onDelete={() => onDelete(categoryId)}
@@ -114,12 +86,11 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                 </div>
                 <div className="my-1 cursor-pointer">
                     <button
-                        onClick={() => categoryModal.onOpen()}
+                        onClick={tagModal.onOpen}
                         className="flex gap-2 justify-center items-center 
                         py-3 px-5 rounded-md border-2 border-slate-400 bg-slate-100"
                     >
-                        <FaPlus size={"14"} color="blue" />{" "}
-                        <p>Add new Tag</p>
+                        <FaPlus size={"14"} color="blue" /> <p>Add new Tag</p>
                     </button>
                 </div>
             </div>
@@ -148,10 +119,10 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                                             Title
                                         </th>
                                         <th className=" px-4 text-left p-2">
-                                            Author
+                                            Posts
                                         </th>
                                         <th className=" px-4 text-left p-2">
-                                            Status
+                                            Author
                                         </th>
                                         <th className=" px-4 text-left p-2">
                                             Action
@@ -167,15 +138,19 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                                             <td className=" px-4 text-left p-2">
                                                 {item.title}
                                             </td>
+                                            <td className=" px-4 text-left p-2">
+                                                <Link
+                                                    href={`/blog/posts?tagId=${item.id}`}
+                                                    className="text-zinc-500 hover:text-blue-700 hover:underline"
+                                                >
+                                                    {item.posts.length}
+                                                </Link>
+                                            </td>
 
                                             <td className=" px-4 text-left p-2">
                                                 {item?.user?.name}
                                             </td>
-                                            <td className=" px-4 text-left p-2">
-                                                {StutusColor(
-                                                    item?.status || ""
-                                                )}
-                                            </td>
+
                                             <td className=" flex justify-start items-center gap-3">
                                                 <Link
                                                     href={`/blog/tags/${item.id}`}

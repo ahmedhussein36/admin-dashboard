@@ -24,9 +24,6 @@ const TagsPage = async ({ searchParams }: DevelopersPageProps) => {
                         />
                     </div>
                 </div>
-                <div className=" flex justify-between items-center ">
-                    <Sorting data={tags} parent="blog/tags" />
-                </div>
                 <ClientOnly>
                     <TagClient tags={tags as any} />
                 </ClientOnly>

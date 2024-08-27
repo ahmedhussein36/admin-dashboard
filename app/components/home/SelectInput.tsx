@@ -29,7 +29,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
                 onChange={(value) => onChange(value)}
                 placeholder={placeholder}
                 formatOptionLabel={({ title, name }: any) => (
-                    <div>{title ? name : title}</div>
+                    <div>{title }</div>
                 )}
                 classNames={{
                     control: () => "p-1 border-1",

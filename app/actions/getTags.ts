@@ -22,6 +22,10 @@ export default async function getTags(params: IParams) {
 
         const tag = await prisma.tag.findMany({
             where: query,
+            include: {
+                posts: true,
+                user: true
+                },
             orderBy: {
                 createdAt: "desc",
             },

@@ -52,7 +52,11 @@ const CategoryModal = () => {
     };
 
     const slugGeneration = (title: string) => {
-        const slug = title.toLowerCase().replace(/\s+/g, "-");
+        const slug = title
+            .toLowerCase()
+            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
+            .replace(/\s+/g, "-")
+            .toString();
         return slug;
     };
 

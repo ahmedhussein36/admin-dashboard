@@ -13,10 +13,12 @@ export async function POST(request: Request) {
     const {
         title,
         slug,
+        content,
         image,
+        tagIds,
+        categoryIds,
         metaDescription,
         metaTitle,
-        content,
         status,
         isFeatured,
         isAddHome,
@@ -36,6 +38,12 @@ export async function POST(request: Request) {
             slug,
             image,
             content,
+            tags: {
+                connect: tagIds.map((id: string) => ({ id})),
+            },
+            categories: { 
+                connect: categoryIds.map((id: string) => ({ id})), 
+            },
             metaDescription,
             metaTitle,
             status,
@@ -44,6 +52,11 @@ export async function POST(request: Request) {
             isFooterMenu,
             isRecommended,
             userId: currentUser.id,
+        },
+
+        include: {
+            tags: true,
+            categories: true,
         },
     });
 

@@ -13,15 +13,9 @@ export async function POST(request: Request) {
     const {
         title,
         slug,
-        image,
         description,
-        status,
-        isFeatured,
-        isAddHome,
-        isFooterMenu,
-        isRecommended,
         metaTitle,
-        metaDescription
+        metaDescription,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -30,22 +24,16 @@ export async function POST(request: Request) {
         }
     });
 
-    const category = await prisma.category.create({
+    const tag = await prisma.tag.create({
         data: {
             title,
             slug,
-            image,
             description,
-            status,
-            isFeatured,
-            isAddHome,
-            isFooterMenu,
-            isRecommended,
             metaTitle,
             metaDescription,
             userId: currentUser.id,
         },
     });
 
-    return NextResponse.json(category);
+    return NextResponse.json(tag);
 }

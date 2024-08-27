@@ -31,30 +31,30 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
     const router = useRouter();
     const confirm = useConfirm();
 
-    function onDelete(id: string) {
-        setIsLoading(true);
-        axios
-            .delete(`/api/register/${id}`)
-            .then(() => {
-                confirm.onClose();
-                toast.success("Done : user deleted Successfully", {
-                    position: "bottom-right",
-                });
-                router.refresh();
-            })
-            .catch((error) => {
-                toast.error(
-                    error?.response?.data?.error ||
-                        "Error : Can't delete this user",
-                    {
-                        position: "bottom-right",
-                    }
-                );
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }
+    // function onDelete(id: string) {
+    //     setIsLoading(true);
+    //     axios
+    //         .delete(`/api/register/${id}`)
+    //         .then(() => {
+    //             confirm.onClose();
+    //             toast.success("Done : user deleted Successfully", {
+    //                 position: "bottom-right",
+    //             });
+    //             router.refresh();
+    //         })
+    //         .catch((error) => {
+    //             toast.error(
+    //                 error?.response?.data?.error ||
+    //                     "Error : Can't delete this user",
+    //                 {
+    //                     position: "bottom-right",
+    //                 }
+    //             );
+    //         })
+    //         .finally(() => {
+    //             setIsLoading(false);
+    //         });
+    // }
 
     useEffect(() => {
         if (title !== "") {
@@ -96,7 +96,7 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
 
     return (
         <>
-            <Confirm isLoading={isLoading} onDelete={() => onDelete(userId)} />
+            {/* <Confirm isLoading={isLoading} onDelete={() => onDelete(userId)} /> */}
 
             <div className=" w-full flex justify-start items-end gap-4 my-8">
                 <div className="w-1/4 relative">
@@ -181,11 +181,11 @@ const CompoundClient: React.FC<Props> = ({ users }) => {
                                                     }}
                                                     title="Delete"
                                                     className=" hover:bg-red-100 hover:rounded-full
-                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
+                             cursor-not-allowed p-2 rounded-md flex gap-1 justify-center items-center"
                                                 >
                                                     {/* Remove{" "} */}
                                                     <FiTrash2
-                                                        color="#ef4444"
+                                                        color="#dedede"
                                                         size={16}
                                                     />
                                                 </div>

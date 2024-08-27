@@ -148,6 +148,9 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                                             Title
                                         </th>
                                         <th className=" px-4 text-left p-2">
+                                            Posts
+                                        </th>
+                                        <th className=" px-4 text-left p-2">
                                             Author
                                         </th>
                                         <th className=" px-4 text-left p-2">
@@ -166,6 +169,15 @@ const CategoryClient: React.FC<Props> = ({ categories }) => {
                                         >
                                             <td className=" px-4 text-left p-2">
                                                 {item.title}
+                                            </td>
+
+                                            <td className=" px-4 text-left p-2">
+                                                <Link
+                                                    href={`/blog/posts?categoryId=${item.id}`}
+                                                    className="text-zinc-500 hover:text-blue-700 hover:underline"
+                                                >
+                                                    {item.posts.length}
+                                                </Link>
                                             </td>
 
                                             <td className=" px-4 text-left p-2">

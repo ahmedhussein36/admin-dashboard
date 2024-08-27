@@ -33,14 +33,14 @@ export default async function RootLayout({
                             className="
                                                 transition-all 
                                                 md:h-[calc(100vh)] 
-                                                w-fit
+                                                w-[150px]
                                                 bottom-24 md:left-0 
-                                                md:sticky top-0 z-50"
+                                            "
                         >
                             <MainSidebar currentUser={currentUser} />
                         </div>
 
-                        <div className="flex-grow ml-2 overflow-auto h-[99vh]">
+                        <div className="flex-grow ml-2 overflow-auto min-h-[100vh]">
                             <Navbar currentUser={currentUser} />
                             {children}
                         </div>

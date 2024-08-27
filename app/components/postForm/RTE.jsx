@@ -20,7 +20,7 @@ function RTE({ name, control, label, defaultValue = "" }) {
                         apiKey="l3zohleki0oftwikgqrslpbi6vv1lb9j60s3a0h2actu81x5"
                         init={{
                             branding: false,
-                            height: 350,
+                            height: 450,
                             menubar: true,
                             plugins: [
                                 "image",

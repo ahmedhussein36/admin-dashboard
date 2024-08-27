@@ -3,7 +3,7 @@ import prisma from "@/app/libs/prismadb";
 // import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface IParams {
-  categoryId?: string;
+  tagId?: string;
 }
 
 export async function DELETE(
@@ -16,19 +16,19 @@ export async function DELETE(
   //   return NextResponse.error();
   // }
 
-  const { categoryId } = params;
+  const { tagId } = params;
 
-  if (!categoryId || typeof categoryId !== 'string') {
+  if (!tagId || typeof tagId !== 'string') {
     throw new Error('Invalid ID');
   }
 
-  const category = await prisma.category.deleteMany({
+  const tag = await prisma.tag.deleteMany({
     where: {
-      id: categoryId,
+      id: tagId,
     }
   });
 
-  return NextResponse.json(category);
+  return NextResponse.json(tag);
 }
 
 
@@ -45,13 +45,7 @@ export async function PUT(
   const body = await request.json();
   const {
         title,
-        image,
         description,
-        status,
-        isFeatured,
-        isAddHome,
-        isFooterMenu,
-        isRecommended,
         metaTitle,
         metaDescription
 
@@ -64,32 +58,23 @@ export async function PUT(
     }
   });
 
-  const { categoryId } = params;
+  const { tagId } = params;
 
-  if (!categoryId || typeof categoryId !== 'string') {
+  if (!tagId || typeof tagId !== 'string') {
     throw new Error('Invalid ID');
   }
 
-  const category = await prisma.category.updateMany({
+  const tag = await prisma.tag.updateMany({
     where: {
-      id: categoryId
+      id: tagId
     },
     data: {
       title,
-        image,
         description,
-        status,
-        isFeatured,
-        isAddHome,
-        isFooterMenu,
-        isRecommended,
         metaTitle,
         metaDescription
-
-
-
     },
   });
 
-  return NextResponse.json(category);
+  return NextResponse.json(tag);
 }

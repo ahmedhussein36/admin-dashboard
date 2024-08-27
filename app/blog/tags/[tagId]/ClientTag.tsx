@@ -33,18 +33,10 @@ const ClientTag: FC<Props> = ({ tag }) => {
             title: tag.title,
             description: tag.description,
             slug: tag.slug,
-            image: tag.image,
-            status: tag?.status,
-            isFeatured: tag?.isFeatured,
-            isAddHome: tag?.isAddHome,
-            isRecommended: tag?.isRecommended,
-            isFooterMenu: tag?.isFooterMenu,
             metaTitle: tag?.metaTitle,
             metaDescription: tag?.metaDescription,
         },
     });
-
-    const image = watch("image");
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -60,7 +52,7 @@ const ClientTag: FC<Props> = ({ tag }) => {
         console.log({ data });
 
         axios
-            .put(`/api/categories/${tag.id}`, data)
+            .put(`/api/tags/${tag.id}`, data)
             .then(() => {
                 toast.success("item Updated successfully!", {
                     position: "bottom-right",
@@ -163,95 +155,6 @@ flex flex-col justify-start items-start gap-3"
                             disabled={isLoading}
                             register={register}
                             errors={errors}
-                        />
-                    </div>
-                </div>
-                <div className=" flex-grow mt-4 mx-4 flex flex-col justify-start items-start gap-3">
-                    <div className=" w-full bg-white p-6 flex flex-col gap-3 justify-between items-start rounded-md border">
-                        <div className=" flex flex-col gap-3 justify-start items-start">
-                            <strong>Options: </strong>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <input
-                                    id="home"
-                                    {...register("isAddHome")}
-                                    type="checkbox"
-                                    className=" focus:ring-0 transition-all rounded"
-                                />
-                                <label htmlFor="home">Add to home</label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <input
-                                    id="featured"
-                                    {...register("isFeatured")}
-                                    type="checkbox"
-                                    className=" focus:ring-0 transition-all rounded"
-                                />
-                                <label htmlFor="featured">Featured</label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <input
-                                    id="recommended"
-                                    {...register("isRecommended")}
-                                    type="checkbox"
-                                    className=" focus:ring-0 transition-all rounded"
-                                />
-                                <label htmlFor="recommended">Recommended</label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <input
-                                    id="footer"
-                                    type="checkbox"
-                                    {...register("isFooterMenu")}
-                                    className=" focus:ring-0 transition-all rounded"
-                                />
-                                <label htmlFor="footer">Footer menu</label>
-                            </div>
-                        </div>
-
-                        <div className="w-full flex flex-wrap gap-2  justify-between items-center">
-                            <strong>Status: </strong>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    id="active"
-                                    value="active"
-                                    className=" focus:ring-0 transition-all border-green-400 text-green-400"
-                                />
-                                <Label htmlFor="active">Active</Label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    value={"pending"}
-                                    id="pending"
-                                    className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
-                                />
-                                <Label htmlFor="pending">Pending</Label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    value={"inactive"}
-                                    id="inactive"
-                                    className=" focus:ring-0 transition-all  border-red-400 text-red-600"
-                                />
-                                <Label htmlFor="inactive">Inactive</Label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className=" w-full">
-                        <h3 className="my-2">Main Image:</h3>
-                        <ImageUpload
-                            label="Upload thumbnail Image"
-                            thumbnail={true}
-                            onAction={() => {
-                                setCustomValue("image", "");
-                            }}
-                            onChange={(value) => {
-                                setCustomValue("image", value);
-                            }}
-                            value={image}
-                            image={image}
                         />
                     </div>
                 </div>

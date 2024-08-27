@@ -43,7 +43,7 @@ const PostClient: React.FC<Props> = ({ posts }) => {
             .catch((error) => {
                 toast.error(
                     error?.response?.data?.error ||
-                        "Error : Can't delete this item"
+                    "Error : Can't delete this item"
                 );
             })
             .finally(() => {
@@ -156,6 +156,23 @@ const PostClient: React.FC<Props> = ({ posts }) => {
                                                 {StutusColor(
                                                     item?.status || ""
                                                 )}
+                                            </td>
+                                            <td className=" px-4 text-left p-2">
+                                                {item?.categories
+                                                    ? item?.categories.map(
+                                                        (category: any) => (
+                                                            <li
+                                                                key={
+                                                                    category.id
+                                                                }
+                                                            >
+                                                                {
+                                                                    category?.title
+                                                                }
+                                                            </li>
+                                                        )
+                                                    )
+                                                    : ""}
                                             </td>
                                             <td className=" flex justify-start items-center gap-3">
                                                 <Link

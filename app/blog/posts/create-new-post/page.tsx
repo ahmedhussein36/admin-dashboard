@@ -3,6 +3,7 @@ import Client from "./Client";
 import getAreas from "@/app/actions/getAreas";
 import getcategories, { IParams } from "@/app/actions/getcategories";
 import { getPostsCount } from "@/app/actions/getCounts";
+import getTags from "@/app/actions/getTags";
 
 interface PageProps {
     searchParams: IParams;
@@ -10,7 +11,7 @@ interface PageProps {
 
 const page = async ({ searchParams }: PageProps) => {
     const categories = await getcategories(searchParams);
-    const tags = await getAreas(searchParams);
+    const tags = await getTags(searchParams);
     const postsCount = await getPostsCount();
 
     return (

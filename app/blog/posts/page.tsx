@@ -10,11 +10,11 @@ import { redirect } from "next/navigation";
 import ClientOnly from "@/app/components/ClientOnly";
 import Filter from "@/app/components/home/Filter";
 
-interface DevelopersPageProps {
+interface PostsProps {
     searchParams: IParams;
 }
 
-const PostsPage = async ({ searchParams }: DevelopersPageProps) => {
+const PostsPage = async ({ searchParams }: PostsProps) => {
     const posts = await getPosts(searchParams);
     const currentUser = await getCurrentUser();
 

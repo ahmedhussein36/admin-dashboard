@@ -1,10 +1,11 @@
+import getTagById from "@/app/actions/getTagById";
 import ClientTag from "./ClientTag";
 
-interface CategParams {
-    categoryId: string;
+interface TagParams {
+    tagId: string;
 }
 
-const CategoryPage = async ({ params }: { params: CategParams }) => {
+const CategoryPage = async ({ params }: { params: TagParams }) => {
     const tag = await getTagById(params);
 
     return (

@@ -40,27 +40,31 @@ export const SidebarItem: FC<
                 onClick={() => {
                     setActiveLabel(label);
                 }}
+                style={{ fontSize: "small" }}
                 href={href}
                 className={`
                 flex transition-all  
-                ${isOpen
+                ${
+                    isOpen
                         ? "justify-start items-center"
                         : "justify-start items-center"
-                    }
+                }
                  w-full px-4 duration-300
                 gap-3 flex-row
                 hover:bg-white/10 py-2
-                ${isActive
+                ${
+                    isActive
                         ? " text-white font-bold bg-white/30"
                         : "text-purple-100"
-                    }`}
+                }`}
             >
                 <div className=" w-fit">{icon}</div>
                 <div
                     className={` 
                      overflow-hidden
-                    ${isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
-                        } "hidden font-medium duration-300 transition-all"`}
+                    ${
+                        isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
+                    } "hidden font-medium duration-300 transition-all"`}
                 >
                     {label}
                 </div>
@@ -154,7 +158,8 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
     return (
         <div
             className={`
-             overflow-hidden
+            fixed top-0 z-50"
+            overflow-hidden
             ${isOpen ? "w-[130px]" : "w-[70px]"}
                 h-full min-w-[70px] 
                 overflow-auto 
@@ -310,7 +315,7 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
                 />
                 <SidebarItem
                     isOpen={isOpen}
-                    href="/"
+                    href="/blog/tags"
                     icon={
                         <FaTag
                             className=" transition-all duration-300"

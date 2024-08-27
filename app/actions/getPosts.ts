@@ -1,13 +1,16 @@
 import prisma from "@/app/libs/prismadb";
+import { Select } from "flowbite-react";
 
 export interface IParams {
     title?: string;
     status?: string;
+    categoryId: string;
+    tagId: string;
 }
 
 export default async function getPosts(params: IParams) {
     try {
-        const { title, status } = params;
+        const { title, status, categoryId, tagId } = params;
 
         let query: any = {};
 
@@ -17,13 +20,49 @@ export default async function getPosts(params: IParams) {
         if (status) {
             query.status = status;
         }
+        if (categoryId) {
+            query.categories = {
+                some: {
+                    id: categoryId
+                }
+            };
+        }
+        if (tagId) {
+            query.tags = {
+                some: {
+                    id: tagId
+                }
+            };
+        }
 
         const posts = await prisma.post.findMany({
             where: query,
             include: {
-                tags: true,
-                categories: true,
+                tags: {
+                    include:{
+                        tag:{
+                            select:{
+                                id: true,
+                                title: true,
+                                slug: true
+                            }
+                        }
+                    }
+                },
+                categories: {
+                    include:{
+                        category:{
+                            select:{
+                                id: true,
+                                title: true,
+                                slug: true
+                            }
+                        }
+                    }
+                }
+                ,
                 user: true,
+
             },
             orderBy: {
                 createdAt: "desc",
@@ -32,7 +71,7 @@ export default async function getPosts(params: IParams) {
 
         const safePosts = posts.map((post) => ({
             ...post,
-            createdAt: post.createdAt,
+            createdAt: post.createdAt.toISOString(),
         }));
 
         return safePosts;

@@ -1078,7 +1078,7 @@ const AddNewProperty: FC<PageProps> = ({
     return (
         <>
             <div className="relative flex justify-center items-center mt-4 mb-24">
-                <div className="max-w-[680px] md:w-full lg:w-[600px] flex flex-col justify-center items-center p-6 gap-8">
+                <div className="max-w-[800px] md:w-full flex flex-col justify-center items-center p-6 gap-8">
                     <div className="w-full">{bodyContent}</div>
                     <div
                         className="

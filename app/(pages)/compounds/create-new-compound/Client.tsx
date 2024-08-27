@@ -2,7 +2,7 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, ReactElement, useCallback, useEffect, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -22,9 +22,12 @@ interface Props {
 }
 
 const Client: FC<Props> = ({ developers, areas, count }) => {
-    const router = useRouter();
+    const [editor, setEditor] = useState<ReactElement>();
     const [isLoading, setIsLoading] = useState(false);
     const [allImages, setAllImages] = useState<string[]>([]);
+
+    const router = useRouter();
+
 
     const {
         register,
@@ -111,6 +114,29 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
         },
         [allImages, setCustomValue]
     );
+
+    useEffect(() => {
+
+        const editorHandle = () => {
+            setEditor(
+                <RTE
+                    label="Content: "
+                    name="content"
+                    control={control}
+                    defaultValue={getValues("content")}
+                />
+            );
+        };
+        setEditor(
+            <Button
+                label={"Edit Post Content"}
+                outline
+                onClick={editorHandle}
+            />
+        )
+    }, [control, getValues])
+
+
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
@@ -402,12 +428,11 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
                     </div>
 
                     <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
-                        <RTE
-                            label="Content: "
-                            name="content"
-                            control={control}
-                            defaultValue={getValues("content")}
-                        />
+                        <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
+
+
+                            {editor}
+                        </div>
                     </div>
 
                     <hr className=" bg-slate-300" />

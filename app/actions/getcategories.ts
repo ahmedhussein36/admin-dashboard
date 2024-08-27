@@ -22,6 +22,10 @@ export default async function getcategories(params: IParams) {
 
         const category = await prisma.category.findMany({
             where: query,
+            include: {
+                posts: true,
+                user: true
+                },
             orderBy: {
                 createdAt: "desc",
             },
