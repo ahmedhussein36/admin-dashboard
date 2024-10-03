@@ -2,7 +2,13 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, ReactElement, useCallback, useEffect, useState } from "react";
+import React, {
+    FC,
+    ReactElement,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -13,7 +19,6 @@ import RTE from "@/app/components/postForm/RTE";
 import { SafeArea, SafeDeveloper } from "@/app/types";
 import Select from "react-select";
 import { ImMap2 } from "react-icons/im";
-
 
 interface Props {
     developers: SafeDeveloper[];
@@ -27,7 +32,6 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
     const [allImages, setAllImages] = useState<string[]>([]);
 
     const router = useRouter();
-
 
     const {
         register,
@@ -116,7 +120,6 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
     );
 
     useEffect(() => {
-
         const editorHandle = () => {
             setEditor(
                 <RTE
@@ -133,10 +136,8 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
                 outline
                 onClick={editorHandle}
             />
-        )
-    }, [control, getValues])
-
-
+        );
+    }, [control, getValues]);
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
@@ -150,9 +151,9 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
                 toast.success("item added successfully!", {
                     position: "bottom-right",
                 });
-
-                router.back();
                 router.refresh();
+                router.back();
+
                 reset();
             })
             .catch(() => {
@@ -429,8 +430,6 @@ const Client: FC<Props> = ({ developers, areas, count }) => {
 
                     <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
                         <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
-
-
                             {editor}
                         </div>
                     </div>

@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/lighbox/LightboxImages.jsx", "app/components/lighbox/NextJsImage.jsx", "prisma/seed.js", "app/components/postForm/RTE.jsx", "next-auth", "app/components/MultiSelectDropdown.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/lighbox/LightboxImages.jsx", "app/components/lighbox/NextJsImage.jsx", "prisma/seed.js", "app/components/postForm/RTE.jsx", "next-auth", "app/components/MultiSelectDropdown.js", "app/(pages)/settings/App.js"],
   "exclude": ["node_modules"]
 }

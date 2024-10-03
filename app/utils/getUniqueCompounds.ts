@@ -1,5 +1,5 @@
 // utils/getUniqueCompounddevelopers.ts
-export interface Developer {
+type Developer= {
     id: string;
     title: string;
 }
@@ -8,7 +8,7 @@ export interface Compound {
     developer?: Developer;
 }
 
-export const getUniqueCompounds = (data: any[]): Developer[] => {
+export const getUniqueCompounds = (data :any[]) => {
     const uniqueDevelopers: Developer[] = [];
     const developerIds = new Set<string>();
 

@@ -5,20 +5,15 @@ import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import useLoginModal from "@/app/hooks/useLoginModal";
 import Input from "../customInputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 import { Spinner } from "flowbite-react";
 import Image from "next/legacy/image";
 import Container from "../Container";
-import RegisterModal from "../modals/RegisterModal";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const Login = () => {
     const router = useRouter();
-    const loginModal = useLoginModal();
-    const RegisterModel = useRegisterModal();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState(Boolean);
 
@@ -43,28 +38,15 @@ const Login = () => {
             setIsLoading(false);
 
             if (callback?.ok) {
-                toast.success("تم تسجيل الدخول إلى حسابك", {
-                    position: "bottom-right",
-                });
                 router.refresh();
             }
 
             if (callback?.error) {
-                toast.error(callback.error);
+               alert(callback.error);
             }
         });
     };
 
-    useEffect(() => {
-        if (loginModal.isOpen) {
-            setEmail(false);
-        }
-    }, [loginModal.isOpen]);
-
-    const onToggle = useCallback(() => {
-        loginModal.onClose();
-        RegisterModel.onOpen();
-    }, [RegisterModel, loginModal]);
 
     const emailLogin = (
         <div className="flex flex-col gap-4 px-5 justify-start items-center">

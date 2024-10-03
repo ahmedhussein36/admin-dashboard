@@ -252,7 +252,6 @@ const AddNewProperty: FC<PageProps> = ({
 
         return (
             <>
-                {" "}
                 رجوع <FaArrowRightLong />
             </>
         );
@@ -307,7 +306,7 @@ const AddNewProperty: FC<PageProps> = ({
                     className="
                         grid 
                         grid-rows-1 
-                        md:grid-rows-2 
+                        md:grid-rows-2  
                         gap-1
                         max-h-[50vh]
         "

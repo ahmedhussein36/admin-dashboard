@@ -44,27 +44,24 @@ export const SidebarItem: FC<
                 href={href}
                 className={`
                 flex transition-all  
-                ${
-                    isOpen
+                ${isOpen
                         ? "justify-start items-center"
                         : "justify-start items-center"
-                }
+                    }
                  w-full px-4 duration-300
                 gap-3 flex-row
                 hover:bg-white/10 py-2
-                ${
-                    isActive
+                ${isActive
                         ? " text-white font-bold bg-white/30"
                         : "text-purple-100"
-                }`}
+                    }`}
             >
                 <div className=" w-fit">{icon}</div>
                 <div
                     className={` 
                      overflow-hidden
-                    ${
-                        isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
-                    } "hidden font-medium duration-300 transition-all"`}
+                    ${isOpen ? "opacity-100 w-full" : "w-0 opacity-0"
+                        } "hidden font-medium duration-300 transition-all"`}
                 >
                     {label}
                 </div>

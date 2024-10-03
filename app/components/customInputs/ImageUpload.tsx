@@ -11,7 +11,7 @@ declare global {
 
 const uploadPreset = "k5acnt7x";
 
-interface ImageUploadProps {
+interface ImageUploadProps { 
     onChange: (value: string) => void;
     value: string | string[] | any;
     allImages?: string[];

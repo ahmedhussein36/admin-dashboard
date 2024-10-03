@@ -12,6 +12,7 @@ import Input from "@/app/components/customInputs/Input";
 import CategorySelect from "@/app/components/customInputs/CategorySelect";
 import { Search } from "lucide-react";
 import RTE from "@/app/components/postForm/RTE";
+import MultiSelect from "@/app/components/select/MultiSelect";
 
 
 type Category = {
@@ -33,7 +34,8 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [selected, setSelected] = useState(false);
     const [filteredCata, setFilteredCata] = useState<Category[]>([]);
-    const [categorysIds, setCategorysIds] = useState<Category[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<[]>([]);
+
 
     const {
         register,
@@ -52,7 +54,7 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
             image: "",
             metaTitle: "",
             metaDescription: "",
-            categoryIds: [],
+            categoryIds: selectedCategories,
             tagIds: [],
             status: "pending",
             isFeatured: false,
@@ -62,9 +64,7 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
         },
     });
 
-    const image = watch("image");
-    const categoryIds: Category[] = watch("categorIds");
-    const tagIds: Category[] = watch("tagIds");
+    const image = watch("image")
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -96,16 +96,19 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
         }
     }, [categories, title]);
 
-    const handleCategoryClick = (categoryId: string) => {
-        setCategorysIds((prev: any) => {
-            const updatedCategoryIds = prev.includes(categoryId)
-                ? prev.filter((id: string) => id !== categoryId)
-                : [...prev, categoryId];
 
-            // Update the custom value using the updated array
-            setCustomValue("categoryIds", updatedCategoryIds);
 
-            return updatedCategoryIds;
+    useEffect(() => {
+        setValue('categoryIds', selectedCategories);
+    }, [selectedCategories, setValue]);
+
+    const handleCategorySelect = (categoryId: string) => {
+        setSelectedCategories((prevSelectedCategories: any) => {
+            if (prevSelectedCategories.includes(categoryId)) {
+                return prevSelectedCategories.filter((id: any) => id !== categoryId);
+            } else {
+                return [...prevSelectedCategories, categoryId];
+            }
         });
     };
 
@@ -327,33 +330,24 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
                         />
                     </div>
 
-                    <div className="w-full flex flex-col gap-2 justify-start items-start h-[400px]  rounded-lg bg-white p-4">
-                        <div className=" font-bold my-2">Select Categories</div>
-                        <div className=" relative w-full flex justify-between items-center ">
+                    <div className="w-full flex flex-col gap-2 justify-start items-start h-[400px] rounded-lg bg-white p-4">
+                        <div className="font-bold my-2">Select Categories</div>
+                        <div className="relative w-full flex justify-between items-center">
                             <input
                                 value={title}
-                                onChange={(e) =>
-                                    setTitle(e.target.value as any)
-                                }
+                                onChange={(e) => setTitle(e.target.value)}
                                 type="search"
-                                placeholder={"Find category"}
-                                className="w-full h-full p-2 border-2 rounded-md  focus:border-gray-400 focus:outline-0"
+                                placeholder="Find category"
+                                className="w-full h-full p-2 border-2 rounded-md focus:border-gray-400 focus:outline-0"
                             />
-                            <div className=" absolute right-4">
+                            <div className="absolute right-4">
                                 <Search size={15} color="#ddd" />
                             </div>
                         </div>
-                        <div className="w-full overflow-y-scroll justify-start items-start gap-1 flex flex-col border p-4">
-                            {categories &&
-                                filteredCata.map((c: any) => (
-                                    <CategorySelect
-                                        key={c.id}
-                                        label={c.title}
-                                        value={c}
-                                        selected={categorysIds.includes(c.id)}
-                                        onClick={handleCategoryClick}
-                                    />
-                                ))}
+                        <div className="w-full">
+                            <MultiSelect
+                                options={filteredCata}
+                                onSelect={() => { }} />
                         </div>
                     </div>
                 </div>
