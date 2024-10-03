@@ -24,7 +24,6 @@ export default async function getcategories(params: IParams) {
             where: query,
             include: {
                 posts: true,
-                user: true
                 },
             orderBy: {
                 createdAt: "desc",
