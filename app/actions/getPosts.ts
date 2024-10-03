@@ -23,46 +23,24 @@ export default async function getPosts(params: IParams) {
         if (categoryId) {
             query.categories = {
                 some: {
-                    id: categoryId
-                }
+                    id: categoryId,
+                },
             };
         }
         if (tagId) {
             query.tags = {
                 some: {
-                    id: tagId
-                }
+                    id: tagId,
+                },
             };
         }
 
         const posts = await prisma.post.findMany({
             where: query,
             include: {
-                tags: {
-                    include:{
-                        tag:{
-                            select:{
-                                id: true,
-                                title: true,
-                                slug: true
-                            }
-                        }
-                    }
-                },
-                categories: {
-                    include:{
-                        category:{
-                            select:{
-                                id: true,
-                                title: true,
-                                slug: true
-                            }
-                        }
-                    }
-                }
-                ,
+                tags: true,
+                category: true,
                 user: true,
-
             },
             orderBy: {
                 createdAt: "desc",

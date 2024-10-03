@@ -10,13 +10,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const {
-        title,
-        slug,
-        description,
-        metaTitle,
-        metaDescription,
-    } = body;
+    const { name, locale, slug, description, status } = body;
 
     Object.keys(body).forEach((value: any) => {
         if (!body[value]) {
@@ -26,12 +20,11 @@ export async function POST(request: Request) {
 
     const tag = await prisma.tag.create({
         data: {
-            title,
+            name,
+            locale,
             slug,
             description,
-            metaTitle,
-            metaDescription,
-            userId: currentUser.id,
+            status,
         },
     });
 

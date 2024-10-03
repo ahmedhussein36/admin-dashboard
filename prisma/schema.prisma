@@ -255,7 +255,7 @@ model Post {
   user            User       @relation(fields: [userId], references: [id])
   category        Category[] @relation(fields: [categoryIds], references: [id])
   categoryIds     String[]   @default([]) @db.ObjectId
-  tags            Tags[]     @relation(fields: [tagsIds], references: [id])
+  tags            Tag[]      @relation(fields: [tagsIds], references: [id])
   tagsIds         String[]   @default([]) @db.ObjectId
 }
 
@@ -277,7 +277,7 @@ model Category {
   postIds         String[] @default([]) @db.ObjectId
 }
 
-model Tags {
+model Tag {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

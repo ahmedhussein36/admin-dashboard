@@ -48,10 +48,6 @@ export async function PUT(
         image,
         description,
         status,
-        isFeatured,
-        isAddHome,
-        isFooterMenu,
-        isRecommended,
         metaTitle,
         metaDescription
 
@@ -79,10 +75,6 @@ export async function PUT(
         image,
         description,
         status,
-        isFeatured,
-        isAddHome,
-        isFooterMenu,
-        isRecommended,
         metaTitle,
         metaDescription
 
