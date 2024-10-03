@@ -205,10 +205,9 @@ const AddNewProperty: FC<PageProps> = ({
                 toast.success("تم إضافة وحدتك بنجاح !", {
                     position: "bottom-right",
                 });
-
-                router.refresh();
                 reset();
-                setStep(STEPS.CATEGORY);
+                router.refresh();
+                router.back();
             })
             .catch(() => {
                 toast.error("!خطأ. تعذر اضافة وحدتك", {
