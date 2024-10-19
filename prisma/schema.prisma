@@ -20,21 +20,19 @@ type images {
 }
 
 model User {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  id             String      @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   username       String?
-  email          String        @unique
+  email          String      @unique
   role           String
   status         String
   emailVerified  DateTime?
   image          String?
   hashedPassword String
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  favoriteIds    String[]      @db.ObjectId
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  favoriteIds    String[]    @db.ObjectId
   accounts       Account[]
-  listings       Listing[]
-  reservations   Reservation[]
   properties     Property[]
   compounds      Compound[]
   posts          Post[]
@@ -64,35 +62,6 @@ model Account {
   user User @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerAccountId])
-}
-
-model Listing {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  description   String?
-  imageSrc      String?
-  createdAt     DateTime      @default(now())
-  category      String?
-  roomCount     Int?
-  bathroomCount Int?
-  guestCount    Int?
-  locationValue String?
-  price         Int?
-  userId        String        @db.ObjectId
-  user          User?         @relation(fields: [userId], references: [id])
-  reservations  Reservation[]
-}
-
-model Reservation {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String   @db.ObjectId
-  listingId  String   @db.ObjectId
-  startDate  DateTime
-  endDate    DateTime
-  totalPrice Int
-  createdAt  DateTime @default(now())
-  user       User?    @relation(fields: [userId], references: [id])
-  listing    Listing? @relation(fields: [listingId], references: [id])
 }
 
 model Property {
@@ -288,4 +257,18 @@ model Tag {
   description String
   posts       Post[]   @relation(fields: [postIds], references: [id])
   postIds     String[] @default([]) @db.ObjectId
+}
+
+model Lead {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  email        String
+  country      Json?
+  phone        String
+  compoundName String
+  compoundRef  String
+  unitRef      String?  @default("UnKnown")
+  message      String?
 }

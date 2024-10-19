@@ -3,8 +3,7 @@ import {
     Developer,
     Compound,
     Area,
-    Listing,
-    Reservation,
+    Lead,
     Category,
     Post,
     User,
@@ -41,9 +40,6 @@ export type SafeArea = Omit<Area, "createdAt"> & {
     createdAt: string;
 };
 
-export type SafeListing = Omit<Listing, "createdAt"> & {
-    createdAt: string;
-};
 export type SafeDeveloper = Omit<Developer, "createdAt"> & {
     createdAt: string;
     user: {
@@ -52,14 +48,17 @@ export type SafeDeveloper = Omit<Developer, "createdAt"> & {
     };
 };
 
-export type SafeReservation = Omit<
-    Reservation,
-    "createdAt" | "startDate" | "endDate" | "listing"
-> & {
+export type SafeLead = Omit<Lead, "createdAt"> & {
+    country: {
+        name: {
+            en: string;
+            ar: string;
+        };
+        dialCode: string;
+        flag: string;
+        value: string;
+    };
     createdAt: string;
-    startDate: string;
-    endDate: string;
-    listing: SafeListing;
 };
 
 export type SafeUser = Omit<

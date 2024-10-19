@@ -65,7 +65,7 @@
   }
 
   body {
-    background: #f8fbfc;
+    background: #f1f5f6;
 
   }
 }
@@ -73,7 +73,6 @@
 * {
   font-size: small;
 }
-
 
 ::-webkit-scrollbar {
   width: 5px;

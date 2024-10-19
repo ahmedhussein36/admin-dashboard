@@ -195,13 +195,13 @@ export function MainSidebar({ currentUser }: { currentUser: SafeUser }) {
 
             <SidebarItem
                 isOpen={isOpen}
-                label="Launches"
-                href="/new-launches"
+                label="Leads"
+                href="/leads"
                 icon={
                     <FaBullhorn
                         className=" transition-all duration-300"
                         size={isOpen ? L_iconSize : S_iconSize}
-                        color={iconActive("Launches")}
+                        color={iconActive("leads")}
                     />
                 }
                 setActiveLabel={setActiveLabel}
