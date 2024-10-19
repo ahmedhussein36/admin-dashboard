@@ -8,7 +8,6 @@ import {
     SafeArea,
     SafeCompound,
     SafeProperty,
-    SafeReservation,
     SafeUser,
 } from "@/app/types";
 
@@ -22,7 +21,6 @@ interface ListingCardProps {
     actionLabel?: any;
     actionId?: string;
     currentUser?: SafeUser | null;
-    reservation?: SafeReservation;
 }
 
 const ListingCard: React.FC<ListingCardProps> = ({

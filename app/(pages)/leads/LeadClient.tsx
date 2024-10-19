@@ -99,7 +99,7 @@ const LeadClient: React.FC<Props> = ({ leads }) => {
                                             key={item.id}
                                             className="bg-white p-2 py-4 hover:bg-gray-100 transition-all"
                                         >
-                                            <td className="text-start font-medium p-2 py-4 text-gray-500">
+                                            <td className="text-start font-medium p-2 py-4 text-black">
                                                 {item.name}
                                             </td>
                                             <td className="text-start font-medium p-2 py-4 text-gray-500">
