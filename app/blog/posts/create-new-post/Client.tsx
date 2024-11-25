@@ -14,12 +14,11 @@ import { Search } from "lucide-react";
 import RTE from "@/app/components/postForm/RTE";
 import MultiSelect from "@/app/components/select/MultiSelect";
 
-
 type Category = {
-    id: string,
-    title: string,
-    slug: string
-}
+    id: string;
+    title: string;
+    slug: string;
+};
 
 interface Props {
     categories: any[];
@@ -36,7 +35,6 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
     const [filteredCata, setFilteredCata] = useState<Category[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<[]>([]);
 
-
     const {
         register,
         handleSubmit,
@@ -48,23 +46,22 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
+            status: "pending",
             title: "",
-            content: "",
-            slug: "",
+            description: "",
             image: "",
             metaTitle: "",
             metaDescription: "",
-            categoryIds: selectedCategories,
-            tagIds: [],
-            status: "pending",
             isFeatured: false,
-            isAddHome: false,
             isRecommended: false,
-            isFooterMenu: false,
+            isFooter: false,
+            isAddHome: false,
+            categories: selectedCategories || [],
+            tags: [],
         },
     });
 
-    const image = watch("image")
+    const image = watch("image");
 
     const setCustomValue = (id: string, value: any) => {
         setValue(id, value, {
@@ -78,9 +75,9 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
         setEditor(
             <RTE
                 label="Content: "
-                name="content"
+                name="description"
                 control={control}
-                defaultValue={getValues("content")}
+                defaultValue={getValues("description")}
             />
         );
     };
@@ -96,16 +93,16 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
         }
     }, [categories, title]);
 
-
-
     useEffect(() => {
-        setValue('categoryIds', selectedCategories);
+        setValue("categories", selectedCategories);
     }, [selectedCategories, setValue]);
 
     const handleCategorySelect = (categoryId: string) => {
         setSelectedCategories((prevSelectedCategories: any) => {
             if (prevSelectedCategories.includes(categoryId)) {
-                return prevSelectedCategories.filter((id: any) => id !== categoryId);
+                return prevSelectedCategories.filter(
+                    (id: any) => id !== categoryId
+                );
             } else {
                 return [...prevSelectedCategories, categoryId];
             }
@@ -115,7 +112,7 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
     const slugGeneration = (title: string) => {
         const formatedSlug = title
             .toLowerCase()
-            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
+            .replace(/[\|\%\)\(\#\*\@\$\~\!\.\:\+]+/g, "")
             .replace(/\s+/g, "-")
             .toString();
 
@@ -347,7 +344,8 @@ const Client: FC<Props> = ({ count, categories, tags }) => {
                         <div className="w-full">
                             <MultiSelect
                                 options={filteredCata}
-                                onSelect={() => { }} />
+                                onSelect={handleCategorySelect}
+                            />
                         </div>
                     </div>
                 </div>

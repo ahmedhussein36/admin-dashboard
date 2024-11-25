@@ -1,10 +1,8 @@
 import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
-import { IParams } from "@/app/actions/getDevelopers";
-import Sorting from "@/app/components/Sorting";
 import TagClient from "./TagClient";
-import getTags from "@/app/actions/getTags";
+import getTags, { IParams } from "@/app/actions/getTags";
 
 interface DevelopersPageProps {
     searchParams: IParams;

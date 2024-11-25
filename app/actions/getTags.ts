@@ -1,30 +1,11 @@
 import prisma from "@/app/libs/prismadb";
 
-export interface IParams {
-    title?: string;
-    status?: string;
-}
-
-export default async function getTags(params: IParams) {
+export default async function getTags() {
     try {
-        const { title, status } = params;
-
-        let query: any = {};
-
-        if (title) {
-            query.title = {
-                contains: title,
-            };
-        }
-        if (status) {
-            query.status = status;
-        }
-
         const tag = await prisma.tag.findMany({
-            where: query,
             include: {
                 posts: true,
-                },
+            },
             orderBy: {
                 createdAt: "desc",
             },

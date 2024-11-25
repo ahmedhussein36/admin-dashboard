@@ -21,7 +21,7 @@ interface Props {
 }
 
 const TagClient: React.FC<Props> = ({ tags }) => {
-    const [title, setTitle] = useState("");
+    const [name, setname] = useState("");
     const [filteredData, setFilteredData] = useState(tags);
     const [categoryId, setCategoryId] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -54,15 +54,15 @@ const TagClient: React.FC<Props> = ({ tags }) => {
     }
 
     useEffect(() => {
-        if (title !== "") {
+        if (name !== "") {
             const data = tags.filter((item) => {
-                return item.title.includes(title.toLocaleLowerCase());
+                return item.name.includes(name.toLocaleLowerCase());
             });
             setFilteredData(data);
         } else {
             setFilteredData(tags);
         }
-    }, [tags, title]);
+    }, [tags, name]);
 
     return (
         <>
@@ -76,8 +76,8 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                 <div className="w-2/6 relative">
                     <SearchInput
                         isFilter={false}
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value as any)}
+                        value={name}
+                        onChange={(e) => setname(e.target.value as any)}
                         Placeholder="Search for tags"
                     />
                     <div className=" absolute top-3 right-4">
@@ -116,16 +116,13 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                                 <thead>
                                     <tr className=" border p-2">
                                         <th className=" px-4 text-left p-2">
-                                            Title
+                                            name
                                         </th>
                                         <th className=" px-4 text-left p-2">
                                             Posts
                                         </th>
                                         <th className=" px-4 text-left p-2">
                                             Author
-                                        </th>
-                                        <th className=" px-4 text-left p-2">
-                                            Action
                                         </th>
                                     </tr>
                                 </thead>
@@ -136,7 +133,7 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                                             className="bg-white border border-spacing-1"
                                         >
                                             <td className=" px-4 text-left p-2">
-                                                {item.title}
+                                                {item.name}
                                             </td>
                                             <td className=" px-4 text-left p-2">
                                                 <Link
@@ -146,38 +143,8 @@ const TagClient: React.FC<Props> = ({ tags }) => {
                                                     {item.posts.length}
                                                 </Link>
                                             </td>
-
                                             <td className=" px-4 text-left p-2">
                                                 {item?.user?.name}
-                                            </td>
-
-                                            <td className=" flex justify-start items-center gap-3">
-                                                <Link
-                                                    href={`/blog/tags/${item.id}`}
-                                                    title="Edit"
-                                                    className=" hover:bg-blue-100 hover:rounded-full p-2 rounded-md text-white flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Edit  */}
-                                                    <FaEdit
-                                                        color="#3b82f6"
-                                                        size={16}
-                                                    />
-                                                </Link>
-                                                <div
-                                                    onClick={() => {
-                                                        setCategoryId(item.id);
-                                                        confirm.onOpen();
-                                                    }}
-                                                    title="Delete"
-                                                    className=" hover:bg-red-100 hover:rounded-full
-                            cursor-pointer p-2 rounded-md flex gap-1 justify-center items-center"
-                                                >
-                                                    {/* Remove{" "} */}
-                                                    <FiTrash2
-                                                        color="#ef4444"
-                                                        size={16}
-                                                    />
-                                                </div>
                                             </td>
                                         </tr>
                                     ))}

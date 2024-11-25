@@ -11,7 +11,7 @@ interface PageProps {
 
 const page = async ({ searchParams }: PageProps) => {
     const categories = await getcategories(searchParams);
-    const tags = await getTags(searchParams);
+    const tags = await getTags();
     const postsCount = await getPostsCount();
 
     return (

@@ -2,7 +2,7 @@
 import Heading from "@/app/components/Heading";
 import ImageUpload from "@/app/components/customInputs/ImageUpload";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Label, Radio, Spinner } from "flowbite-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -10,16 +10,26 @@ import Button from "@/app/components/Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/app/components/inputs/Input";
 import RTE from "@/app/components/postForm/RTE";
-import Select from "react-select";
-import EmptyState from "@/app/components/EmptyState";
+import { Category, Tag } from "@prisma/client";
+import { Search } from "lucide-react";
+import MultiSelect from "@/app/components/select/MultiSelect";
 
 interface Props {
     post: any;
+    categories: Category[];
+    tags: Tag[];
 }
 
-const Client: FC<Props> = ({ post }) => {
+const Client: FC<Props> = ({ post, categories, tags }) => {
     const router = useRouter();
+    const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [filteredCata, setFilteredCata] = useState<Category[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<[]>(
+        post.category.map((category: any) => category.id)
+    );
+
+    const postCategories = post.category.map((category: any) => category.id);
 
     const {
         register,
@@ -34,7 +44,7 @@ const Client: FC<Props> = ({ post }) => {
         defaultValues: {
             title: post?.title || "",
             slug: post.slug,
-            content: post?.content || "",
+            description: post?.description || "",
             image: post?.image || "",
             metaTitle: post?.metaTitle || "",
             metaDescription: post?.metaDescription || "",
@@ -43,6 +53,8 @@ const Client: FC<Props> = ({ post }) => {
             isAddHome: post.isAddHome || false,
             isRecommended: post.isRecommended || false,
             isFooterMenu: post.isFooterMenu || false,
+            categories: selectedCategories || [],
+            tags: post.tags || [],
         },
     });
 
@@ -53,6 +65,33 @@ const Client: FC<Props> = ({ post }) => {
             shouldDirty: true,
             shouldTouch: true,
             shouldValidate: true,
+        });
+    };
+
+    useEffect(() => {
+        if (title !== "") {
+            const data = categories.filter((item: { title: string }) => {
+                return item.title.toLocaleLowerCase().includes(title);
+            });
+            setFilteredCata(data);
+        } else {
+            setFilteredCata(categories);
+        }
+    }, [categories, title]);
+
+    useEffect(() => {
+        setValue("categories", selectedCategories);
+    }, [selectedCategories, setValue]);
+
+    const handleCategorySelect = (categoryId: string) => {
+        setSelectedCategories((prevSelectedCategories: any) => {
+            if (prevSelectedCategories.includes(categoryId)) {
+                return prevSelectedCategories.filter(
+                    (id: any) => id !== categoryId
+                );
+            } else {
+                return [...prevSelectedCategories, categoryId];
+            }
         });
     };
 
@@ -135,9 +174,9 @@ const Client: FC<Props> = ({ post }) => {
                     <div className="w-full md:w-full lg:w-full xl:max-w-[1050px]">
                         <RTE
                             label="Content: "
-                            name="content"
+                            name="description"
                             control={control}
-                            defaultValue={getValues("content")}
+                            defaultValue={getValues("description")}
                         />
                     </div>
 
@@ -251,6 +290,28 @@ const Client: FC<Props> = ({ post }) => {
                             value={image}
                             image={image}
                         />
+                    </div>
+                    <div className="w-full flex flex-col gap-2 justify-start items-start h-[400px] rounded-lg bg-white p-4">
+                        <div className="font-bold my-2">Select Categories</div>
+                        <div className="relative w-full flex justify-between items-center">
+                            <input
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                type="search"
+                                placeholder="Find category"
+                                className="w-full h-full p-2 border-2 rounded-md focus:border-gray-400 focus:outline-0"
+                            />
+                            <div className="absolute right-4">
+                                <Search size={15} color="#ddd" />
+                            </div>
+                        </div>
+                        <div className="w-full">
+                            <MultiSelect
+                                options={filteredCata}
+                                inialSelected={postCategories}
+                                onSelect={handleCategorySelect}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

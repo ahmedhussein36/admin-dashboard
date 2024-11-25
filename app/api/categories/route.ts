@@ -10,17 +10,8 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const {
-        title,
-        name,
-        locale,
-        slug,
-        image,
-        description,
-        status,
-        metaTitle,
-        metaDescription,
-    } = body;
+    const { title, slug, description, image, metaTitle, metaDescription } =
+        body;
 
     Object.keys(body).forEach((value: any) => {
         if (!body[value]) {
@@ -31,12 +22,9 @@ export async function POST(request: Request) {
     const category = await prisma.category.create({
         data: {
             title,
-            name,
-            locale,
             slug,
-            image,
             description,
-            status,
+            image,
             metaTitle,
             metaDescription,
         },

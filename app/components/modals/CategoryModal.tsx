@@ -33,7 +33,6 @@ const CategoryModal = () => {
             image: "",
             metaTitle: "",
             metaDescription: "",
-            status: "pending",
             isFeatured: false,
             isAddHome: false,
             isFooterMenu: false,
@@ -95,37 +94,6 @@ const CategoryModal = () => {
     const body = (
         <div className="flex flex-col gap-4 px-2 md:px-5 lg:px-5 xl:px-5">
             <Heading title="New Category" />
-            <div className="w-full flex gap-8 justify-start items-center">
-                <p>Status: </p>
-                <div className=" flex gap-2 justify-start items-center">
-                    <Radio
-                        name="status"
-                        value={"active"}
-                        id="active"
-                        className=" focus:ring-0 transition-all border-green-400 text-green-400"
-                    />
-                    <Label htmlFor="active">Active</Label>
-                </div>
-                <div className=" flex gap-2 justify-start items-center">
-                    <Radio
-                        defaultChecked
-                        name="status"
-                        value={"pending"}
-                        id="pending"
-                        className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
-                    />
-                    <Label htmlFor="pending">Pending</Label>
-                </div>
-                <div className=" flex gap-2 justify-start items-center">
-                    <Radio
-                        name="status"
-                        value={"inactive"}
-                        id="inactive"
-                        className=" focus:ring-0 transition-all  border-red-400 text-red-600"
-                    />
-                    <Label htmlFor="inactive">Inactive</Label>
-                </div>
-            </div>
             <div className=" flex gap-3 justify-end items-end">
                 <div className="w-2/3 flex flex-col gap-2">
                     <Input

@@ -24,16 +24,13 @@ const TagModal = () => {
         reset,
     } = useForm<FieldValues>({
         defaultValues: {
-            title: "",
-            description: "",
+            name: "",
             slug: "",
-            metaTitle: "",
-            metaDescription: "",
         },
     });
 
-    const slugGeneration = (title: string) => {
-        const slug = title
+    const slugGeneration = (name: string) => {
+        const slug = name
             .toLowerCase()
             .replace(/[\|\%\)\(\#\*\@\$\~\!\.\+]+/g, "")
             .replace(/\s+/g, "-")
@@ -74,8 +71,8 @@ const TagModal = () => {
             <div className=" flex gap-3 justify-end items-end">
                 <div className="w-2/3 flex flex-col gap-2">
                     <Input
-                        id="title"
-                        label="Title"
+                        id="name"
+                        label="name"
                         disabled={isLoading}
                         register={register}
                         errors={errors}

@@ -12,6 +12,11 @@ export default async function getPostById(params: IParams) {
             where: {
                 id: postId,
             },
+            include: {
+                category: true,
+                user: true,
+                tags: true,
+            },
         });
 
         if (!post) {

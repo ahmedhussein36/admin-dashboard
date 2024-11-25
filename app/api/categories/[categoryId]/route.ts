@@ -1,87 +1,57 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
-// import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface IParams {
-  categoryId?: string;
+    categoryId?: string;
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: IParams }
+    request: Request,
+    { params }: { params: IParams }
 ) {
-  // const currentUser = await getCurrentUser();
+    const { categoryId } = params;
 
-  // if (!currentUser) {
-  //   return NextResponse.error();
-  // }
-
-  const { categoryId } = params;
-
-  if (!categoryId || typeof categoryId !== 'string') {
-    throw new Error('Invalid ID');
-  }
-
-  const category = await prisma.category.deleteMany({
-    where: {
-      id: categoryId,
+    if (!categoryId || typeof categoryId !== "string") {
+        throw new Error("Invalid ID");
     }
-  });
 
-  return NextResponse.json(category);
+    const category = await prisma.category.deleteMany({
+        where: {
+            id: categoryId,
+        },
+    });
+
+    return NextResponse.json(category);
 }
 
+export async function PUT(request: Request, { params }: { params: IParams }) {
+    const body = await request.json();
+    const { title, description, image, metaTitle, metaDescription } = body;
 
-export async function PUT(
-  request: Request,
-  { params }: { params: IParams }
-) {
-  // const currentUser = await getCurrentUser();
+    Object.keys(body).forEach((value: any) => {
+        if (!body[value]) {
+            NextResponse.error();
+        }
+    });
 
-  // if (!currentUser) {
-  //     return NextResponse.error();
-  // }
+    const { categoryId } = params;
 
-  const body = await request.json();
-  const {
-        title,
-        image,
-        description,
-        status,
-        metaTitle,
-        metaDescription
-
-
-  } = body;
-
-  Object.keys(body).forEach((value: any) => {
-    if (!body[value]) {
-      NextResponse.error();
+    if (!categoryId || typeof categoryId !== "string") {
+        throw new Error("Invalid ID");
     }
-  });
 
-  const { categoryId } = params;
+    const category = await prisma.category.updateMany({
+        where: {
+            id: categoryId,
+        },
+        data: {
+            title,
+            description,
+            image,
+            metaTitle,
+            metaDescription,
+        },
+    });
 
-  if (!categoryId || typeof categoryId !== 'string') {
-    throw new Error('Invalid ID');
-  }
-
-  const category = await prisma.category.updateMany({
-    where: {
-      id: categoryId
-    },
-    data: {
-      title,
-        image,
-        description,
-        status,
-        metaTitle,
-        metaDescription
-
-
-
-    },
-  });
-
-  return NextResponse.json(category);
+    return NextResponse.json(category);
 }

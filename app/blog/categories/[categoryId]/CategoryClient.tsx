@@ -38,7 +38,6 @@ const CategoryClient: FC<Props> = ({ category }) => {
             description: category.description,
             slug: category.slug,
             image: category.image,
-            status: category?.status,
             metaTitle: category?.metaTitle,
             metaDescription: category?.metaDescription,
         },
@@ -205,37 +204,6 @@ flex flex-col justify-start items-start gap-3"
                                     className=" focus:ring-0 transition-all rounded"
                                 />
                                 <label htmlFor="footer">Footer menu</label>
-                            </div>
-                        </div>
-
-                        <div className="w-full flex flex-wrap gap-2  justify-between items-center">
-                            <strong>Status: </strong>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    id="active"
-                                    value="active"
-                                    className=" focus:ring-0 transition-all border-green-400 text-green-400"
-                                />
-                                <Label htmlFor="active">Active</Label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    value={"pending"}
-                                    id="pending"
-                                    className=" focus:ring-0 transition-all  border-orange-200 text-orange-300"
-                                />
-                                <Label htmlFor="pending">Pending</Label>
-                            </div>
-                            <div className=" flex gap-2 justify-start items-center">
-                                <Radio
-                                    {...register("status")}
-                                    value={"inactive"}
-                                    id="inactive"
-                                    className=" focus:ring-0 transition-all  border-red-400 text-red-600"
-                                />
-                                <Label htmlFor="inactive">Inactive</Label>
                             </div>
                         </div>
                     </div>

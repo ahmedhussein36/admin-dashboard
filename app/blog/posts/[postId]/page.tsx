@@ -1,10 +1,8 @@
-import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import Client from "./Client";
 import getPostById from "@/app/actions/getPostById";
-import { IParams } from "@/app/actions/getDevelopers";
-import getPosts from "@/app/actions/getPosts";
-import { getPostsCount } from "@/app/actions/getCounts";
+import getTags from "@/app/actions/getTags";
+import getcategories, { IParams } from "@/app/actions/getcategories";
 
 interface PageProps {
     searchParams: IParams;
@@ -13,6 +11,8 @@ interface PageProps {
 
 const Post = async ({ params, searchParams }: PageProps) => {
     const post = await getPostById(params as any);
+    const tags = await getTags();
+    const categories = await getcategories(searchParams);
 
     if (!post) {
         return <EmptyState />;
@@ -20,7 +20,7 @@ const Post = async ({ params, searchParams }: PageProps) => {
 
     return (
         <>
-            <Client post={post as any} />
+            <Client post={post as any} categories={categories} tags={tags} />
         </>
     );
 };

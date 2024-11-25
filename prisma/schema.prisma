@@ -202,20 +202,13 @@ model Post {
   id              String     @id @default(auto()) @map("_id") @db.ObjectId
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
-  locale          String
   status          String
   title           String
   slug            String     @unique
   description     String
   image           String
-  translateLink   String?
   metaTitle       String
   metaDescription String
-  canonicalUrl    String
-  ogImage         String
-  ogTitle         String
-  ogDescription   String
-  ogUrl           String
   isFeatured      Boolean?
   isRecommended   Boolean?
   isFooter        Boolean?
@@ -232,14 +225,10 @@ model Category {
   id              String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  status          String?
-  name            String
   title           String
-  locale          String
   slug            String   @unique
   description     String
   image           String?
-  translateLink   String?
   metaTitle       String?
   metaDescription String?
   posts           Post[]   @relation(fields: [postIds], references: [id])
@@ -247,16 +236,13 @@ model Category {
 }
 
 model Tag {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  status      String
-  name        String
-  slug        String   @unique
-  locale      String
-  description String
-  posts       Post[]   @relation(fields: [postIds], references: [id])
-  postIds     String[] @default([]) @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  slug      String   @unique
+  posts     Post[]   @relation(fields: [postIds], references: [id])
+  postIds   String[] @default([]) @db.ObjectId
 }
 
 model Lead {

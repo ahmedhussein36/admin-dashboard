@@ -2,12 +2,11 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IParams {
     title?: string;
-    status?: string;
 }
 
 export default async function getcategories(params: IParams) {
     try {
-        const { title, status } = params;
+        const { title } = params;
 
         let query: any = {};
 
@@ -15,9 +14,6 @@ export default async function getcategories(params: IParams) {
             query.title = {
                 contains: title,
             };
-        }
-        if (status) {
-            query.status = status;
         }
 
         const category = await prisma.category.findMany({
