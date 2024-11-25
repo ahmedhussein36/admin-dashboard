@@ -2,14 +2,10 @@ import Container from "@/app/components/Container";
 import ClientOnly from "@/app/components/ClientOnly";
 import Heading from "@/app/components/Heading";
 import TagClient from "./TagClient";
-import getTags, { IParams } from "@/app/actions/getTags";
+import getTags from "@/app/actions/getTags";
 
-interface DevelopersPageProps {
-    searchParams: IParams;
-}
-
-const TagsPage = async ({ searchParams }: DevelopersPageProps) => {
-    const tags = await getTags(searchParams);
+const TagsPage = async () => {
+    const tags = await getTags();
 
     return (
         <div>
